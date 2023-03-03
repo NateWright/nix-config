@@ -13,7 +13,8 @@
       ./vs-code-server.nix
       ./virtmanager.nix
       ./samba.nix
-      ./nginx.nix
+      ./caddy.nix
+      ./nextcloud.nix
     ];
 
   # Bootloader.
@@ -92,7 +93,7 @@
   users.users.nwright = {
     isNormalUser = true;
     description = "nwright";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "nginx" ];
     packages = with pkgs; [
     #  firefox
     #  thunderbird
@@ -164,7 +165,14 @@
     # allowedTCPPorts = [ ];
   };
 
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 22 5900 25565 25566 8008 8009 ];
+  # Ports
+  # 22 - SSH
+  # 5900 - RDP
+  # 25565-25566 - Minecraft
+  # 444 - Document server
+  # 445 - 
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 22 5900 25565 25566 80 443 446 ];
+  networking.firewall.allowedTCPPorts = [8009];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
