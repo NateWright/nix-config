@@ -6,9 +6,4 @@
   environment.systemPackages = with pkgs; [ 
 	virt-manager	
  ];
-
-  # enable the docker service
-  virtualisation.docker.enable = true;
-
-  users.users.nwright.extraGroups = [ "docker" ];
 }
