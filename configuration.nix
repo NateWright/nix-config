@@ -15,6 +15,7 @@
       ./samba.nix
       ./caddy.nix
       ./nextcloud.nix
+      ./data-collection.nix
     ];
 
   # Bootloader.
