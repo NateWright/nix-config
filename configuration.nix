@@ -16,12 +16,21 @@
       ./caddy.nix
       ./nextcloud.nix
       ./data-collection.nix
+      ./snapper.nix
     ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+
+  fileSystems = {
+    "/".options = [ "compress=zstd" ];
+    "/home".options = [ "compress=zstd" ];
+    "/nix".options = [ "compress=zstd" "noatime" ];
+    "/vault/containers".options = [ "compress=zstd" ];
+    "/vault/datastorage".options = [ "compress=zstd" ];
+  };
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -60,6 +69,8 @@
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.displayManager.autoLogin.user = "nwright";
   services.xserver.displayManager.autoLogin.enable = true;
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
   # Configure keymap in X11
   services.xserver = {
@@ -118,13 +129,15 @@
 	  terminator
 	  vscode
 	  docker-compose
-	  openjdk18-bootstrap
-	  openjdk8-bootstrap
+	  # openjdk18-bootstrap
+	  # openjdk8-bootstrap
 	  deja-dup
-	  gnome.gnome-tweaks
 	  gnome.gnome-boxes
+    gnome.gnome-remote-desktop
+    gnome-extension-manager
     lm_sensors
     git
+    # timeshift
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

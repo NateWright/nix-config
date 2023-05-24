@@ -11,12 +11,12 @@
         enable = true;
         securityType = "user";
         shares.public = {
-            path = "/vault/smb";
+            path = "/vault-old/smb";
             writeable = "yes";
             browseable = "yes";
         };
         shares.test = {
-            path = "/vault/test";
+            path = "/vault-old/test";
             browseable = "yes";
             "read only" = "no";
             "guest ok" = "no";
