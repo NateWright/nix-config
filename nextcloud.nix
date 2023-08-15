@@ -2,7 +2,7 @@
 {
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud25;
+    package = pkgs.nextcloud27;
     hostName = "nix-nextcloud";
     datadir = "/vault/datastorage/nextcloud-data";
     config = {
@@ -12,12 +12,9 @@
       dbname = "nextcloud";
       adminpassFile = "/etc/nixos/password.txt";
       adminuser = "root";
-      trustedProxies = [ "localhost" "127.0.0.1" "nixos.raptor-roach.ts.net" "100.93.196.119" "nix-nextcloud" ];
-      extraTrustedDomains = [ "nixos.raptor-roach.ts.net" ];
+      trustedProxies = [ "localhost" "127.0.0.1" "172.17.0.1" "100.93.196.119" "nwright.cloud" ];
+      extraTrustedDomains = [ "nwright.cloud" ];
       overwriteProtocol = "https";
-    };
-    extraOptions = {
-      overwritewebroot = "/cloud";
     };
   };
 

@@ -17,6 +17,7 @@
       ./nextcloud.nix
       ./data-collection.nix
       ./snapper.nix
+      ./containers.nix
     ];
 
   # Bootloader.
@@ -137,6 +138,7 @@
     gnome-extension-manager
     lm_sensors
     git
+    distrobox
     # timeshift
   ];
 
@@ -170,7 +172,7 @@
     enable = true;
 
     # always allow traffic from your Tailscale network
-    trustedInterfaces = [ "tailscale0" ];
+    trustedInterfaces = [ "tailscale0" "docker0" "br-collabora" "br-photprism" ];
 
     # allow the Tailscale UDP port through the firewall
     allowedUDPPorts = [ config.services.tailscale.port ];
@@ -186,6 +188,8 @@
   # 444 - Document server
   # 445 - 
   networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 22 5900 25565 25566 80 443 446 ];
+  networking.firewall.interfaces."docker0".allowedTCPPorts = [ 80 443 ];
+  networking.firewall.interfaces."docker0".allowedUDPPorts = [ 80 443 ];
   networking.firewall.allowedTCPPorts = [8009];
 
   # This value determines the NixOS release from which the default

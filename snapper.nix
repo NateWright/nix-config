@@ -1,20 +1,16 @@
 { config, pkgs, ... }: {
     services.snapper.configs = {
         root = {
-            subvolume = "/";
-            extraConfig = ''
-                ALLOW_USERS="root"
-                TIMELINE_CREATE=yes
-                TIMELINE_CLEANUP=yes
-            '';
+            SUBVOLUME = "/";
+            ALLOW_USERS = [ "root" ];
+            TIMELINE_CREATE = true;
+            TIMELINE_CLEANUP = true;
         };
         home = {
-            subvolume = "/home";
-            extraConfig = ''
-                ALLOW_USERS="root"
-                TIMELINE_CREATE=yes
-                TIMELINE_CLEANUP=yes
-            '';
+            SUBVOLUME = "/home";
+            ALLOW_USERS = [ "root" ];
+            TIMELINE_CREATE = true;
+            TIMELINE_CLEANUP = true;
         };
 
     };
