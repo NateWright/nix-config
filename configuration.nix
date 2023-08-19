@@ -8,9 +8,12 @@
 #in
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./amd.nix
+      <home-manager/nixos>
+      ./home-manager.nix
     ];
 
   # Bootloader.
@@ -89,7 +92,7 @@
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -100,6 +103,7 @@
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -162,7 +166,7 @@
   #virtualisation.docker.enableNvidia = true;
   #virtualisation.docker.storageDriver = "btrfs";
   boot.supportedFilesystems = [ "ntfs" ];
-  
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
