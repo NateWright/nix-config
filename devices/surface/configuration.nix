@@ -6,9 +6,10 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      #<nixos-hardware/microsoft/surface/common>
+      ./arduino.nix
     ];
   #microsoft-surface.ipts.enable = true;
   #microsoft-surface.surface-control.enable = true;
@@ -79,7 +80,7 @@
   };
   hardware.bluetooth.settings = {
     General = {
-      Experimental=true;
+      Experimental = true;
     };
   };
 
@@ -93,7 +94,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -122,8 +123,8 @@
     tailscale
     terminator
     libcamera
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
   ];
   services.flatpak.enable = true;
   virtualisation.podman.enable = true;
@@ -168,8 +169,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-   services.udev.extraRules = ''
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2a03", GROUP="plugdev", MODE="0666", SYMLINK+="stretch-handle"
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="239a", GROUP="plugdev", MODE="0666"
-  '';
+
 }
