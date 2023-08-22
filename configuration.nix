@@ -125,7 +125,8 @@
     distrobox
     gnome.gnome-tweaks
     gnome-extension-manager
-
+    pika-backup
+    cifs-utils
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
