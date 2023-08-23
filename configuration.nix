@@ -126,7 +126,7 @@
     gnome.gnome-tweaks
     gnome-extension-manager
     pika-backup
-    cifs-utils
+    cifs-utils # Needed for automounting
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
