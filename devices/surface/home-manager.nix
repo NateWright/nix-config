@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, home-manager, inputs, ... }:
 {
   home-manager.useGlobalPkgs = true;
   home-manager.users.nwright = { pkgs, inputs, ... }: {
