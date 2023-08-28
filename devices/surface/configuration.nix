@@ -10,6 +10,8 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./arduino.nix
+      ./hyprland.nix
+      ./fonts.nix
     ];
   #microsoft-surface.ipts.enable = true;
   #microsoft-surface.surface-control.enable = true;
@@ -100,12 +102,12 @@
   };
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "nwright";
+  # services.xserver.displayManager.autoLogin.enable = true;
+  # services.xserver.displayManager.autoLogin.user = "nwright";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+  # systemd.services."getty@tty1".enable = false;
+  # systemd.services."autovt@tty1".enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -123,8 +125,8 @@
     nixpkgs-fmt
     tailscale
     terminator
-    kitty
-    libcamera
+    zip
+    unzip
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
   ];
