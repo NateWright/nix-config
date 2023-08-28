@@ -8,7 +8,6 @@
   imports =
     [
       # Include the results of the hardware scan.
-      <home-manager/nixos>
       ./hardware-configuration.nix
       ./arduino.nix
       ./hyprland.nix
@@ -128,7 +127,6 @@
     terminator
     zip
     unzip
-    gBar.defaultPackage.x86_64-linux
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
   ];
