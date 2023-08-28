@@ -15,7 +15,7 @@
 
   outputs = { self, pkgs, home-manager, gBar, ... }: {
     nixosConfigurations = {
-      nwright-surface = nixpkgs.lib.nixosSystem {
+      nwright-surface = pkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = [
