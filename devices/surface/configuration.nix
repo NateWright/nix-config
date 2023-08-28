@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, home-manager, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -12,8 +12,6 @@
       ./arduino.nix
       ./hyprland.nix
       ./fonts.nix
-      # home-manager.nixosModules.default
-      # ./home-manager.nix
     ];
   #microsoft-surface.ipts.enable = true;
   #microsoft-surface.surface-control.enable = true;

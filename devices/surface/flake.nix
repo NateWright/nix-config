@@ -13,24 +13,25 @@
     gBar.url = "github:scorpion-26/gBar";
   };
 
-  outputs = inputs@{ pkgs, home-manager, ... }: {
-    nixosConfigurations = {
-      nwright-surface = pkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.nwright = import ./home.nix;
+  outputs = { pkgs, home-manager, ... }@inputs:
+    {
+      nixosConfigurations = {
+        nwright-surface = pkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./configuration.nix
 
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
-          }
-
-        ];
+          ];
+        };
       };
+      homeConfigurations = {
+        "nwright@nwright-surface" = home-manager.lib.homeManagerConfiguration {
+          pkgs = pkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          # > Our main home-manager configuration file <
+          modules = [ ./home.nix ];
+        };
+      };
+
     };
-  };
 }
