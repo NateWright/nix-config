@@ -13,14 +13,22 @@
     gBar.url = "github:scorpion-26/gBar";
   };
 
-  outputs = { self, pkgs, home-manager, gBar, ... }: {
+  outputs = inputs@{ pkgs, home-manager, ... }: {
     nixosConfigurations = {
       nwright-surface = pkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = attrs;
         modules = [
           ./configuration.nix
-          ./home-manager.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.nwright = import ./home.nix;
+
+            # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
+          }
+
         ];
       };
     };
