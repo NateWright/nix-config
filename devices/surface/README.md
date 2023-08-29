@@ -1,3 +1,4 @@
 ```bash
-sudo nixos-rebuild switch -I nixos-config=$HOME/nix-config/devices/surface/configuration.nix
+sudo nixos-rebuild switch --flake '/home/nwright/nix-config/devices/surface#nwright-surface'
+home-manager switch --flake '/home/nwright/nix-config/devices/surface#nwright@nwright-surface'
 ```

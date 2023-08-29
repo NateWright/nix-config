@@ -3,20 +3,20 @@
   description = "flake for nwright-surface";
 
   inputs = {
-    pkgs = {
+    nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-23.05";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "pkgs";
+      url = "github:nix-community/home-manager/release-23.05";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     gBar.url = "github:scorpion-26/gBar";
   };
 
-  outputs = { pkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, home-manager, ... }@inputs:
     {
       nixosConfigurations = {
-        nwright-surface = pkgs.lib.nixosSystem {
+        nwright-surface = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ./configuration.nix
@@ -26,7 +26,7 @@
       };
       homeConfigurations = {
         "nwright@nwright-surface" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
           modules = [ ./home.nix ];

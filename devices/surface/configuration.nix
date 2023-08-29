@@ -13,8 +13,13 @@
       ./hyprland.nix
       ./fonts.nix
     ];
-  #microsoft-surface.ipts.enable = true;
-  #microsoft-surface.surface-control.enable = true;
+  nix.settings = {
+    # Enable flakes and new 'nix' command
+    experimental-features = "nix-command flakes";
+    # Deduplicate and optimize nix store
+    auto-optimise-store = true;
+
+  };
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -53,7 +58,7 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
   # programs.hyprland.enable = true;
 
   # Configure keymap in X11

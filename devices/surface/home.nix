@@ -9,6 +9,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
+    inputs.gBar.homeManagerModules.x86_64-linux.default
   ];
 
   nixpkgs = {
@@ -33,12 +34,41 @@
     };
   };
 
-  # TODO: Set your username
   home = {
     username = "nwright";
     homeDirectory = "/home/nwright";
   };
 
+  programs.gBar = {
+    enable = true;
+    config = {
+      ExitCommand = "${pkgs.hyprland}/bin/hyprctl dispatch exit";
+      LockCommand = "${pkgs.swaylock}/bin/swaylock - fF";
+    };
+  };
+  programs.swaylock = {
+    enable = true;
+    settings = {
+      image = "~/Pictures/backgrounds/kate-hazen-unleash-your-robot.png";
+    };
+  };
+
+  services.swayidle = {
+    enable = true;
+    events = [
+      {
+        event = "before-sleep";
+        command = "${pkgs.swaylock}/bin/swaylock";
+      }
+    ];
+    timeouts = [
+      { timeout = 300; command = "${pkgs.swaylock}/bin/swaylock -fF"; }
+      {
+        timeout = 360;
+        command = "${pkgs.systemd}/bin/systemctl suspend";
+      }
+    ];
+  };
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
