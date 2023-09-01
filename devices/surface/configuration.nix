@@ -2,8 +2,10 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
-
+{ config, pkgs, inputs, ... }:
+let
+  tokyo-night-sddm = pkgs.callPackage ./tokyo-night-sddm/defualt.nix { };
+in
 {
   imports =
     [
@@ -57,7 +59,9 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.sddm.theme = "tokyo-night-sddm";
   # services.xserver.desktopManager.gnome.enable = true;
   # programs.hyprland.enable = true;
 
@@ -86,6 +90,7 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  hardware.bluetooth.enable = true;
   hardware.bluetooth.settings = {
     General = {
       Experimental = true;
@@ -132,6 +137,8 @@
     terminator
     zip
     unzip
+    pika-backup
+    tokyo-night-sddm
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
   ];

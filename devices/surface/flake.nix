@@ -11,6 +11,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     gBar.url = "github:scorpion-26/gBar";
+    hyprland-contrib = {
+      url = "github:hyprwm/contrib";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = { nixpkgs, home-manager, ... }@inputs:
@@ -18,9 +23,9 @@
       nixosConfigurations = {
         nwright-surface = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
           modules = [
             ./configuration.nix
-
           ];
         };
       };

@@ -39,6 +39,33 @@
     homeDirectory = "/home/nwright";
   };
 
+  gtk = {
+    enable = true;
+    font.name = "TeX Gyre Adventor 10";
+    theme = {
+      name = "Juno";
+      package = pkgs.juno-theme;
+    };
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+
+  };
+
+
   programs.gBar = {
     enable = true;
     config = {
@@ -46,23 +73,18 @@
       LockCommand = "${pkgs.swaylock}/bin/swaylock - fF";
     };
   };
-  programs.swaylock = {
-    enable = true;
-    settings = {
-      image = "~/Pictures/backgrounds/kate-hazen-unleash-your-robot.png";
-    };
-  };
 
   services.swayidle = {
     enable = true;
+    systemdTarget = "graphical-session.target";
     events = [
       {
         event = "before-sleep";
-        command = "${pkgs.swaylock}/bin/swaylock";
+        command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
       }
     ];
     timeouts = [
-      { timeout = 300; command = "${pkgs.swaylock}/bin/swaylock -fF"; }
+      { timeout = 60; command = "${pkgs.swaylock-effects}/bin/swaylock -fF"; }
       {
         timeout = 360;
         command = "${pkgs.systemd}/bin/systemctl suspend";
