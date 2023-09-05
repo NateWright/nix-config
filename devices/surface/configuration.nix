@@ -4,7 +4,7 @@
 
 { config, pkgs, inputs, ... }:
 let
-  tokyo-night-sddm = pkgs.callPackage ./tokyo-night-sddm/defualt.nix { };
+  tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
 in
 {
   imports =
