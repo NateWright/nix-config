@@ -40,10 +40,10 @@
 
   gtk = {
     enable = true;
-    font.name = "TeX Gyre Adventor 10";
+    # font.name = "TeX Gyre Adventor 10";
     theme = {
-      name = "Juno";
-      package = pkgs.juno-theme;
+      name = "Adwaita-dark";
+      # package = pkgs.dracula-theme;
     };
     iconTheme = {
       name = "Papirus-Dark";
