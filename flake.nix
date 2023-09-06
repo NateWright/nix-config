@@ -25,7 +25,13 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./configuration.nix
+            ./devices/surface/configuration.nix
+          ];
+        };
+        nwright-nixos-pc = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./devices/desktop/configuration.nix
           ];
         };
       };
@@ -34,8 +40,15 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
-          modules = [ ./home.nix ];
+          modules = [ ./devices/surface/home.nix ];
         };
+        "nwright@nwright-nixos-pc" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          # > Our main home-manager configuration file <
+          modules = [ ./devices/desktop/home-manager/home.nix ];
+        };
+
       };
 
     };
