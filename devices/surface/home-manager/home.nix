@@ -37,7 +37,18 @@
   home = {
     username = "nwright";
     homeDirectory = "/home/nwright";
+
+    # dotfiles hyprland
+    file = {
+      hypr = {
+        recursive = true;
+        source = ./dotfiles/hypr;
+      };
+    };
+
   };
+
+
 
   gtk = {
     enable = true;
