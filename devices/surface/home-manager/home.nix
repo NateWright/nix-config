@@ -82,12 +82,9 @@
         event = "before-sleep";
         command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
       }
-    ];
-    timeouts = [
-      { timeout = 60; command = "${pkgs.swaylock-effects}/bin/swaylock -fF"; }
       {
-        timeout = 360;
-        command = "${pkgs.systemd}/bin/systemctl suspend";
+        event = "lock";
+        command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
       }
     ];
   };
