@@ -40,9 +40,25 @@
 
     # dotfiles hyprland
     file = {
-      hypr = {
+      ".config/hypr" = {
         recursive = true;
         source = ./dotfiles/hypr;
+      };
+      ".config/mako" = {
+        recursive = true;
+        source = ./dotfiles/mako;
+      };
+      ".config/rofi" = {
+        recursive = true;
+        source = ./dotfiles/rofi;
+      };
+      ".config/swaylock" = {
+        recursive = true;
+        source = ./dotfiles/swaylock;
+      };
+      ".config/waybar" = {
+        recursive = true;
+        source = ./dotfiles/waybar;
       };
     };
 
@@ -77,13 +93,13 @@
   };
 
 
-  programs.gBar = {
-    enable = true;
-    config = {
-      ExitCommand = "${pkgs.hyprland}/bin/hyprctl dispatch exit";
-      LockCommand = "${pkgs.swaylock}/bin/swaylock - fF";
-    };
-  };
+  # programs.gBar = {
+  #   enable = true;
+  #   config = {
+  #     ExitCommand = "${pkgs.hyprland}/bin/hyprctl dispatch exit";
+  #     LockCommand = "${pkgs.swaylock}/bin/swaylock - fF";
+  #   };
+  # };
 
   services.swayidle = {
     enable = true;
