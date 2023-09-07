@@ -1,6 +1,8 @@
 { config, pkgs, inputs, ... }:
 {
   programs.hyprland.enable = true;
+  # programs.hyprland.package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   xdg.portal.wlr.enable = true;
   services.gnome.gnome-keyring.enable = true;
@@ -23,7 +25,8 @@
     networkmanagerapplet
     gnome.nautilus
     gnome.gnome-software
-    blueberry
+    blueberry # Bluetooth gui
+    system-config-printer # Printer gui
     pavucontrol
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
 

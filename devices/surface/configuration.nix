@@ -73,6 +73,12 @@ in
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplip ];
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  # for a WiFi printer
+  services.avahi.openFirewall = true;
+
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -127,6 +133,7 @@ in
   environment.systemPackages = with pkgs; [
     vim
     git
+    htop
     gnome.gnome-tweaks
     google-chrome
     distrobox
