@@ -13,8 +13,9 @@
         "mpris"
     ],
     "modules-right": [
-        "network",
-        "bluetooth",
+        // "network",
+        // "bluetooth",
+        "pulseaudio#microphone",
         "pulseaudio",
         "backlight",
         "battery",
@@ -107,6 +108,16 @@
         },
         "tooltip-format": "{status}",
         "on-click": "blueman-manager"
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": "",
+        "tooltip-format": "Volume {volume}%",
+        "format-source-muted": "",
+        "on-click": "pamixer --default-source -t",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5",
+        "scroll-step": 5
     },
     "pulseaudio": {
         "format": "{icon}",
