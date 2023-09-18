@@ -126,6 +126,10 @@
     gnome-extension-manager
     pika-backup
     cifs-utils # Needed for automounting
+    htop
+    lm_sensors
+    radeontop
+    busybox
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
