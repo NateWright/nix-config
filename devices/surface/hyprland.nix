@@ -16,14 +16,18 @@
     brightnessctl
     (python311.withPackages (ps: with ps; [ requests ]))
 
+    wl-clipboard
+    cliphist
     mako
     libnotify
     swww
     kitty
+    alacritty
     rofi-wayland
     wofi
     networkmanagerapplet
     gnome.nautilus
+    gnome.file-roller
     gnome.gnome-software
     blueberry # Bluetooth gui
     system-config-printer # Printer gui

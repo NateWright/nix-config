@@ -9,7 +9,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    inputs.gBar.homeManagerModules.x86_64-linux.default
+    # inputs.gBar.homeManagerModules.x86_64-linux.default
   ];
 
   nixpkgs = {
