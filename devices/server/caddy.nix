@@ -65,4 +65,11 @@
 
     };
   };
+  services.nginx.virtualHosts."blog" = {
+    forceSSL = false;
+    enableACME = false;
+    listen = [{ port = 8013; addr = "0.0.0.0"; ssl = false; }];
+    root = pkgs.callPackage ./hugo.nix { };
+  };
+
 }
