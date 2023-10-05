@@ -15,10 +15,11 @@
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, home-manager, vscode-server, ... }@inputs:
     {
       nixosConfigurations = {
         nwright-surface = nixpkgs.lib.nixosSystem {
@@ -34,9 +35,10 @@
             ./devices/desktop/configuration.nix
           ];
         };
-        nixos = nixpkgs.lib.nixosSystem {
+        server = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
+            vscode-server.nixosModules.default
             ./devices/server/configuration.nix
           ];
         };
