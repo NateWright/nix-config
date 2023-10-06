@@ -6,12 +6,20 @@ stdenv.mkDerivation {
     owner = "NateWright";
     repo = "NateWright";
     rev = "8ba2ca59df74f72d310a7ee6100b76177c5026cb";
-    sha256 = "sha256-4/pKZ6fRV4DcY3vdKpxoT3ONGFTomA3aiL7h1W7Xfh8=";
+    sha256 = "sha256-jRtJ827dMh74CsHRYYFA1f6Vg5k4nFDEwkO4X28zRtk=";
+    fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ hugo ];
-  phases = [ "unpackPhase" "buildPhase" ];
   buildPhase = ''
-    hugo -s . -d "$out"
+    cp -r $src/* .
+    ${hugo}/bin/hugo
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out
+    cp -r public/* $out/
+    runHook postInstall
   '';
 }
