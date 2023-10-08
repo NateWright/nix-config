@@ -111,7 +111,10 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    unzip
+    zip
     git
+    alacritty
     terminator
     usbutils
     neofetch
@@ -130,7 +133,16 @@
     lm_sensors
     radeontop
     busybox
+
+    gnome.nautilus-python
+    gnome.sushi
+    nautilus-open-any-terminal
   ];
+
+  services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
+    nautilus-open-any-terminal
+  ];
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
