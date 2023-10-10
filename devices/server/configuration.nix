@@ -3,22 +3,38 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-#let 
-#  unstable = import <nixpkgs-unstable> { config = { allowUnfree = true; }; };
-#in
+
 {
   imports =
-    [
-      # Include the results of the hardware scan.
+    [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./amd.nix
+      ./docker.nix
+      ./tailscale.nix
+      ./vs-code-server.nix
+      ./virtmanager.nix
+      ./samba.nix
+      ./caddy.nix
+      ./nextcloud.nix
+      ./data-collection.nix
+      ./snapper.nix
+      ./containers.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nwright-nixos-pc"; # Define your hostname.
+
+  fileSystems = {
+    "/".options = [ "compress=zstd" ];
+    "/home".options = [ "compress=zstd" ];
+    "/nix".options = [ "compress=zstd" "noatime" ];
+    "/vault/containers".options = [ "compress=zstd" ];
+    "/vault/datastorage".options = [ "compress=zstd" ];
+  };
+
+  networking.hostName = "nixos"; # Define your hostname.
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -51,8 +67,11 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = false;
   services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.autoLogin.user = "nwright";
+  services.xserver.displayManager.autoLogin.enable = true;
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
 
   # Configure keymap in X11
   services.xserver = {
@@ -86,63 +105,43 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nwright = {
     isNormalUser = true;
-    description = "Nathan Wright";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    description = "nwright";
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "nginx" ];
     packages = with pkgs; [
-      firefox
-      #  thunderbird
+    #  firefox
+    #  thunderbird
+	    google-chrome
     ];
+
   };
-
-  # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "nwright";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
-  systemd.services.NetworkManager-wait-online.enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  programs.gnome-disks.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    unzip
-    zip
-    git
-    alacritty
-    terminator
-    usbutils
-    neofetch
-    dua
-    google-chrome
-    tailscale
-    vscode
+    btrfs-progs
+    parted
+  	vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  	wget
+	  terminator
+	  vscode
     nixpkgs-fmt
-    nextcloud-client
-    distrobox
-    gnome.gnome-tweaks
+	  docker-compose
+	  # openjdk18-bootstrap
+	  # openjdk8-bootstrap
+	  deja-dup
+	  gnome.gnome-boxes
+    gnome.gnome-remote-desktop
     gnome-extension-manager
-    pika-backup
-    cifs-utils # Needed for automounting
-    htop
     lm_sensors
-    radeontop
-    busybox
-
-    gnome.nautilus-python
-    gnome.sushi
-    nautilus-open-any-terminal
+    git
+    distrobox
+    # timeshift
   ];
-
-  services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
-    nautilus-open-any-terminal
-  ];
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -156,6 +155,15 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    # require public key authentication for better security
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
+    #permitRootLogin = "yes";
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -167,7 +175,7 @@
     enable = true;
 
     # always allow traffic from your Tailscale network
-    trustedInterfaces = [ "tailscale0" ];
+    trustedInterfaces = [ "tailscale0" "docker0" "br-collabora" "br-photprism" ];
 
     # allow the Tailscale UDP port through the firewall
     allowedUDPPorts = [ config.services.tailscale.port ];
@@ -175,12 +183,17 @@
     # allow you to SSH in over the public internet
     # allowedTCPPorts = [ ];
   };
-  services.tailscale.enable = true;
-  virtualisation.podman.enable = true;
-  #virtualisation.docker.enable = true;
-  #virtualisation.docker.enableNvidia = true;
-  #virtualisation.docker.storageDriver = "btrfs";
-  boot.supportedFilesystems = [ "ntfs" ];
+
+  # Ports
+  # 22 - SSH
+  # 5900 - RDP
+  # 25565-25566 - Minecraft
+  # 444 - Document server
+  # 445 - 
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 22 5900 25565 25566 80 443 446 ];
+  networking.firewall.interfaces."docker0".allowedTCPPorts = [ 80 443 ];
+  networking.firewall.interfaces."docker0".allowedUDPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [8009];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -188,8 +201,8 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
-  services.flatpak.enable = true;
-  hardware.xone.enable = true;
-  hardware.xpadneo.enable = true;
+  system.stateVersion = "22.11"; # Did you read the comment?
+  # temp fix
+  systemd.services.NetworkManager-wait-online.enable = false;
+
 }

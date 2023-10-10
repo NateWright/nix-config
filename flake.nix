@@ -20,15 +20,17 @@
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, vscode-server, ... }@inputs:
     let
       inherit (self) outputs;
     in
     rec {
       overlays = import ./overlays { inherit inputs; };
+      {
       nixosConfigurations = {
         nwright-surface = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -41,6 +43,13 @@
           system = "x86_64-linux";
           modules = [
             ./devices/desktop/configuration.nix
+          ];
+        };
+        server = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            vscode-server.nixosModules.default
+            ./devices/server/configuration.nix
           ];
         };
       };

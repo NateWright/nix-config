@@ -21,3 +21,9 @@ cd ~/nix-config
 sudo nixos-rebuild switch --flake .#nwright-nixos-pc
 home-manager switch --flake .#nwright@nwright-nixos-pc
 ```
+
+### server
+```bash
+cd ~/nix-config
+sudo nixos-rebuild switch --flake .#server
+```
