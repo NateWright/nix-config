@@ -69,6 +69,11 @@
   gtk = {
     enable = true;
     font.name = "TeX Gyre Adventor 10";
+    #cursorTheme = {
+    #  name = "Juno";
+    #  package = pkgs.juno-theme;
+    #  size = 16;
+    #};
     theme = {
       name = "Juno";
       package = pkgs.juno-theme;

@@ -4,6 +4,7 @@ let
   cascadia-code = pkgs.callPackage ./cascadia-code/default.nix { };
 in
 {
+  fonts.fontDir.enable = true;
   fonts.fonts = with pkgs; [
     dotcolon-fonts
     (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" "FiraMono" "FiraCode" "FantasqueSansMono" "JetBrainsMono" "Iosevka" "IosevkaTerm" ]; })
