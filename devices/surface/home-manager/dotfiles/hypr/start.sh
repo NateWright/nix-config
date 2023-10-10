@@ -7,8 +7,6 @@ swww img ~/Pictures/backgrounds/kate-hazen-unleash-your-robot.png
 
 nm-applet --indicator &
 
-waybar &
-
 dunst &
 
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP

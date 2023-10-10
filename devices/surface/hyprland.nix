@@ -1,8 +1,13 @@
 { config, pkgs, inputs, ... }:
 {
   programs.hyprland.enable = true;
-  # programs.hyprland.package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  # environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  # programs.hyprland.package = pkgs.unstable.hyprland;
+  nix.settings = {
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+  };
+  programs.hyprland.package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   xdg.portal.wlr.enable = true;
   services.gnome.gnome-keyring.enable = true;
@@ -11,7 +16,7 @@
   services.gvfs.enable = true;
   services.blueman.enable = true;
   environment.systemPackages = with pkgs; [
-    waybar
+    unstable.waybar
     pamixer
     brightnessctl
     (python311.withPackages (ps: with ps; [ requests ]))

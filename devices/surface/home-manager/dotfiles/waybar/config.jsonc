@@ -6,11 +6,11 @@
         "temperature",
         "cpu",
         "memory",
-        "custom/weather",
-        "wlr/workspaces"
+        "custom/weather"
+        // "wlr/workspaces"
     ],
     "modules-center": [
-        "mpris"
+        "hyprland/workspaces"
     ],
     "modules-right": [
         // "network",
@@ -30,6 +30,22 @@
         "format-icons": {
             "active": " 󰮯",
             "default": "󰌽"
+        }
+    },
+    "hyprland/workspaces": {
+        "on-click": "activate",
+        "format": "{icon}",
+        "format-icons": {
+            "default": "",
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "active": "󱓻",
+            "urgent": "󱓻",
+        },
+        "persistent_workspaces": {
+            "*": 9,
         }
     },
     "hyprland/window": {

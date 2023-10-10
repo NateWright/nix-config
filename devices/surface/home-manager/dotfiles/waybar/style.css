@@ -24,7 +24,7 @@ window#waybar.hidden {
 
 #clock,
 #temperature,
-#mpris, 
+#mpris,
 #cpu,
 #memory,
 #custom-media,
@@ -33,7 +33,7 @@ window#waybar.hidden {
 #custom-lock,
 #workspaces,
 #idle_inhibitor,
-#custom-wallpaper, 
+#custom-wallpaper,
 #custom-power-menu,
 #custom-launcher,
 #custom-spotify,
@@ -61,9 +61,11 @@ window#waybar.hidden {
   margin-top: 8.5px;
   margin-bottom: 8.5px;
 }
-#temperature{
+
+#temperature {
   color: #7a95c9;
 }
+
 #cpu {
   color: #fb958b;
 }
@@ -73,34 +75,36 @@ window#waybar.hidden {
 }
 
 #workspaces button {
-  color: #7a95c9;
-  box-shadow: inset 0 -3px transparent;
-
-  padding-right: 3px;
-  padding-left: 4px;
-
-  margin-left: 0.1em;
-  margin-right: 0em;
-  transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
+  border: none;
+  color: #d4d2a9;
+  padding: 3px;
+  background: transparent;
+  box-shadow: none;
 }
 
 #workspaces button.active {
-  color: #ecd3a0;
-  padding-left: 1px;
-  padding-right: 12px;
-  margin-left: 0em;
-  margin-right: 0em;
-  transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.68);
+  color: #81A1C1;
+  background: radial-gradient(circle, rgba(20, 48, 187, 0.699) 5%, rgba(36, 39, 54, 0.5) 18%, rgba(132, 129, 156, 0) 23%, rgba(70, 76, 98, 0.201) 24%, rgba(132, 129, 156, 0) 30%);
+  animation: button_activate .2s ease-in-out;
 }
 
-/* If workspaces is the leftmost module, omit left margin */
-.modules-left > widget:first-child > #workspaces {
-  margin-left: 0;
+#workspaces button.urgent {
+  color: #fa9f8e;
+  background: radial-gradient(circle, rgba(25, 79, 255, 0.3) 20%, rgba(132, 129, 156, 0) 30%);
 }
 
-/* If workspaces is the rightmost module, omit right margin */
-.modules-right > widget:last-child > #workspaces {
-  margin-right: 0;
+#workspaces button.persistent {
+  color: #85909e;
+}
+
+#workspaces button:hover {
+  border: none;
+  background: radial-gradient(circle, rgba(25, 79, 255, 0.1) 20%, rgba(132, 129, 156, 0) 30%);
+}
+
+#workspaces button.active:hover,
+#workspaces button.urgent:hover {
+  background: inherit;
 }
 
 #custom-launcher {
@@ -116,6 +120,7 @@ window#waybar.hidden {
   margin-top: 8.5px;
   margin-bottom: 8.5px;
 }
+
 #bluetooth,
 #backlight,
 #battery,
@@ -134,7 +139,7 @@ window#waybar.hidden {
 
   margin-top: 7px;
   margin-bottom: 7px;
-  
+
   font-size: 20px;
 }
 
@@ -201,7 +206,7 @@ window#waybar.hidden {
   font-size: 22px;
 }
 
-#battery.charging { 
+#battery.charging {
   font-size: 18px;
   padding-right: 13px;
   padding-left: 4px;
@@ -276,11 +281,11 @@ label:focus {
   font-size: 30px;
 }
 
-#tray > .passive {
+#tray>.passive {
   -gtk-icon-effect: dim;
 }
 
-#tray > .needs-attention {
+#tray>.needs-attention {
   -gtk-icon-effect: highlight;
   background-color: #eb4d4b;
 }
@@ -293,6 +298,7 @@ label:focus {
   background-color: #ecf0f1;
   color: #2d3436;
 }
+
 #mpris,
 #custom-spotify {
   color: #abb2bf;

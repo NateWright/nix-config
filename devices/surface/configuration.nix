@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, outputs, ... }:
 let
   tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
 in
@@ -12,9 +12,22 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./arduino.nix
-      ./hyprland.nix
+      ./cinnamon.nix
       ./fonts.nix
     ];
+
+  nixpkgs = {
+    # You can add overlays here
+    overlays = [
+      # Add overlays your own flake exports (from overlays and pkgs dir):
+      outputs.overlays.unstable-packages
+    ];
+    # Configure your nixpkgs instance
+    config = {
+      # Disable if you don't want unfree packages
+      allowUnfree = true;
+    };
+  };
   nix.settings = {
     # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
@@ -125,8 +138,6 @@ in
   # systemd.services."getty@tty1".enable = false;
   # systemd.services."autovt@tty1".enable = false;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -136,18 +147,21 @@ in
     htop
     gnome.gnome-tweaks
     google-chrome
+    microsoft-edge
     distrobox
-    vscode-fhs
+    unstable.vscode-fhs
     rnix-lsp
     nixpkgs-fmt
     tailscale
     terminator
+    alacritty
     zip
     unzip
     pika-backup
     tokyo-night-sddm
     nextcloud-client
     tailscale-systray
+    busybox
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
   ];

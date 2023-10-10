@@ -6,11 +6,16 @@
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-23.05";
     };
+    nixpkgs-unstable = {
+      url = "github:Nixos/nixpkgs/nixos-unstable";
+    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     gBar.url = "github:scorpion-26/gBar";
+    hyprland.url = "github:hyprwm/Hyprland";
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,12 +23,16 @@
 
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
-    {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+    let
+      inherit (self) outputs;
+    in
+    rec {
+      overlays = import ./overlays { inherit inputs; };
       nixosConfigurations = {
         nwright-surface = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit outputs inputs; };
           modules = [
             ./devices/surface/configuration.nix
           ];
