@@ -30,7 +30,6 @@
     in
     rec {
       overlays = import ./overlays { inherit inputs; };
-      {
       nixosConfigurations = {
         nwright-surface = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
@@ -71,3 +70,4 @@
 
     };
 }
+
