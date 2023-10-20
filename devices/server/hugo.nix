@@ -5,21 +5,21 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "NateWright";
     repo = "NateWright";
-    rev = "8ba2ca59df74f72d310a7ee6100b76177c5026cb";
-    sha256 = "sha256-jRtJ827dMh74CsHRYYFA1f6Vg5k4nFDEwkO4X28zRtk=";
+    rev = "554d6eaa3b22a3d99a491928660074180c4d824e";
+    sha256 = "sha256-AQyzLk7oPXgPo2vM5C/U//AgtVYHVuAsx4nI6W3SiLQ=";
     fetchSubmodules = true;
   };
 
   nativeBuildInputs = [ hugo ];
   buildPhase = ''
-    cp -r $src/* .
+    cp -r /* .
     ${hugo}/bin/hugo
   '';
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out
-    cp -r public/* $out/
+    mkdir -p /nix/store/af9dmgq4j4rm532qqs6f81x188xw4imb-hugo
+    cp -r public/* /nix/store/af9dmgq4j4rm532qqs6f81x188xw4imb-hugo/
     runHook postInstall
   '';
 }
