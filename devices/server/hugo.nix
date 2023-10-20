@@ -12,14 +12,14 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ hugo ];
   buildPhase = ''
-    cp -r /* .
+    cp -r $src/* .
     ${hugo}/bin/hugo
   '';
 
   installPhase = ''
     runHook preInstall
-    mkdir -p /nix/store/af9dmgq4j4rm532qqs6f81x188xw4imb-hugo
-    cp -r public/* /nix/store/af9dmgq4j4rm532qqs6f81x188xw4imb-hugo/
+    mkdir -p $out
+    cp -r public/* $out/
     runHook postInstall
   '';
 }
