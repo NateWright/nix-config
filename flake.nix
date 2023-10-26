@@ -24,7 +24,7 @@
 
   };
 
-  outputs = { self, nixpkgs, home-manager, vscode-server, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, vscode-server, ... }@inputs:
     let
       inherit (self) outputs;
     in
@@ -36,6 +36,7 @@
           specialArgs = { inherit outputs inputs; };
           modules = [
             ./devices/surface/configuration.nix
+	    nixos-hardware.nixosModules.microsoft-surface-common
           ];
         };
         nwright-nixos-pc = nixpkgs.lib.nixosSystem {
