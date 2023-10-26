@@ -4,7 +4,7 @@
 
 { config, pkgs, inputs, outputs, ... }:
 let
-  tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
+  #tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
 in
 {
   imports =
@@ -12,8 +12,8 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./arduino.nix
-      ./cinnamon.nix
-      ./fonts.nix
+      # ./cinnamon.nix
+      # ./fonts.nix
     ];
 
   nixpkgs = {
@@ -72,10 +72,10 @@ in
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
-  services.xserver.displayManager.sddm.theme = "tokyo-night-sddm";
-  # services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.displayManager.sddm.enable = true;
+  #services.xserver.displayManager.sddm.theme = "tokyo-night-sddm";
+  services.xserver.desktopManager.gnome.enable = true;
   # programs.hyprland.enable = true;
 
   # Configure keymap in X11
@@ -147,9 +147,8 @@ in
     htop
     gnome.gnome-tweaks
     google-chrome
-    microsoft-edge
+    unstable.vscode
     distrobox
-    unstable.vscode-fhs
     rnix-lsp
     nixpkgs-fmt
     tailscale
@@ -158,13 +157,17 @@ in
     zip
     unzip
     pika-backup
-    tokyo-night-sddm
+    # tokyo-night-sddm
     nextcloud-client
     tailscale-systray
     busybox
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
   ];
+  services.fwupd.enable = true;
+  services.fwupd.daemonSettings = {
+    OnlyTrusted = false;
+  };
   services.flatpak.enable = true;
   virtualisation.podman.enable = true;
   xdg.portal.enable = true;
