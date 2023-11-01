@@ -125,23 +125,25 @@
   environment.systemPackages = with pkgs; [
     btrfs-progs
     parted
-  	vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  	wget
-	  terminator
-	  vscode
+    vim
+    wget
+    terminator
+    vscode
     nixpkgs-fmt
-	  docker-compose
-	  # openjdk18-bootstrap
-	  # openjdk8-bootstrap
-	  deja-dup
-	  gnome.gnome-boxes
+    docker-compose
+    # openjdk18-bootstrap
+    # openjdk8-bootstrap
+    deja-dup
+    gnome.gnome-boxes
     gnome.gnome-remote-desktop
     gnome-extension-manager
     lm_sensors
     git
     distrobox
+    bat
     # timeshift
   ];
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
