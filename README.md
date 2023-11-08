@@ -19,7 +19,7 @@ home-manager switch --flake .#nwright@nwright-surface
 ### nwright-framework
 ```bash
 cd ~/nix-config
-t
+sudo nixos-rebuild switch --flake .#nwright-framework
 ```
 
 ### nwright-nixos-pc

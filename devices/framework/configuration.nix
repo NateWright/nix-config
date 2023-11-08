@@ -168,10 +168,16 @@ in
     nextcloud-client
     tailscale-systray
     busybox
+    libreoffice
     #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
   ];
-  services.fwupd.enable = true;
+  services.fwupd = {
+    enable = true;
+    extraRemotes = [
+      "lvfs-testing"
+    ];
+  };
   services.flatpak.enable = true;
   virtualisation.podman.enable = true;
   xdg.portal.enable = true;
@@ -188,8 +194,15 @@ in
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  services.fprintd.enable = true;
-  
+  services.fprintd = {
+    enable = true;
+    # package = pkgs.fprintd-tod;
+    # tod = {
+    #   enable = true;
+    #   driver = pkgs.libfprint-2-tod1-goodix;
+    # };
+  };
+
   services.tailscale.enable = true;
   networking.firewall = {
     # enable the firewall
