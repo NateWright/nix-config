@@ -150,27 +150,31 @@ in
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
+    wget
     git
     htop
+    neofetch
+    bat
+    zip
+    unzip
+    busybox
+    dua
+
     gnome.gnome-tweaks
+    tailscale-systray
     google-chrome
+    nextcloud-client
+    pika-backup
+    libreoffice
+
     unstable.vscode
-    distrobox
     rnix-lsp
     nixpkgs-fmt
+
+    distrobox
     tailscale
     terminator
     alacritty
-    zip
-    unzip
-    pika-backup
-    # tokyo-night-sddm
-    nextcloud-client
-    tailscale-systray
-    busybox
-    libreoffice
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
   ];
   services.fwupd = {
     enable = true;
