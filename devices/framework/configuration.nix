@@ -176,6 +176,7 @@ in
     rnix-lsp
     nixpkgs-fmt
 
+    unstable.godot_4
     distrobox
     tailscale
     terminator
