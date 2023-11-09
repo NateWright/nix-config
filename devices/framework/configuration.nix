@@ -40,12 +40,17 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   fileSystems = {
     "/".options = [ "compress=zstd" "noatime" ];
     "/home".options = [ "compress=zstd" "noatime" ];
     "/nix".options = [ "compress=zstd" "noatime" ];
+    "/swap".options = [ "noatime" ];
+
   };
+
+  swapDevices = [{ device = "/swap/swapfile"; }];
 
   networking.hostName = "nwright-framework"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
