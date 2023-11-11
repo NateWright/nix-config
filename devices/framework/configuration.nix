@@ -3,15 +3,17 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, outputs, ... }:
-#let 
-#  unstable = import <nixpkgs-unstable> { config = { allowUnfree = true; }; };
-#in
+let
+  #tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
+in
 {
   imports =
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./amd.nix
+      ./arduino.nix
+      # ./cinnamon.nix
+      # ./fonts.nix
     ];
 
   nixpkgs = {
@@ -26,13 +28,31 @@
       allowUnfree = true;
     };
   };
+  nix.settings = {
+    # Enable flakes and new 'nix' command
+    experimental-features = "nix-command flakes";
+    # Deduplicate and optimize nix store
+    auto-optimise-store = true;
+    trusted-users = [ "nwright" ];
 
-
+  };
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 0;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nwright-nixos-pc"; # Define your hostname.
+  fileSystems = {
+    "/".options = [ "compress=zstd" "noatime" ];
+    "/home".options = [ "compress=zstd" "noatime" ];
+    "/nix".options = [ "compress=zstd" "noatime" ];
+    "/swap".options = [ "noatime" ];
+
+  };
+
+  swapDevices = [{ device = "/swap/swapfile"; }];
+
+  networking.hostName = "nwright-framework"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -41,7 +61,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
+  systemd.services.NetworkManager-wait-online.enable = false;
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -65,8 +85,10 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = false;
+  #services.xserver.displayManager.sddm.enable = true;
+  #services.xserver.displayManager.sddm.theme = "tokyo-night-sddm";
   services.xserver.desktopManager.gnome.enable = true;
+  # programs.hyprland.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -76,6 +98,12 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplip ];
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  # for a WiFi printer
+  services.avahi.openFirewall = true;
+
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -93,6 +121,12 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings = {
+    General = {
+      Experimental = true;
+    };
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -100,8 +134,8 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nwright = {
     isNormalUser = true;
-    description = "Nathan Wright";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    description = "nwright";
+    extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox
       #  thunderbird
@@ -109,52 +143,54 @@
   };
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "nwright";
+  # services.xserver.displayManager.autoLogin.enable = true;
+  # services.xserver.displayManager.autoLogin.user = "nwright";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
-  systemd.services.NetworkManager-wait-online.enable = false;
+  # systemd.services."getty@tty1".enable = false;
+  # systemd.services."autovt@tty1".enable = false;
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
-    unzip
-    zip
     git
-    alacritty
-    terminator
-    usbutils
-    neofetch
-    dua
-    google-chrome
-    tailscale
-    unstable.vscode
-    nixpkgs-fmt
-    nextcloud-client
-    distrobox
-    gnome.gnome-tweaks
-    gnome-extension-manager
-    pika-backup
-    cifs-utils # Needed for automounting
     htop
-    lm_sensors
-    radeontop
+    neofetch
+    bat
+    zip
+    unzip
     busybox
+    dua
 
-    gnome.nautilus-python
-    gnome.sushi
-    nautilus-open-any-terminal
+    gnome.gnome-tweaks
+    tailscale-systray
+    google-chrome
+    nextcloud-client
+    pika-backup
+    libreoffice
+
+    unstable.vscode
+    rnix-lsp
+    nixpkgs-fmt
+
+    unstable.godot_4
+    distrobox
+    tailscale
+    terminator
+    alacritty
   ];
-
-  services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
-    nautilus-open-any-terminal
-  ];
-
-
+  services.fwupd = {
+    enable = true;
+    extraRemotes = [
+      "lvfs-testing"
+    ];
+  };
+  services.flatpak.enable = true;
+  virtualisation.podman.enable = true;
+  xdg.portal.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -168,11 +204,16 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  services.fprintd = {
+    enable = true;
+    # package = pkgs.fprintd-tod;
+    # tod = {
+    #   enable = true;
+    #   driver = pkgs.libfprint-2-tod1-goodix;
+    # };
+  };
+
+  services.tailscale.enable = true;
   networking.firewall = {
     # enable the firewall
     enable = true;
@@ -184,14 +225,14 @@
     allowedUDPPorts = [ config.services.tailscale.port ];
 
     # allow you to SSH in over the public internet
-    # allowedTCPPorts = [ ];
+    allowedTCPPorts = [ 22 ];
   };
-  services.tailscale.enable = true;
-  virtualisation.podman.enable = true;
-  #virtualisation.docker.enable = true;
-  #virtualisation.docker.enableNvidia = true;
-  #virtualisation.docker.storageDriver = "btrfs";
-  boot.supportedFilesystems = [ "ntfs" ];
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -200,7 +241,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-  services.flatpak.enable = true;
-  hardware.xone.enable = true;
-  hardware.xpadneo.enable = true;
+
 }

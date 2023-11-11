@@ -15,6 +15,13 @@ cd ~/nix-config
 sudo nixos-rebuild switch --flake .#nwright-surface
 home-manager switch --flake .#nwright@nwright-surface
 ```
+
+### nwright-framework
+```bash
+cd ~/nix-config
+sudo nixos-rebuild switch --flake .#nwright-framework
+```
+
 ### nwright-nixos-pc
 ```bash
 cd ~/nix-config

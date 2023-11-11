@@ -31,16 +31,17 @@
     rec {
       overlays = import ./overlays { inherit inputs; };
       nixosConfigurations = {
-        nwright-surface = nixpkgs.lib.nixosSystem {
+        nwright-framework = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit outputs inputs; };
           modules = [
-            ./devices/surface/configuration.nix
-	    nixos-hardware.nixosModules.microsoft-surface-common
+            nixos-hardware.nixosModules.framework
+            ./devices/framework/configuration.nix
           ];
         };
         nwright-nixos-pc = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit outputs inputs; };
           modules = [
             ./devices/desktop/configuration.nix
           ];
