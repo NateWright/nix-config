@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, outputs, ... }:
 #let 
 #  unstable = import <nixpkgs-unstable> { config = { allowUnfree = true; }; };
 #in
@@ -13,6 +13,20 @@
       ./hardware-configuration.nix
       ./amd.nix
     ];
+
+  nixpkgs = {
+    # You can add overlays here
+    overlays = [
+      # Add overlays your own flake exports (from overlays and pkgs dir):
+      outputs.overlays.unstable-packages
+    ];
+    # Configure your nixpkgs instance
+    config = {
+      # Disable if you don't want unfree packages
+      allowUnfree = true;
+    };
+  };
+
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -103,9 +117,6 @@
   systemd.services."autovt@tty1".enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -121,7 +132,7 @@
     dua
     google-chrome
     tailscale
-    vscode
+    unstable.vscode
     nixpkgs-fmt
     nextcloud-client
     distrobox

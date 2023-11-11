@@ -36,11 +36,12 @@
           specialArgs = { inherit outputs inputs; };
           modules = [
             ./devices/surface/configuration.nix
-	    nixos-hardware.nixosModules.microsoft-surface-common
+            nixos-hardware.nixosModules.microsoft-surface-common
           ];
         };
         nwright-nixos-pc = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit outputs inputs; };
           modules = [
             ./devices/desktop/configuration.nix
           ];
