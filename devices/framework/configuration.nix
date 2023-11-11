@@ -2,39 +2,57 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
-
+{ config, pkgs, inputs, outputs, ... }:
+let
+  #tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
+in
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./docker.nix
-      ./tailscale.nix
-      ./vs-code-server.nix
-      ./virtmanager.nix
-      ./samba.nix
-      ./caddy.nix
-      ./nextcloud.nix
-      ./data-collection.nix
-      ./snapper.nix
-      ./containers.nix
+      ./arduino.nix
+      # ./cinnamon.nix
+      # ./fonts.nix
     ];
 
+  nixpkgs = {
+    # You can add overlays here
+    overlays = [
+      # Add overlays your own flake exports (from overlays and pkgs dir):
+      outputs.overlays.unstable-packages
+    ];
+    # Configure your nixpkgs instance
+    config = {
+      # Disable if you don't want unfree packages
+      allowUnfree = true;
+    };
+  };
+  nix.settings = {
+    # Enable flakes and new 'nix' command
+    experimental-features = "nix-command flakes";
+    # Deduplicate and optimize nix store
+    auto-optimise-store = true;
+    trusted-users = [ "nwright" ];
+
+  };
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
+  boot.loader.timeout = 0;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   fileSystems = {
-    "/".options = [ "compress=zstd" ];
-    "/home".options = [ "compress=zstd" ];
+    "/".options = [ "compress=zstd" "noatime" ];
+    "/home".options = [ "compress=zstd" "noatime" ];
     "/nix".options = [ "compress=zstd" "noatime" ];
-    "/vault/containers".options = [ "compress=zstd" ];
-    "/vault/datastorage".options = [ "compress=zstd" ];
+    "/swap".options = [ "noatime" ];
+
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
+  swapDevices = [{ device = "/swap/swapfile"; }];
 
+  networking.hostName = "nwright-framework"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -43,7 +61,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
+  systemd.services.NetworkManager-wait-online.enable = false;
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -67,11 +85,10 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.displayManager.sddm.enable = true;
+  #services.xserver.displayManager.sddm.theme = "tokyo-night-sddm";
   services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.autoLogin.user = "nwright";
-  services.xserver.displayManager.autoLogin.enable = true;
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+  # programs.hyprland.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -81,6 +98,12 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplip ];
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
+  # for a WiFi printer
+  services.avahi.openFirewall = true;
+
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -98,6 +121,12 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings = {
+    General = {
+      Experimental = true;
+    };
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -106,46 +135,62 @@
   users.users.nwright = {
     isNormalUser = true;
     description = "nwright";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "nginx" ];
+    extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-    #  firefox
-    #  thunderbird
-	    google-chrome
+      firefox
+      #  thunderbird
     ];
-
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # Enable automatic login for the user.
+  # services.xserver.displayManager.autoLogin.enable = true;
+  # services.xserver.displayManager.autoLogin.user = "nwright";
 
-  programs.gnome-disks.enable = true;
+  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  # systemd.services."getty@tty1".enable = false;
+  # systemd.services."autovt@tty1".enable = false;
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    btrfs-progs
-    parted
     vim
     wget
-    terminator
-    vscode
-    nixpkgs-fmt
-    docker-compose
-    # openjdk18-bootstrap
-    # openjdk8-bootstrap
-    deja-dup
-    gnome.gnome-boxes
-    gnome.gnome-remote-desktop
-    gnome-extension-manager
-    lm_sensors
     git
-    distrobox
+    htop
+    neofetch
     bat
-    # timeshift
+    zip
+    unzip
+    busybox
+    dua
+
+    gnome.gnome-tweaks
+    tailscale-systray
+    google-chrome
+    nextcloud-client
+    pika-backup
+    libreoffice
+
+    unstable.vscode
+    rnix-lsp
+    nixpkgs-fmt
+
+    unstable.godot_4
+    distrobox
+    tailscale
+    terminator
+    alacritty
   ];
-
+  services.fwupd = {
+    enable = true;
+    extraRemotes = [
+      "lvfs-testing"
+    ];
+  };
   services.flatpak.enable = true;
-
+  virtualisation.podman.enable = true;
+  xdg.portal.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -158,14 +203,29 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-  services.openssh = {
+
+  services.fprintd = {
     enable = true;
-    # require public key authentication for better security
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-    };
-    #permitRootLogin = "yes";
+    # package = pkgs.fprintd-tod;
+    # tod = {
+    #   enable = true;
+    #   driver = pkgs.libfprint-2-tod1-goodix;
+    # };
+  };
+
+  services.tailscale.enable = true;
+  networking.firewall = {
+    # enable the firewall
+    enable = true;
+
+    # always allow traffic from your Tailscale network
+    trustedInterfaces = [ "tailscale0" ];
+
+    # allow the Tailscale UDP port through the firewall
+    allowedUDPPorts = [ config.services.tailscale.port ];
+
+    # allow you to SSH in over the public internet
+    allowedTCPPorts = [ 22 ];
   };
 
   # Open ports in the firewall.
@@ -173,30 +233,6 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  networking.firewall = {
-    # enable the firewall
-    enable = true;
-
-    # always allow traffic from your Tailscale network
-    trustedInterfaces = [ "tailscale0" "docker0" "br-collabora" "br-photprism" ];
-
-    # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [ config.services.tailscale.port ];
-
-    # allow you to SSH in over the public internet
-    # allowedTCPPorts = [ ];
-  };
-
-  # Ports
-  # 22 - SSH
-  # 5900 - RDP
-  # 25565-25566 - Minecraft
-  # 444 - Document server
-  # 445 - 
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 22 5900 25565 25566 80 443 446 ];
-  networking.firewall.interfaces."docker0".allowedTCPPorts = [ 80 443 ];
-  networking.firewall.interfaces."docker0".allowedUDPPorts = [ 80 443 ];
-  networking.firewall.allowedTCPPorts = [8009];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -204,8 +240,6 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
-  # temp fix
-  systemd.services.NetworkManager-wait-online.enable = false;
+  system.stateVersion = "23.05"; # Did you read the comment?
 
 }
