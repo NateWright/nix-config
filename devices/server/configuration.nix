@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, outputs, ... }:
 
 {
   imports =
@@ -19,6 +19,20 @@
       ./snapper.nix
       ./containers.nix
     ];
+
+  nixpkgs = {
+    # You can add overlays here
+    overlays = [
+      # Add overlays your own flake exports (from overlays and pkgs dir):
+      outputs.overlays.unstable-packages
+    ];
+    # Configure your nixpkgs instance
+    config = {
+      # Disable if you don't want unfree packages
+      allowUnfree = true;
+    };
+  };
+
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -115,8 +129,6 @@
 
   };
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   programs.gnome-disks.enable = true;
 

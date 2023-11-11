@@ -47,6 +47,7 @@
         };
         server = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit outputs inputs; };
           modules = [
             vscode-server.nixosModules.default
             ./devices/server/configuration.nix
