@@ -18,6 +18,7 @@
       ./data-collection.nix
       ./snapper.nix
       ./containers.nix
+      ./cloudflared.nix
     ];
 
   nixpkgs = {
