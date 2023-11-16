@@ -35,7 +35,7 @@
           system = "x86_64-linux";
           specialArgs = { inherit outputs inputs; };
           modules = [
-            nixos-hardware.nixosModules.framework
+            nixos-hardware.nixosModules.framework-13-7040-amd
             ./devices/framework/configuration.nix
           ];
         };
