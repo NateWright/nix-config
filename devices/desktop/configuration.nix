@@ -3,9 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, outputs, ... }:
-#let 
-#  unstable = import <nixpkgs-unstable> { config = { allowUnfree = true; }; };
-#in
+let
+  gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder/default.nix { };
+in
 {
   imports =
     [
@@ -105,6 +105,7 @@
     packages = with pkgs; [
       firefox
       #  thunderbird
+      gpu-screen-recorder
     ];
   };
 
