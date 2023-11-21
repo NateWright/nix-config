@@ -40,7 +40,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   fileSystems = {
     "/".options = [ "compress=zstd" "noatime" ];
@@ -164,17 +164,22 @@ in
     unzip
     busybox
     dua
+    cifs-utils
 
     gnome.gnome-tweaks
     tailscale-systray
     google-chrome
     nextcloud-client
     pika-backup
-    libreoffice
+    unstable.libreoffice-fresh
+    hunspell
+    hunspellDicts.en_US
 
     unstable.vscode
     rnix-lsp
     nixpkgs-fmt
+    man-pages
+    man-pages-posix
 
     unstable.godot_4
     distrobox
@@ -204,14 +209,14 @@ in
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  services.fprintd = {
-    enable = true;
-    # package = pkgs.fprintd-tod;
-    # tod = {
-    #   enable = true;
-    #   driver = pkgs.libfprint-2-tod1-goodix;
-    # };
-  };
+  # services.fprintd = {
+  #   enable = true;
+  #   # package = pkgs.fprintd-tod;
+  #   # tod = {
+  #   #   enable = true;
+  #   #   driver = pkgs.libfprint-2-tod1-goodix;
+  #   # };
+  # };
 
   services.tailscale.enable = true;
   networking.firewall = {
