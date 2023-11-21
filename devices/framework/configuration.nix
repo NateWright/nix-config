@@ -13,7 +13,7 @@ in
       ./hardware-configuration.nix
       ./arduino.nix
       # ./cinnamon.nix
-      # ./fonts.nix
+      ./fonts.nix
     ];
 
   nixpkgs = {
