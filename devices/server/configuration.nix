@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./docker.nix
       ./tailscale.nix
@@ -47,6 +48,13 @@
     "/vault/containers".options = [ "compress=zstd" ];
     "/vault/datastorage".options = [ "compress=zstd" ];
   };
+
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "monthly";
+    fileSystems = [ "/" ];
+  };
+
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -123,9 +131,9 @@
     description = "nwright";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" "nginx" ];
     packages = with pkgs; [
-    #  firefox
-    #  thunderbird
-	    google-chrome
+      #  firefox
+      #  thunderbird
+      google-chrome
     ];
 
   };
@@ -209,7 +217,7 @@
   networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 22 5900 25565 25566 80 443 446 ];
   networking.firewall.interfaces."docker0".allowedTCPPorts = [ 80 443 ];
   networking.firewall.interfaces."docker0".allowedUDPPorts = [ 80 443 ];
-  networking.firewall.allowedTCPPorts = [8009];
+  networking.firewall.allowedTCPPorts = [ 8009 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

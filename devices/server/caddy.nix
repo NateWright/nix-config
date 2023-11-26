@@ -5,7 +5,7 @@
   security.acme.certs."nwright.cloud" = {
     dnsProvider = "cloudflare";
     credentialsFile = "/var/lib/secrets/cloudflare";
-    extraDomainNames = [ "*.nwright.cloud" ];
+    extraDomainNames = [ "*.nwright.cloud" "*.nwright.tech" ];
   };
   services.caddy = {
     enable = true;
@@ -63,6 +63,21 @@
         '';
       };
 
+      # "https://" = {
+      # useACMEHost = "nwright.cloud";
+      # extraConfig = ''
+
+      #     reverse_proxy localhost:8013
+      #   '';
+      # };
+
+      "http://127.0.0.1:8015" = {
+        extraConfig = ''
+          root * ${pkgs.callPackage ./hugo.nix { }}
+        '';
+      };
+
+
     };
   };
   services.nginx.virtualHosts."blog" = {
@@ -71,5 +86,17 @@
     listen = [{ port = 8013; addr = "0.0.0.0"; ssl = false; }];
     root = pkgs.callPackage ./hugo.nix { };
   };
+
+  services.nginx.virtualHosts."blog2" = {
+    forceSSL = false;
+    enableACME = false;
+    sslCertificate = "/var/lib/secrets/host.cert";
+    sslCertificateKey = "/var/lib/secrets/host.key";
+    serverName = "t.nwright.tech";
+    onlySSL = true;
+    listen = [{ port = 8014; addr = "127.0.0.1"; ssl = true; }];
+    root = pkgs.callPackage ./hugo.nix { };
+  };
+
 
 }
