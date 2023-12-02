@@ -3,9 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, outputs, ... }:
-let
-  gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder/default.nix { };
-in
 {
   imports =
     [
@@ -104,8 +101,6 @@ in
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
-      #  thunderbird
-      gpu-screen-recorder
     ];
   };
 
@@ -126,6 +121,7 @@ in
     unzip
     zip
     git
+    bat
     alacritty
     terminator
     usbutils
@@ -142,9 +138,13 @@ in
     pika-backup
     cifs-utils # Needed for automounting
     htop
+    bottom
     lm_sensors
     radeontop
     busybox
+    pulseaudio
+    godot_4
+    gpu-screen-recorder
 
     gnome.nautilus-python
     gnome.sushi
