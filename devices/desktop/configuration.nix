@@ -3,13 +3,6 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, inputs, outputs, ... }:
-let
-  gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder/default.nix { };
-  openrgb-rules = builtins.fetchurl
-    {
-      url = "https://gitlab.com/CalcProgrammer1/OpenRGB/-/raw/master/60-openrgb.rules";
-    };
-in
 {
   imports =
     [
@@ -108,24 +101,7 @@ in
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
-      #  thunderbird
-      gpu-screen-recorder
     ];
-  };
-
-  security.wrappers = {
-    gsr-kms-server = {
-      owner = "root";
-      group = "root";
-      capabilities = "cap_sys_admin+ep";
-      source = "${gpu-screen-recorder}/bin/gsr-kms-server";
-    };
-    gpu-screen-recorder = {
-      owner = "root";
-      group = "root";
-      capabilities = "cap_sys_nice+ep";
-      source = "${gpu-screen-recorder}/bin/gpu-screen-recorder";
-    };
   };
 
   # Enable automatic login for the user.
@@ -145,6 +121,7 @@ in
     unzip
     zip
     git
+    bat
     alacritty
     terminator
     usbutils
@@ -161,11 +138,13 @@ in
     pika-backup
     cifs-utils # Needed for automounting
     htop
+    bottom
     lm_sensors
     radeontop
     busybox
     pulseaudio
-    unstable.godot_4
+    godot_4
+    gpu-screen-recorder
 
     gnome.nautilus-python
     gnome.sushi
