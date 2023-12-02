@@ -20,7 +20,8 @@
       ./snapper.nix
       ./containers.nix
       ./cloudflared.nix
-    ];
+      ./minecraft.nix    
+];
 
   nixpkgs = {
     # You can add overlays here
