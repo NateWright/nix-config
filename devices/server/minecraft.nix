@@ -1,8 +1,8 @@
-{ config, pkgs, unstable, ...}:
+{ config, pkgs, ...}:
 {
   services.minecraft-server = {
     enable = true;
     eula = true;
-    package = unstable.minecraft-server;
+    package = pkgs.unstable.minecraft-server;
   };
 }
