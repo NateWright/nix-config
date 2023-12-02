@@ -5,6 +5,10 @@
 { config, pkgs, inputs, outputs, ... }:
 let
   gpu-screen-recorder = pkgs.callPackage ./gpu-screen-recorder/default.nix { };
+  openrgb-rules = builtins.fetchurl
+    {
+      url = "https://gitlab.com/CalcProgrammer1/OpenRGB/-/raw/master/60-openrgb.rules";
+    };
 in
 {
   imports =
@@ -109,6 +113,21 @@ in
     ];
   };
 
+  security.wrappers = {
+    gsr-kms-server = {
+      owner = "root";
+      group = "root";
+      capabilities = "cap_sys_admin+ep";
+      source = "${gpu-screen-recorder}/bin/gsr-kms-server";
+    };
+    gpu-screen-recorder = {
+      owner = "root";
+      group = "root";
+      capabilities = "cap_sys_nice+ep";
+      source = "${gpu-screen-recorder}/bin/gpu-screen-recorder";
+    };
+  };
+
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "nwright";
@@ -145,6 +164,8 @@ in
     lm_sensors
     radeontop
     busybox
+    pulseaudio
+    unstable.godot_4
 
     gnome.nautilus-python
     gnome.sushi
