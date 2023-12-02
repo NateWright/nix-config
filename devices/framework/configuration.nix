@@ -13,7 +13,7 @@ in
       ./hardware-configuration.nix
       ./arduino.nix
       # ./cinnamon.nix
-      # ./fonts.nix
+      ./fonts.nix
     ];
 
   nixpkgs = {
@@ -186,6 +186,8 @@ in
     tailscale
     terminator
     alacritty
+
+    gnome-network-displays
   ];
   services.fwupd = {
     enable = true;
@@ -227,10 +229,20 @@ in
     trustedInterfaces = [ "tailscale0" ];
 
     # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    allowedUDPPorts = [
+      config.services.tailscale.port
+      7236
+      5353
+    ];
 
     # allow you to SSH in over the public internet
-    allowedTCPPorts = [ 22 ];
+    allowedTCPPorts = [
+      22
+      7236
+      7250
+    ];
+
+
   };
 
   # Open ports in the firewall.
