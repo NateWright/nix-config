@@ -8,19 +8,18 @@
   imports =
     [
       # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ./caddy.nix
+      ./cloudflared.nix
+      ./data-collection.nix
       ./docker.nix
+      ./hardware-configuration.nix
+      ./minecraft.nix    
+      ./nextcloud.nix
+      ./samba.nix
+      ./snapper.nix
       ./tailscale.nix
       ./vs-code-server.nix
       ./virtmanager.nix
-      ./samba.nix
-      ./caddy.nix
-      ./nextcloud.nix
-      ./data-collection.nix
-      ./snapper.nix
-      ./containers.nix
-      ./cloudflared.nix
-      ./minecraft.nix    
 ];
 
   nixpkgs = {
@@ -152,9 +151,6 @@
     terminator
     vscode
     nixpkgs-fmt
-    docker-compose
-    # openjdk18-bootstrap
-    # openjdk8-bootstrap
     deja-dup
     gnome.gnome-boxes
     gnome.gnome-remote-desktop
