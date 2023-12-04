@@ -135,7 +135,7 @@ in
   users.users.nwright = {
     isNormalUser = true;
     description = "nwright";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
       #  thunderbird
@@ -176,6 +176,7 @@ in
     hunspellDicts.en_US
 
     unstable.vscode
+    unstable.arduino
     rnix-lsp
     nixpkgs-fmt
     man-pages
@@ -196,7 +197,9 @@ in
     ];
   };
   services.flatpak.enable = true;
-  virtualisation.podman.enable = true;
+  # virtualisation.podman.enable = true;
+  virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
   xdg.portal.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
