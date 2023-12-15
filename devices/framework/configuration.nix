@@ -171,9 +171,17 @@ in
     google-chrome
     nextcloud-client
     pika-backup
-    unstable.libreoffice-fresh
     hunspell
     hunspellDicts.en_US
+    (pkgs.wrapOBS {
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-backgroundremoval
+        obs-pipewire-audio-capture
+        obs-vaapi
+      ];
+    })
+
 
     unstable.vscode
     unstable.arduino
@@ -201,6 +209,16 @@ in
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
   xdg.portal.enable = true;
+
+  # for obs
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+  '';
+  security.polkit.enable = true;
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
