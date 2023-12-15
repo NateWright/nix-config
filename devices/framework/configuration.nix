@@ -219,6 +219,11 @@ in
   '';
   security.polkit.enable = true;
 
+  # xbox dongle support
+  hardware.xone.enable = true;
+  hardware.xpadneo.enable = true;
+
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -262,8 +267,6 @@ in
       7236
       7250
     ];
-
-
   };
 
   # Open ports in the firewall.
