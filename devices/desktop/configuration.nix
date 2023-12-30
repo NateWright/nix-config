@@ -155,7 +155,7 @@
     gnome.sushi
     nautilus-open-any-terminal
 
-    (callPackage ./r2modman/default.nix { })
+    unstable.r2modman
   ];
 
   services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
