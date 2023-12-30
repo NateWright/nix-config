@@ -135,7 +135,7 @@ in
   users.users.nwright = {
     isNormalUser = true;
     description = "nwright";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
       #  thunderbird
@@ -171,11 +171,20 @@ in
     google-chrome
     nextcloud-client
     pika-backup
-    unstable.libreoffice-fresh
     hunspell
     hunspellDicts.en_US
+    (pkgs.wrapOBS {
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-backgroundremoval
+        obs-pipewire-audio-capture
+        obs-vaapi
+      ];
+    })
+
 
     unstable.vscode
+    unstable.arduino
     rnix-lsp
     nixpkgs-fmt
     man-pages
@@ -196,8 +205,25 @@ in
     ];
   };
   services.flatpak.enable = true;
-  virtualisation.podman.enable = true;
+  # virtualisation.podman.enable = true;
+  virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
   xdg.portal.enable = true;
+
+  # for obs
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+  '';
+  security.polkit.enable = true;
+
+  # xbox dongle support
+  hardware.xone.enable = true;
+  hardware.xpadneo.enable = true;
+
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -241,8 +267,6 @@ in
       7236
       7250
     ];
-
-
   };
 
   # Open ports in the firewall.

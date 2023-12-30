@@ -35,7 +35,7 @@
     rec {
       overlays = import ./overlays { inherit inputs; };
       nixosConfigurations = {
-        nwright-framework = nixpkgs.lib.nixosSystem {
+        nwright-framework = nixpkgs23-11.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit outputs inputs; };
           modules = [

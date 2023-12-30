@@ -8,7 +8,7 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./amd.nix
+      # ./amd.nix
     ];
 
   nixpkgs = {
@@ -28,6 +28,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nwright-nixos-pc"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -38,6 +39,10 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.plugins = with pkgs; [
+    networkmanager-openconnect
+    networkmanager-openvpn
+  ];
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -149,11 +154,17 @@
     gnome.nautilus-python
     gnome.sushi
     nautilus-open-any-terminal
+
+    unstable.r2modman
   ];
 
   services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
     nautilus-open-any-terminal
   ];
+  services.fwupd = {
+    enable = true;
+  };
+
 
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -189,9 +200,9 @@
   };
   services.tailscale.enable = true;
   virtualisation.podman.enable = true;
-  #virtualisation.docker.enable = true;
-  #virtualisation.docker.enableNvidia = true;
-  #virtualisation.docker.storageDriver = "btrfs";
+  virtualisation.docker.enable = true;
+  # virtualisation.docker.enableNvidia = true;
+  virtualisation.docker.storageDriver = "btrfs";
   boot.supportedFilesystems = [ "ntfs" ];
 
   # This value determines the NixOS release from which the default
