@@ -4,12 +4,8 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-23.05";
-    };
-    nixpkgs23-11 = {
       url = "github:NixOS/nixpkgs/nixos-23.11";
     };
-
     nixpkgs-unstable = {
       url = "github:Nixos/nixpkgs/nixos-unstable";
     };
@@ -28,14 +24,14 @@
 
   };
 
-  outputs = { self, nixpkgs, nixpkgs23-11, nixos-hardware, home-manager, vscode-server, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, vscode-server, ... }@inputs:
     let
       inherit (self) outputs;
     in
     rec {
       overlays = import ./overlays { inherit inputs; };
       nixosConfigurations = {
-        nwright-framework = nixpkgs23-11.lib.nixosSystem {
+        nwright-framework = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit outputs inputs; };
           modules = [
@@ -43,7 +39,7 @@
             ./devices/framework/configuration.nix
           ];
         };
-        nwright-nixos-pc = nixpkgs23-11.lib.nixosSystem {
+        nwright-nixos-pc = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit outputs inputs; };
           modules = [
