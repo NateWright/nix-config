@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 {
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "nathanwrightbusiness@gmail.com";
@@ -84,19 +84,19 @@
     forceSSL = false;
     enableACME = false;
     listen = [{ port = 8013; addr = "0.0.0.0"; ssl = false; }];
-    root = pkgs.callPackage ./hugo.nix { };
+    root = pkgs.nwright-hugo-website;
   };
 
-  services.nginx.virtualHosts."blog2" = {
-    forceSSL = false;
-    enableACME = false;
-    sslCertificate = "/var/lib/secrets/host.cert";
-    sslCertificateKey = "/var/lib/secrets/host.key";
-    serverName = "t.nwright.tech";
-    onlySSL = true;
-    listen = [{ port = 8014; addr = "127.0.0.1"; ssl = true; }];
-    root = pkgs.callPackage ./hugo.nix { };
-  };
+  # services.nginx.virtualHosts."blog2" = {
+  #   forceSSL = false;
+  #   enableACME = false;
+  #   sslCertificate = "/var/lib/secrets/host.cert";
+  #   sslCertificateKey = "/var/lib/secrets/host.key";
+  #   serverName = "t.nwright.tech";
+  #   onlySSL = true;
+  #   listen = [{ port = 8014; addr = "127.0.0.1"; ssl = true; }];
+  #   root = pkgs.nwright-tech.nwright-hugo-website;
+  # };
 
 
 }

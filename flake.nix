@@ -21,10 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
+    nwright-hugo-website.url = "github:NateWright/NateWright";
 
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, vscode-server, ... }@inputs:
+  outputs = { self, nixpkgs, nixos-hardware, home-manager, vscode-server, nwright-hugo-website, ... }@inputs:
     let
       inherit (self) outputs;
     in
