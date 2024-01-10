@@ -20,6 +20,13 @@
       fsType = "btrfs";
       options = [ "subvol=@" ];
     };
+  fileSystems."/home/nwright/Vault" =
+    {
+      device = "/dev/disk/by-uuid/a0bbbf4d-57ba-42f6-9541-4777e45885c3";
+      fsType = "btrfs";
+      options = [ "subvol=@nwright-vault" ];
+    };
+
 
   swapDevices = [ ];
 

@@ -135,7 +135,12 @@ in
   users.users.nwright = {
     isNormalUser = true;
     description = "nwright";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "libvirtd"
+    ];
     packages = with pkgs; [
       firefox
       #  thunderbird
@@ -197,6 +202,7 @@ in
     alacritty
 
     gnome-network-displays
+    gnome.gnome-boxes
   ];
   services.fwupd = {
     enable = true;
@@ -209,6 +215,7 @@ in
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
   xdg.portal.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   # for obs
   boot.extraModulePackages = with config.boot.kernelPackages; [

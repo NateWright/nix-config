@@ -8,7 +8,7 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      # ./amd.nix
+      ./amd.nix
     ];
 
   nixpkgs = {
@@ -29,6 +29,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  fileSystems = {
+    "/home/nwright/Vault".options = [ "compress=zstd" ];
+  };
+
 
   networking.hostName = "nwright-nixos-pc"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
