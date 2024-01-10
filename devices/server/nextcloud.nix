@@ -26,7 +26,7 @@
     ensureUsers = [
       {
         name = "nextcloud";
-        ensureDBOwnership."DATABASE nextcloud" = "ALL PRIVILEGES";
+        ensureDBOwnership = true;
       }
     ];
   };
