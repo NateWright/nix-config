@@ -2,7 +2,7 @@
 ```bash
 cd ~/nix-config
 sudo nixos-rebuild switch --flake .#device
-home-manager switch --flake '/home/nwright/nix-config/devices/surface#nwright@nwright-surface'
+home-manager switch --flake .#nwright@device
 ```
 ### Update Example
 ```bash
@@ -33,4 +33,8 @@ home-manager switch --flake .#nwright@nwright-nixos-pc
 ```bash
 cd ~/nix-config
 sudo nixos-rebuild switch --flake .#server
+```
+#### get hugo revision
+```bash
+git rev-parse HEAD
 ```
