@@ -291,6 +291,22 @@
     },
     "nixpkgs_6": {
       "locked": {
+        "lastModified": 1705316053,
+        "narHash": "sha256-J2Ey5mPFT8gdfL2XC0JTZvKaBw/b2pnyudEXFvl+dQM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c3e128f3c0ecc1fb04aef9f72b3dcc2f6cecf370",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_7": {
+      "locked": {
         "lastModified": 1682134069,
         "narHash": "sha256-TnI/ZXSmRxQDt2sjRYK/8j8iha4B4zP2cnQCZZ3vp7k=",
         "owner": "NixOS",
@@ -322,6 +338,24 @@
         "type": "github"
       }
     },
+    "pipewire-screenaudio": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "lastModified": 1704699011,
+        "narHash": "sha256-CI3kAiKAC9r5qDI/uDgWJIBtRK4QvjKkFvk/wzfKLVA=",
+        "owner": "IceDBorn",
+        "repo": "pipewire-screenaudio",
+        "rev": "2e82ca5c266bfbce19419ef16c1af3a4717f31b6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "IceDBorn",
+        "repo": "pipewire-screenaudio",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "gBar": "gBar",
@@ -332,6 +366,7 @@
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nwright-hugo-website": "nwright-hugo-website",
+        "pipewire-screenaudio": "pipewire-screenaudio",
         "vscode-server": "vscode-server"
       }
     },
@@ -398,7 +433,7 @@
     "vscode-server": {
       "inputs": {
         "flake-utils": "flake-utils_3",
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": "nixpkgs_7"
       },
       "locked": {
         "lastModified": 1684517665,
