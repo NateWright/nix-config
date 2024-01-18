@@ -23,9 +23,20 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     nwright-hugo-website.url = "github:NateWright/NateWright";
 
+    pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
+
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, home-manager, vscode-server, nwright-hugo-website, ... }@inputs:
+  outputs =
+    { self
+    , nixpkgs
+    , nixos-hardware
+    , home-manager
+    , vscode-server
+    , nwright-hugo-website
+    , pipewire-screenaudio
+    , ...
+    }@inputs:
     let
       inherit (self) outputs;
     in
