@@ -63,17 +63,10 @@
         '';
       };
 
-      # "https://" = {
-      # useACMEHost = "nwright.cloud";
-      # extraConfig = ''
-
-      #     reverse_proxy localhost:8013
-      #   '';
-      # };
-
-      "http://127.0.0.1:8015" = {
+      "car.nwright.cloud" = {
+        useACMEHost = "nwright.cloud";
         extraConfig = ''
-          root * ${pkgs.callPackage ./hugo.nix { }}
+          reverse_proxy localhost:8014
         '';
       };
 
