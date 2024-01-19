@@ -68,17 +68,30 @@
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.wayland = false;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
   services.xserver = {
+    enable = true;
     layout = "us";
     xkbVariant = "";
+
+    displayManager = {
+      gdm = {
+        enable = true;
+        wayland = true;
+      };
+    };
+    desktopManager = {
+      gnome = {
+        enable = true;
+        flashback.customSessions = [
+          {
+            wmName = "test-steam1";
+            wmLabel = "test-steam";
+            wmCommand = "STEAM_MULTIPLE_XWAYLANDS=1 ${pkgs.gamescope}/bin/gamescope -W 2560 -H 1440 -r 60 -e --xwayland-count 2 --adaptive-sync -- flatpak run com.valvesoftware.Steam -gamepadui -steamdeck";
+            enableGnomePanel = false;
+          }
+        ];
+      };
+    };
   };
 
   # Enable CUPS to print documents.
@@ -94,7 +107,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+    jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -110,12 +123,12 @@
     description = "Nathan Wright";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
-      firefox
+      (firefox.override { extraNativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
     ];
   };
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.enable = false;
   services.xserver.displayManager.autoLogin.user = "nwright";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
@@ -155,13 +168,30 @@
     pulseaudio
     godot_4
     gpu-screen-recorder
+    pavucontrol
 
     gnome.nautilus-python
     gnome.sushi
     nautilus-open-any-terminal
 
     unstable.r2modman
+
+    (pkgs.wrapOBS {
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        obs-backgroundremoval
+        obs-pipewire-audio-capture
+      ];
+    })
   ];
+  programs.gamescope.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
+  programs.steam.gamescopeSession.enable = true;
 
   services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
     nautilus-open-any-terminal
@@ -204,7 +234,7 @@
     # allowedTCPPorts = [ ];
   };
   services.tailscale.enable = true;
-  virtualisation.podman.enable = true;
+  virtualisation.podman.enable = false;
   virtualisation.docker.enable = true;
   # virtualisation.docker.enableNvidia = true;
   virtualisation.docker.storageDriver = "btrfs";
@@ -219,5 +249,5 @@
   system.stateVersion = "23.05"; # Did you read the comment?
   services.flatpak.enable = true;
   hardware.xone.enable = true;
-  hardware.xpadneo.enable = true;
+  # hardware.xpadneo.enable = true;
 }
