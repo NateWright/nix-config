@@ -10,20 +10,20 @@
       url = "github:Nixos/nixpkgs/nixos-unstable";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    gBar.url = "github:scorpion-26/gBar";
-    hyprland.url = "github:hyprwm/Hyprland";
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # gBar.url = "github:scorpion-26/gBar";
+    # hyprland.url = "github:hyprwm/Hyprland";
+    # hyprland-contrib = {
+    #   url = "github:hyprwm/contrib";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     nwright-hugo-website.url = "github:NateWright/NateWright";
 
-    pipewire-screenaudio.url = "github:IceDBorn/pipewire-screenaudio";
 
   };
 
@@ -34,7 +34,6 @@
     , home-manager
     , vscode-server
     , nwright-hugo-website
-    , pipewire-screenaudio
     , ...
     }@inputs:
     let
