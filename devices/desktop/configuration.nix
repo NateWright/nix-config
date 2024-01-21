@@ -80,17 +80,7 @@
       };
     };
     desktopManager = {
-      gnome = {
-        enable = true;
-        flashback.customSessions = [
-          {
-            wmName = "test-steam1";
-            wmLabel = "test-steam";
-            wmCommand = "STEAM_MULTIPLE_XWAYLANDS=1 ${pkgs.gamescope}/bin/gamescope -W 2560 -H 1440 -r 60 -e --xwayland-count 2 --adaptive-sync -- flatpak run com.valvesoftware.Steam -gamepadui -steamdeck";
-            enableGnomePanel = false;
-          }
-        ];
-      };
+      gnome.enable = true;
     };
   };
 
@@ -123,7 +113,7 @@
     description = "Nathan Wright";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
-      (firefox.override { extraNativeMessagingHosts = [ inputs.pipewire-screenaudio.packages.${pkgs.system}.default ]; })
+      firefox
     ];
   };
 
