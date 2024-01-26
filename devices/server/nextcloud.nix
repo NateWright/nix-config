@@ -37,7 +37,14 @@
     after = [ "postgresql.service" ];
   };
 
+  services.onlyoffice = {
+    enable = true;
+    package = pkgs.onlyoffice-documentserver;
+    hostname = "nix-onlyoffice";
+    jwtSecretFile = "/etc/nixos/secrets/onlyoffice";
+  };
+  services.nginx.virtualHosts."nix-onlyoffice".listen = [{ addr = "127.0.0.1"; port = 8015; }];
+
   services.nginx.virtualHosts."nix-nextcloud".listen = [{ addr = "127.0.0.1"; port = 8009; }];
-  # services.nginx.virtualHosts."nix-onlyoffice".listen = [ { addr = "127.0.0.1"; port = 9980; } ];
 
 }
