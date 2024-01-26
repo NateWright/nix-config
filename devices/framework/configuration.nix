@@ -190,6 +190,10 @@ in
 
     unstable.vscode
     unstable.arduino
+
+    qemu
+    bridge-utils
+
     rnix-lsp
     nixpkgs-fmt
     man-pages
@@ -200,8 +204,9 @@ in
     tailscale
     terminator
     alacritty
+    unstable.cosmic-term
 
-    gnome-network-displays
+    # gnome-network-displays
     gnome.gnome-boxes
   ];
   services.fwupd = {
