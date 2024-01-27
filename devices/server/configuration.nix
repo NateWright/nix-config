@@ -13,14 +13,15 @@
       ./data-collection.nix
       ./docker.nix
       ./hardware-configuration.nix
-      ./minecraft.nix    
+      ./minecraft.nix
       ./nextcloud.nix
       ./samba.nix
       ./snapper.nix
       ./tailscale.nix
       ./vs-code-server.nix
       ./virtmanager.nix
-];
+      ../../common/pkgs.nix
+    ];
 
   nixpkgs = {
     # You can add overlays here
@@ -147,20 +148,12 @@
   environment.systemPackages = with pkgs; [
     btrfs-progs
     parted
-    vim
-    wget
-    terminator
-    vscode
-    nixpkgs-fmt
     deja-dup
     gnome.gnome-boxes
     gnome.gnome-remote-desktop
     gnome-extension-manager
     lm_sensors
-    git
     distrobox
-    bat
-    gnumake
     # timeshift
   ];
 
