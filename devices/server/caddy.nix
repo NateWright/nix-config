@@ -23,10 +23,7 @@
       "onlyoffice.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
-            reverse_proxy http://127.0.0.1:8000 {
-              # Required to circumvent bug of Onlyoffice loading mixed non-https content
-              header_up X-Forwarded-Proto https
-            }
+            reverse_proxy localhost:8015
           '';
       };
 
