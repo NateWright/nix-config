@@ -133,9 +133,6 @@
     description = "nwright";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" "nginx" ];
     packages = with pkgs; [
-      #  firefox
-      #  thunderbird
-      google-chrome
     ];
 
   };
