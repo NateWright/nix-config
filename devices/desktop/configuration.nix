@@ -9,6 +9,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./amd.nix
+      ../../common/pkgs.nix
     ];
 
   nixpkgs = {
@@ -129,21 +130,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    unzip
-    zip
-    git
-    bat
-    alacritty
-    terminator
     usbutils
     neofetch
-    dua
-    google-chrome
     tailscale
-    unstable.vscode
-    nixpkgs-fmt
     nextcloud-client
     distrobox
     gnome.gnome-tweaks
@@ -151,7 +140,6 @@
     pika-backup
     cifs-utils # Needed for automounting
     htop
-    bottom
     lm_sensors
     radeontop
     busybox
