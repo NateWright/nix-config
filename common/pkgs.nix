@@ -13,6 +13,8 @@
     cpufetch
     htop
     bottom
+    man-pages
+    man-pages-posix
 
     terminator
     alacritty

@@ -159,25 +159,28 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-    htop
-    neofetch
-    bat
-    zip
-    unzip
     busybox
-    dua
     cifs-utils
 
     gnome.gnome-tweaks
     tailscale-systray
-    google-chrome
     nextcloud-client
     pika-backup
     hunspell
     hunspellDicts.en_US
+    unstable.arduino
+
+    qemu
+    bridge-utils
+
+    rnix-lsp
+
+    unstable.godot_4
+    distrobox
+    tailscale
+    unstable.cosmic-term
+
+    gnome.gnome-boxes
     (pkgs.wrapOBS {
       plugins = with pkgs.obs-studio-plugins; [
         wlrobs
@@ -186,28 +189,6 @@ in
         obs-vaapi
       ];
     })
-
-
-    unstable.vscode
-    unstable.arduino
-
-    qemu
-    bridge-utils
-
-    rnix-lsp
-    nixpkgs-fmt
-    man-pages
-    man-pages-posix
-
-    unstable.godot_4
-    distrobox
-    tailscale
-    terminator
-    alacritty
-    unstable.cosmic-term
-
-    # gnome-network-displays
-    gnome.gnome-boxes
   ];
   services.fwupd = {
     enable = true;
