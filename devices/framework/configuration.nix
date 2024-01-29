@@ -14,6 +14,7 @@ in
       ./arduino.nix
       # ./cinnamon.nix
       ./fonts.nix
+      ../../common/pkgs.nix
     ];
 
   nixpkgs = {
