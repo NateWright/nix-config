@@ -18,6 +18,7 @@
 
     terminator
     alacritty
+    zellij
 
     google-chrome
 
