@@ -16,6 +16,8 @@
     man-pages
     man-pages-posix
 
+    adw-gtk3
+
     terminator
     alacritty
     zellij
