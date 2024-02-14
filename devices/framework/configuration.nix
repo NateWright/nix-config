@@ -162,6 +162,7 @@ in
   environment.systemPackages = with pkgs; [
     busybox
     cifs-utils
+    tpm2-tss
 
     gnome.gnome-tweaks
     tailscale-systray
