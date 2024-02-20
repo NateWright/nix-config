@@ -1,5 +1,8 @@
 .PHONY: desktop framework server update
 
+all:
+	echo "Please pick one"
+
 desktop:
 	sudo nixos-rebuild switch --flake .#nwright-nixos-pc
 
