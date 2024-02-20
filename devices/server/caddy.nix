@@ -76,6 +76,13 @@
         '';
       };
 
+      "latex.nwright.cloud" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          reverse_proxy localhost:8016
+        '';
+      };
+
 
     };
   };
