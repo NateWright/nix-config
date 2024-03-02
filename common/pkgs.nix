@@ -23,6 +23,7 @@
     zellij
 
     google-chrome
+    localsend
 
     unstable.vscode
     nixpkgs-fmt
