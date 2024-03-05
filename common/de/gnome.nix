@@ -2,8 +2,11 @@
 {
   services.xserver = {
     enable = true;
-    layout = "us";
-    xkbVariant = "";
+    xkb =
+      {
+        layout = "us";
+        variant = "";
+      };
 
     displayManager = {
       gdm = {
