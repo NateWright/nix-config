@@ -6,6 +6,9 @@ all:
 desktop:
 	nixos-rebuild switch --flake .#nwright-nixos-pc
 
+desktop-boot:
+	nixos-rebuild boot --flake .#nwright-nixos-pc
+
 framework:
 	nixos-rebuild switch --flake .#nwright-framework
 
