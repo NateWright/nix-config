@@ -10,9 +10,10 @@
       ./hardware-configuration.nix
       ./amd.nix
       ../../common/pkgs.nix
+      ../../common/de/common.nix
       ../../common/de/plasma.nix
       # ../../common/de/gnome.nix
-      # ../../common/de/cosmic.nix
+      ../../common/de/cosmic.nix
     ];
 
   nixpkgs = {
@@ -141,6 +142,7 @@
     gpu-screen-recorder
     pavucontrol
     steamtinkerlaunch
+    virt-manager
 
     gnome.nautilus-python
     gnome.sushi
@@ -206,6 +208,10 @@
     # allowedTCPPorts = [ ];
   };
   services.tailscale.enable = true;
+
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
   virtualisation.podman.enable = false;
   virtualisation.docker.enable = true;
   # virtualisation.docker.enableNvidia = true;
