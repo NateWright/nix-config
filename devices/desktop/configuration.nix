@@ -10,6 +10,10 @@
       ./hardware-configuration.nix
       ./amd.nix
       ../../common/pkgs.nix
+      ../../common/de/common.nix
+      ../../common/de/plasma.nix
+      # ../../common/de/gnome.nix
+      ../../common/de/cosmic.nix
     ];
 
   nixpkgs = {
@@ -24,6 +28,13 @@
       allowUnfree = true;
     };
   };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
 
 
   # Bootloader.
@@ -66,23 +77,6 @@
     LC_PAPER = "en_US.UTF-8";
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
-  };
-
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    layout = "us";
-    xkbVariant = "";
-
-    displayManager = {
-      gdm = {
-        enable = true;
-        wayland = true;
-      };
-    };
-    desktopManager = {
-      gnome.enable = true;
-    };
   };
 
   # Enable CUPS to print documents.
@@ -147,6 +141,8 @@
     godot_4
     gpu-screen-recorder
     pavucontrol
+    steamtinkerlaunch
+    virt-manager
 
     gnome.nautilus-python
     gnome.sushi
@@ -212,6 +208,10 @@
     # allowedTCPPorts = [ ];
   };
   services.tailscale.enable = true;
+
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
   virtualisation.podman.enable = false;
   virtualisation.docker.enable = true;
   # virtualisation.docker.enableNvidia = true;
