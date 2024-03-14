@@ -23,7 +23,7 @@
       "onlyoffice.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
-          reverse_proxy localhost:8015
+          reverse_proxy 127.0.0.1:8015
         '';
       };
 
@@ -52,34 +52,34 @@
         useACMEHost = "nwright.cloud";
         extraConfig = ''
           encode gzip
-          reverse_proxy localhost:8010
+          reverse_proxy 127.0.0.1:8010
         '';
       };
 
       "it-tools.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
-          reverse_proxy localhost:8011
+          reverse_proxy 127.0.0.1:8011
         '';
       };
       "matrix-admin.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
-          reverse_proxy localhost:8012
+          reverse_proxy 127.0.0.1:8012
         '';
       };
 
       "car.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
-          reverse_proxy localhost:8014
+          reverse_proxy 127.0.0.1:8014
         '';
       };
 
       "latex.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
-          reverse_proxy localhost:8016
+          reverse_proxy 127.0.0.1:8016
         '';
       };
 
