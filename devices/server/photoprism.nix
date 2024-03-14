@@ -4,7 +4,7 @@
     photoprism = {
       enable = true;
       port = 8017;
-      originalsPath = "/var/lib/private/photoprism/originals";
+      originalsPath = "/var/lib/private/photoprism";
       address = "0.0.0.0";
       settings = {
         PHOTOPRISM_ADMIN_USER = "admin";
@@ -21,7 +21,7 @@
 
     mysql = {
       enable = true;
-      dataDir = "/data/mysql";
+      dataDir = "/vault/datastorage/photoprism-db";
       package = pkgs.mariadb;
       ensureDatabases = [ "photoprism" ];
       ensureUsers = [{
@@ -32,4 +32,10 @@
       }];
     };
   };
+
+  fileSystems."/var/lib/private/photoprism" =
+    {
+      device = "/vault/datastorage/photoprism-data";
+      options = [ "bind" ];
+    };
 }
