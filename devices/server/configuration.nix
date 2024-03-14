@@ -15,6 +15,7 @@
       ./hardware-configuration.nix
       ./minecraft.nix
       ./nextcloud.nix
+      ./photoprism.nix
       ./samba.nix
       ./snapper.nix
       ./tailscale.nix
