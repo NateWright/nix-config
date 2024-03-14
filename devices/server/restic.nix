@@ -12,7 +12,7 @@
     #
     passwordFile = config.age.secrets.my_backups_pw.path;
     # what to backup.
-    paths = ["/home/myusername"];
+    paths = [ "/home/myusername" ];
     # the name of your repository.
     repository = "b2:my_repo_name";
     timerConfig = {

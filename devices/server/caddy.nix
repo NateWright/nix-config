@@ -23,8 +23,8 @@
       "onlyoffice.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
-            reverse_proxy localhost:8015
-          '';
+          reverse_proxy localhost:8015
+        '';
       };
 
       "nwright.cloud" = {

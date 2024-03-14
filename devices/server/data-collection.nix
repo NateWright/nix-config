@@ -3,9 +3,9 @@
   services.grafana = {
     enable = true;
     settings.server = {
-        domain = "localhost";
-        http_port = 2344;
-        http_addr = "127.0.0.1";
+      domain = "localhost";
+      http_port = 2344;
+      http_addr = "127.0.0.1";
     };
   };
 

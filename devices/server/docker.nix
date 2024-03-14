@@ -2,11 +2,11 @@
 
 {
   # make the docker command usable to users
-  environment.systemPackages = with pkgs; [ 
-	docker-compose
-  podman-compose
+  environment.systemPackages = with pkgs; [
+    docker-compose
+    podman-compose
 
- ];
+  ];
 
   # enable the docker service
   virtualisation = {

@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "sd_mod" ];
@@ -14,40 +15,47 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/83b007f0-5e1a-4e5d-a5fe-efa3ca97ca65";
+    {
+      device = "/dev/disk/by-uuid/83b007f0-5e1a-4e5d-a5fe-efa3ca97ca65";
       fsType = "btrfs";
       options = [ "subvol=@root" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/83b007f0-5e1a-4e5d-a5fe-efa3ca97ca65";
+    {
+      device = "/dev/disk/by-uuid/83b007f0-5e1a-4e5d-a5fe-efa3ca97ca65";
       fsType = "btrfs";
       options = [ "subvol=@home" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/83b007f0-5e1a-4e5d-a5fe-efa3ca97ca65";
+    {
+      device = "/dev/disk/by-uuid/83b007f0-5e1a-4e5d-a5fe-efa3ca97ca65";
       fsType = "btrfs";
       options = [ "subvol=@nix" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/BB7B-7FF2";
+    {
+      device = "/dev/disk/by-uuid/BB7B-7FF2";
       fsType = "vfat";
     };
 
   fileSystems."/vault/containers" =
-    { device = "/dev/disk/by-label/vault";
+    {
+      device = "/dev/disk/by-label/vault";
       fsType = "btrfs";
       options = [ "subvol=@containers" ];
-    };  
+    };
   fileSystems."/vault/datastorage" =
-    { device = "/dev/disk/by-label/vault";
+    {
+      device = "/dev/disk/by-label/vault";
       fsType = "btrfs";
       options = [ "subvol=@datastorage" ];
-    };  
+    };
   fileSystems."/vault-old" =
-    { device = "/dev/disk/by-label/vault";
+    {
+      device = "/dev/disk/by-label/vault";
       fsType = "btrfs";
     };
 
