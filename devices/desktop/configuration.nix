@@ -129,8 +129,6 @@
     tailscale
     nextcloud-client
     distrobox
-    gnome.gnome-tweaks
-    gnome-extension-manager
     pika-backup
     cifs-utils # Needed for automounting
     htop
@@ -143,10 +141,6 @@
     pavucontrol
     steamtinkerlaunch
     virt-manager
-
-    gnome.nautilus-python
-    gnome.sushi
-    nautilus-open-any-terminal
 
     unstable.r2modman
 

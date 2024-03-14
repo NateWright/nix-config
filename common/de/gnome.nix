@@ -12,4 +12,12 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    gnome.gnome-tweaks
+    gnome-extension-manager
+    gnome.nautilus-python
+    gnome.sushi
+    nautilus-open-any-terminal
+  ];
+
 }
