@@ -11,9 +11,9 @@
       ./amd.nix
       ../../common/pkgs.nix
       ../../common/de/common.nix
-      ../../common/de/plasma.nix
-      # ../../common/de/gnome.nix
-      ../../common/de/cosmic.nix
+      # ../../common/de/plasma.nix
+      ../../common/de/gnome.nix
+      # ../../common/de/cosmic.nix
     ];
 
   nixpkgs = {
@@ -157,13 +157,10 @@
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    gamescopeSession.enable = true;
   };
 
-  programs.steam.gamescopeSession.enable = true;
-
-  services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
-    nautilus-open-any-terminal
-  ];
+  services.gvfs.enable = true;
   services.fwupd = {
     enable = true;
   };
