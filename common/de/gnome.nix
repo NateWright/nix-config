@@ -19,5 +19,8 @@
     gnome.sushi
     nautilus-open-any-terminal
   ];
+  services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
+    nautilus-open-any-terminal
+  ];
 
 }
