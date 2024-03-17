@@ -175,8 +175,6 @@ in
     qemu
     bridge-utils
 
-    rnix-lsp
-
     unstable.godot_4
     distrobox
     tailscale
