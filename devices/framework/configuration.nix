@@ -12,9 +12,10 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./arduino.nix
-      # ./cinnamon.nix
       ./fonts.nix
       ../../common/pkgs.nix
+      ../../common/de/common.nix
+      ../../common/de/gnome.nix
     ];
 
   nixpkgs = {
@@ -79,22 +80,6 @@ in
     LC_PAPER = "en_US.UTF-8";
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
-  };
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.displayManager.sddm.theme = "tokyo-night-sddm";
-  services.xserver.desktopManager.gnome.enable = true;
-  # programs.hyprland.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
   };
 
   # Enable CUPS to print documents.
@@ -181,8 +166,8 @@ in
     unstable.cosmic-term
 
     gnome.gnome-boxes
-    (pkgs.wrapOBS {
-      plugins = with pkgs.obs-studio-plugins; [
+    (unstable.pkgs.wrapOBS {
+      plugins = with unstable.pkgs.obs-studio-plugins; [
         wlrobs
         obs-backgroundremoval
         obs-pipewire-audio-capture
@@ -202,19 +187,6 @@ in
   virtualisation.docker.storageDriver = "btrfs";
   xdg.portal.enable = true;
   virtualisation.libvirtd.enable = true;
-
-  # for obs
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    v4l2loopback
-  ];
-  boot.extraModprobeConfig = ''
-    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
-  '';
-  security.polkit.enable = true;
-
-  # xbox dongle support
-  hardware.xone.enable = true;
-  hardware.xpadneo.enable = true;
 
 
   # Some programs need SUID wrappers, can be configured further or are
