@@ -153,6 +153,7 @@ in
     tailscale-systray
     nextcloud-client
     pika-backup
+    libreoffice-fresh
     hunspell
     hunspellDicts.en_US
     unstable.arduino
