@@ -86,7 +86,7 @@ in
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplip ];
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
   # for a WiFi printer
   services.avahi.openFirewall = true;
 
@@ -144,7 +144,6 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
     busybox
     cifs-utils
@@ -183,6 +182,7 @@ in
       "lvfs-testing"
     ];
   };
+
   services.flatpak.enable = true;
   # virtualisation.podman.enable = true;
   virtualisation.docker.enable = true;
@@ -190,6 +190,8 @@ in
   xdg.portal.enable = true;
   virtualisation.libvirtd.enable = true;
 
+  hardware.xone.enable = true;
+  hardware.xpadneo.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
