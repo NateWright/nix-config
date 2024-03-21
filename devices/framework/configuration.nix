@@ -16,6 +16,7 @@ in
       ../../common/pkgs.nix
       ../../common/de/common.nix
       ../../common/de/gnome.nix
+      # ../../common/de/cosmic.nix
     ];
 
   nixpkgs = {
@@ -86,7 +87,7 @@ in
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplip ];
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
   # for a WiFi printer
   services.avahi.openFirewall = true;
 
@@ -153,6 +154,7 @@ in
     tailscale-systray
     nextcloud-client
     pika-backup
+    libreoffice-fresh
     hunspell
     hunspellDicts.en_US
     unstable.arduino
@@ -181,6 +183,7 @@ in
       "lvfs-testing"
     ];
   };
+
   services.flatpak.enable = true;
   # virtualisation.podman.enable = true;
   virtualisation.docker.enable = true;
@@ -188,6 +191,8 @@ in
   xdg.portal.enable = true;
   virtualisation.libvirtd.enable = true;
 
+  hardware.xone.enable = true;
+  hardware.xpadneo.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

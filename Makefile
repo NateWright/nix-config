@@ -12,6 +12,12 @@ desktop-boot:
 framework:
 	nixos-rebuild switch --flake .#nwright-framework
 
+framework-boot:
+	nixos-rebuild boot --flake .#nwright-framework
+
+framework-home-manager:
+	home-manager switch --flake .#nwright@framework
+
 server:
 	nixos-rebuild switch --flake .#server
 
