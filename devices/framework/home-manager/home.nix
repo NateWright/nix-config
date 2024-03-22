@@ -8,6 +8,7 @@
     # inputs.nix-colors.homeManagerModule
     inputs.nixvim.homeManagerModules.nixvim
     ./nvim.nix
+    ./vscode.nix
   ];
 
   nixpkgs = {
