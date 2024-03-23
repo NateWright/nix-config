@@ -24,6 +24,7 @@
       "workbench.productIconTheme" = "material-product-icons";
       "workbench.iconTheme" = "material-icon-theme";
       "C_Cpp.clang_format_fallbackStyle" = "{ BasedOnStyle: Google, IndentWidth: 4, TabWidth: 4, ColumnLimit: 0}";
+      "git.confirmSync" = false;
     };
 
   };
