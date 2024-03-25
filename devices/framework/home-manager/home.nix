@@ -9,6 +9,7 @@
     inputs.nixvim.homeManagerModules.nixvim
     ./nvim.nix
     ./vscode.nix
+    ./hyprland/ags.nix
   ];
 
   nixpkgs = {
