@@ -38,8 +38,13 @@
     homeDirectory = "/home/nwright";
   };
 
+  news.display = "silent";
+
   # Enable home-manager and git
   programs.home-manager.enable = true;
+
+  # Enable bluetooth pause/play
+  services.mpris-proxy.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
