@@ -25,11 +25,13 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
     ags.url = "github:Aylur/ags";
     astal.url = "github:Aylur/astal";
+    hyprland.url = "github:hyprwm/Hyprland";
+    matugen.url = "github:InioX/matugen";
 
     # gBar.url = "github:scorpion-26/gBar";
-    hyprland.url = "github:hyprwm/Hyprland";
     # hyprland-contrib = {
     #   url = "github:hyprwm/contrib";
     #   inputs.nixpkgs.follows = "nixpkgs";

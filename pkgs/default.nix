@@ -3,6 +3,6 @@
 { pkgs, inputs, system }: {
   nwright-hugo-website = inputs.nwright-hugo-website.packages.${system}.nwright-hugo-website;
 
-  ags-conf = pkgs.callPackage ./ags-conf/default.nix { };
+  # ags-conf = pkgs.callPackage ./ags-conf/default.nix { };
   alyur-dotfiles = pkgs.callPackage ./alyur-dotfiles.nix { };
 }

@@ -1,6 +1,6 @@
 { inputs, pkgs, ... }:
 let
-  asztal = pkgs.callPackage "${pkgs.alyur-dotfiles}/ags/default.nix" { };
+  asztal = pkgs.callPackage "${pkgs.alyur-dotfiles}/ags" { inherit inputs; };
 in
 {
   imports = [
@@ -25,7 +25,6 @@ in
     pavucontrol
     networkmanager
     gtk3
-    ags-conf
   ];
 
   programs.astal = {
@@ -37,6 +36,6 @@ in
 
   programs.ags = {
     enable = true;
-    configDir = pkgs.ags-conf;
+    configDir = "${pkgs.alyur-dotfiles}/ags";
   };
 }
