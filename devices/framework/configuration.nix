@@ -159,6 +159,7 @@ in
     hunspell
     hunspellDicts.en_US
     unstable.arduino
+    webcord
 
     qemu
     bridge-utils
