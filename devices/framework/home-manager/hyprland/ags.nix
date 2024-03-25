@@ -1,4 +1,8 @@
-{ inputs, pkgs, asztal, ... }: {
+{ inputs, pkgs, ... }:
+let
+  asztal = pkgs.callPackage "${pkgs.alyur-dotfiles}/ags/default.nix" { };
+in
+{
   imports = [
     inputs.ags.homeManagerModules.default
     inputs.astal.homeManagerModules.default
@@ -33,6 +37,6 @@
 
   programs.ags = {
     enable = true;
-    configDir = ${pkgs.ags-conf};
+    configDir = pkgs.ags-conf;
   };
 }

@@ -111,7 +111,7 @@
 
         "nwright@framework" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          extraSpecialArgs = { inherit outputs inputs; }; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
           modules = [
             ./devices/framework/home-manager/home.nix

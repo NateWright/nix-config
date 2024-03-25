@@ -1,15 +1,12 @@
 { lib, stdenvNoCC, fetchgit }:
 stdenvNoCC.mkDerivation
 rec {
-  name = "ags-conf";
+  name = "asztal";
   src = fetchgit {
     url = "https://github.com/Aylur/dotfiles";
-    sparseCheckout = [
-      "ags"
-    ];
   };
 
   installPhase = ''
-    cp -aR $src/ags $out
+    cp -aR $src $out
   '';
 }
