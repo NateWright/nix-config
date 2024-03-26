@@ -4,7 +4,7 @@
     enable = true;
     systemd.enable = true;
     settings = {
-      monitor = ",highres,auto,1.5";
+      monitor = "eDP-1,highres,auto,auto";
 
       input = {
         kb_layout = "us";
