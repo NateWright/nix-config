@@ -17,6 +17,7 @@
     gnome-extension-manager
     gnome.nautilus-python
     gnome.sushi
+    gnomeExtensions.pop-shell
     nautilus-open-any-terminal
   ];
   services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
