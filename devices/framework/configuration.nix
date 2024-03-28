@@ -16,7 +16,7 @@ in
       ../../common/pkgs.nix
       ../../common/de/common.nix
       ../../common/de/gnome.nix
-      ../../common/de/hyprland.nix
+      # ../../common/de/hyprland.nix
       # ../../common/de/cosmic.nix
     ];
 
@@ -45,10 +45,23 @@ in
     trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 0;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot = {
+
+    loader = {
+
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 5;
+      };
+
+      efi.canTouchEfiVariables = true;
+      timeout = 0;
+
+    };
+
+    kernelPackages = pkgs.linuxPackages_latest;
+
+  };
 
   fileSystems = {
     "/".options = [ "compress=zstd" "noatime" ];
