@@ -12,8 +12,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     nixos-cosmic = {
@@ -21,8 +21,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    ags.url = "github:Aylur/ags";
+    astal.url = "github:Aylur/astal";
+    hyprland.url = "github:hyprwm/Hyprland";
+    matugen.url = "github:InioX/matugen";
+
     # gBar.url = "github:scorpion-26/gBar";
-    # hyprland.url = "github:hyprwm/Hyprland";
     # hyprland-contrib = {
     #   url = "github:hyprwm/contrib";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -50,15 +59,7 @@
     rec {
       overlays = import ./overlays { inherit inputs; };
       nixosConfigurations = {
-        nwright-framework = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit outputs inputs; };
-          modules = [
-            nixos-hardware.nixosModules.framework-13-7040-amd
-            ./devices/framework/configuration.nix
-          ];
-        };
-        nwright-nixos-pc = nixpkgs-unstable.lib.nixosSystem {
+        nwright-framework = nixpkgs-unstable.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit outputs inputs; };
           modules = [
@@ -69,6 +70,21 @@
               };
             }
             nixos-cosmic.nixosModules.default
+            nixos-hardware.nixosModules.framework-13-7040-amd
+            ./devices/framework/configuration.nix
+          ];
+        };
+        nwright-nixos-pc = nixpkgs-unstable.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit outputs inputs; };
+          modules = [
+            # {
+            #   nix.settings = {
+            #     substituters = [ "https://cosmic.cachix.org/" ];
+            #     trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+            #   };
+            # }
+            # nixos-cosmic.nixosModules.default
             ./devices/desktop/configuration.nix
           ];
         };
@@ -93,6 +109,15 @@
           # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
           modules = [ ./devices/desktop/home-manager/home.nix ];
+        };
+
+        "nwright@framework" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = { inherit outputs inputs; }; # Pass flake inputs to our config
+          # > Our main home-manager configuration file <
+          modules = [
+            ./devices/framework/home-manager/home.nix
+          ];
         };
 
       };

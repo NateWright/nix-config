@@ -12,9 +12,12 @@ in
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./arduino.nix
-      # ./cinnamon.nix
       ./fonts.nix
       ../../common/pkgs.nix
+      ../../common/de/common.nix
+      ../../common/de/gnome.nix
+      # ../../common/de/hyprland.nix
+      # ../../common/de/cosmic.nix
     ];
 
   nixpkgs = {
@@ -22,6 +25,7 @@ in
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.unstable-packages
+      outputs.overlays.modifications
     ];
     # Configure your nixpkgs instance
     config = {
@@ -29,6 +33,7 @@ in
       allowUnfree = true;
     };
   };
+
   nix.settings = {
     # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
@@ -36,12 +41,27 @@ in
     auto-optimise-store = true;
     trusted-users = [ "nwright" ];
 
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 0;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot = {
+
+    loader = {
+
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 5;
+      };
+
+      efi.canTouchEfiVariables = true;
+      timeout = 0;
+
+    };
+
+    kernelPackages = pkgs.linuxPackages_latest;
+
+  };
 
   fileSystems = {
     "/".options = [ "compress=zstd" "noatime" ];
@@ -81,27 +101,11 @@ in
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.displayManager.sddm.theme = "tokyo-night-sddm";
-  services.xserver.desktopManager.gnome.enable = true;
-  # programs.hyprland.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplip ];
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
   # for a WiFi printer
   services.avahi.openFirewall = true;
 
@@ -168,14 +172,14 @@ in
     tailscale-systray
     nextcloud-client
     pika-backup
+    libreoffice-fresh
     hunspell
     hunspellDicts.en_US
     unstable.arduino
+    webcord
 
     qemu
     bridge-utils
-
-    rnix-lsp
 
     unstable.godot_4
     distrobox
@@ -183,8 +187,8 @@ in
     unstable.cosmic-term
 
     gnome.gnome-boxes
-    (pkgs.wrapOBS {
-      plugins = with pkgs.obs-studio-plugins; [
+    (unstable.pkgs.wrapOBS {
+      plugins = with unstable.pkgs.obs-studio-plugins; [
         wlrobs
         obs-backgroundremoval
         obs-pipewire-audio-capture
@@ -198,6 +202,7 @@ in
       "lvfs-testing"
     ];
   };
+
   services.flatpak.enable = true;
   # virtualisation.podman.enable = true;
   virtualisation.docker.enable = true;
@@ -205,19 +210,8 @@ in
   xdg.portal.enable = true;
   virtualisation.libvirtd.enable = true;
 
-  # for obs
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    v4l2loopback
-  ];
-  boot.extraModprobeConfig = ''
-    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
-  '';
-  security.polkit.enable = true;
-
-  # xbox dongle support
   hardware.xone.enable = true;
   hardware.xpadneo.enable = true;
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
