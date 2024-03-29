@@ -1,22 +1,23 @@
-{ pkgs }:
+{ config, pkgs, ... }:
 let
   serverName = "nwright.tech";
   webRoot = "/var/www/${serverName}";
 in
 {
-  systemd.services.nate-wright = {
+  systemd.services.${serverName} = {
     enable = true;
-    path = [ pkgs.nix ];
+    description = ''
+      https://${serverName} source
+    '';
     serviceConfig = {
       Type = "oneshot";
-      startAt = "*:0/5";
-      script = ''
-        set -ex
-
-        result=$(nix build github:NateWright/NateWright)
-
-        ln -sfT $result${webRoot} ${webRoot}
-      '';
     };
+    path = [ pkgs.nix ];
+    startAt = "*:0/5";
+    script = ''
+      set -ex
+
+      nix build github:NateWright/NateWright --out-link ${webRoot}
+    '';
   };
 }

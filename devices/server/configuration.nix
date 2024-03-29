@@ -21,6 +21,7 @@
       ./tailscale.nix
       ./vs-code-server.nix
       ./virtmanager.nix
+      ./NateWright.nix
       ../../common/pkgs.nix
     ];
 
