@@ -37,8 +37,6 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
-    nwright-hugo-website.url = "github:NateWright/NateWright";
-
 
   };
 
@@ -50,7 +48,6 @@
     , nixos-cosmic
     , home-manager
     , vscode-server
-    , nwright-hugo-website
     , ...
     }@inputs:
     let
