@@ -83,7 +83,6 @@
         '';
       };
 
-
     };
   };
   services.nginx.virtualHosts."blog" = {
@@ -91,6 +90,12 @@
     enableACME = false;
     listen = [{ port = 8013; addr = "0.0.0.0"; ssl = false; }];
     root = pkgs.nwright-hugo-website;
+  };
+  services.nginx.virtualHosts."test" = {
+    forceSSL = false;
+    enableACME = false;
+    listen = [{ port = 8090; addr = "0.0.0.0"; ssl = false; }];
+    root = "/var/www/nwright.tech";
   };
 
   # services.nginx.virtualHosts."blog2" = {
