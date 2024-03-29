@@ -17,7 +17,7 @@ in
     script = ''
       set -ex
 
-      nix build github:NateWright/NateWright --out-link ${webRoot}
+      nix build github:NateWright/NateWright --out-link ${webRoot} --extra-experimental-features nix-command --extra-experimental-features flakes
     '';
   };
 }
