@@ -2,12 +2,6 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 { config, lib, pkgs, modulesPath, ... }:
-let
-  xone-module = pkgs.callPackage ./xone/default.nix {
-    # Make sure the module targets the same kernel as your system is using.
-    kernel = config.boot.kernelPackages.kernel;
-  };
-in
 {
   imports =
     [
