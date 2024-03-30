@@ -9,9 +9,10 @@
     inputs.nixvim.homeManagerModules.nixvim
     ./nvim.nix
     ./vscode.nix
-    ./hyprland/ags.nix
-    ./hyprland/hyprland.nix
-    ./hyprland/theme.nix
+    ./helix.nix
+    # ./hyprland/ags.nix
+    # ./hyprland/hyprland.nix
+    # ./hyprland/theme.nix
   ];
 
   nixpkgs = {
@@ -49,6 +50,13 @@
 
   # Enable bluetooth pause/play
   services.mpris-proxy.enable = true;
+
+  # Gnome fractional scaling
+  dconf.settings = {
+    "org/gnome/mutter" = {
+      experimental-features = [ "scale-monitor-framebuffer" ];
+    };
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
