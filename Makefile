@@ -9,6 +9,9 @@ desktop:
 desktop-boot:
 	nixos-rebuild boot --flake .#nwright-nixos-pc
 
+desktop-home-manager:
+	home-manager switch --flake .#nwright@nwright-nixos-pc
+
 framework:
 	nixos-rebuild switch --flake .#nwright-framework
 
