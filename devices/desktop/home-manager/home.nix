@@ -9,6 +9,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
+    ../../framework/home-manager/vscode.nix
   ];
 
   nixpkgs = {
@@ -40,10 +41,10 @@
 
   gtk = {
     enable = true;
-    # font.name = "TeX Gyre Adventor 10";
+    cursorTheme.name = "Adwaita";
     theme = {
-      name = "Adwaita-dark";
-      # package = pkgs.dracula-theme;
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
     };
     iconTheme = {
       name = "Papirus-Dark";
@@ -51,18 +52,22 @@
     };
 
     gtk3.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
+      gtk-application-prefer-dark-theme = 0;
     };
 
     gtk4.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
+      gtk-application-prefer-dark-theme = 0;
     };
 
   };
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      gtk-theme = "adw-gtk3-dark";
+    };
+  };
+  home.sessionVariables.GTK_THEME = "adw-gtk3-dark";
 
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
