@@ -27,6 +27,7 @@
       "git.confirmSync" = false;
       "window.titleBarStyle" = "custom";
       "window.zoomLevel" = 1;
+      "git.autofetch" = true;
     };
 
   };
