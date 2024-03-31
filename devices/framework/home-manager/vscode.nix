@@ -8,7 +8,7 @@
       ms-vscode.cpptools-extension-pack
       ms-vscode.cpptools
       ms-vsliveshare.vsliveshare
-      github.copilot
+      # github.copilot
       streetsidesoftware.code-spell-checker
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
       {
