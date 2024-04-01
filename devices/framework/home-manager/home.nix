@@ -2,19 +2,16 @@
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
 { lib, config, pkgs, inputs, outputs, ... }:
-let
-  common = "../../../common";
-in
 {
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
     inputs.nixvim.homeManagerModules.nixvim
-    ${common}/home-manager/gtk.nix
-    ${common}/home-manager/vscode.nix
-    ${common}/home-manager/helix.nix
-    ${common}/home-manager/nvim.nix
+    ../../../common/home-manager/gtk.nix
+    ../../../common/home-manager/vscode.nix
+    ../../../common/home-manager/helix.nix
+    ../../../common/home-manager/nvim.nix
     # ./hyprland/ags.nix
     # ./hyprland/hyprland.nix
     # ./hyprland/theme.nix
