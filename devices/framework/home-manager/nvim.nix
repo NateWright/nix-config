@@ -2,7 +2,7 @@
   programs.nixvim = {
     enable = true;
 
-    options = {
+    opts = {
       number = true;
       relativenumber = true;
       incsearch = true;
