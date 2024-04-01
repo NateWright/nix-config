@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }: {
   programs.helix = {
     enable = true;
-    extraPackages = with pkgs; [ marksman clang-tools nil ];
+    extraPackages = with pkgs; [ marksman clang-tools nil gopls ];
     settings = { theme = "onedark"; };
     languages = {
 
@@ -27,7 +27,14 @@
         {
           name = "c";
           auto-format = true;
-          formatter.command = "${pkgs.clang-tools}/bin/clang-format";
+          formatter = {
+            command = "${pkgs.clang-tools}/bin/clang-format";
+            args = [ ''--args="{ColumnLimit: 120}"'' ];
+          };
+        }
+        {
+          name = "go";
+          auto-format = true;
         }
       ];
     };
