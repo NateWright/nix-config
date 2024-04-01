@@ -1,7 +1,11 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
-{ lib, config, pkgs, ... }: {
+{ lib, config, pkgs, ... }:
+let
+  common = "../../../common";
+in
+{
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -9,7 +13,10 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    ../../framework/home-manager/vscode.nix
+    ${common}/home-manager/gtk.nix
+    ${common}/home-manager/vscode.nix
+    ${common}/home-manager/helix.nix
+    ${common}/home-manager/nvim.nix
   ];
 
   nixpkgs = {
@@ -39,35 +46,7 @@
     homeDirectory = "/home/nwright";
   };
 
-  gtk = {
-    enable = true;
-    cursorTheme.name = "Adwaita";
-    theme = {
-      name = "adw-gtk3-dark";
-      package = pkgs.adw-gtk3;
-    };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
 
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 0;
-    };
-
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 0;
-    };
-
-  };
-
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-      gtk-theme = "adw-gtk3-dark";
-    };
-  };
-  home.sessionVariables.GTK_THEME = "adw-gtk3-dark";
 
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
