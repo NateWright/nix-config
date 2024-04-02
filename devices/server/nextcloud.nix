@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   services.nextcloud = {
     enable = true;
     configureRedis = true;
@@ -13,23 +12,30 @@
       dbname = "nextcloud";
       adminpassFile = "/etc/nixos/password.txt";
       adminuser = "root";
-      trustedProxies = [ "localhost" "127.0.0.1" "172.17.0.1" "100.93.196.119" "nwright.cloud" ];
+      trustedProxies = [
+        "localhost"
+        "127.0.0.1"
+        "172.17.0.1"
+        "100.93.196.119"
+        "nwright.cloud"
+      ];
       extraTrustedDomains = [ "nwright.cloud" ];
       overwriteProtocol = "https";
       defaultPhoneRegion = "US";
     };
   };
-
+  # Fix for Photoprism sync to nextcloud
+  services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
+    fastcgi_buffering = "on";
+  };
   services.postgresql = {
     enable = true;
     dataDir = "/vault/datastorage/nextcloud-postgres";
     ensureDatabases = [ "nextcloud" ];
-    ensureUsers = [
-      {
-        name = "nextcloud";
-        ensureDBOwnership = true;
-      }
-    ];
+    ensureUsers = [{
+      name = "nextcloud";
+      ensureDBOwnership = true;
+    }];
   };
 
   # ensure that postgres is running *before* running the setup
@@ -38,6 +44,9 @@
     after = [ "postgresql.service" ];
   };
 
-  services.nginx.virtualHosts."nix-nextcloud".listen = [{ addr = "127.0.0.1"; port = 8009; }];
+  services.nginx.virtualHosts."nix-nextcloud".listen = [{
+    addr = "127.0.0.1";
+    port = 8009;
+  }];
 
 }
