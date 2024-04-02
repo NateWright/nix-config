@@ -42,11 +42,9 @@
   };
 
   services.nginx.virtualHosts."nix-nextcloud" = {
-    locations = {
-      "/" = {
-        # Fix for Photoprism sync to nextcloud
-        fastcgi_buffering = "on";
-      };
+    "/" = {
+      # Fix for Photoprism sync to nextcloud
+      fastcgi_buffering = "on";
     };
     listen = [{
       addr = "127.0.0.1";
