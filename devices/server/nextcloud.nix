@@ -24,10 +24,7 @@
       defaultPhoneRegion = "US";
     };
   };
-  # Fix for Photoprism sync to nextcloud
-  services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
-    fastcgi_buffering = "on";
-  };
+
   services.postgresql = {
     enable = true;
     dataDir = "/vault/datastorage/nextcloud-postgres";
@@ -44,9 +41,16 @@
     after = [ "postgresql.service" ];
   };
 
-  services.nginx.virtualHosts."nix-nextcloud".listen = [{
-    addr = "127.0.0.1";
-    port = 8009;
-  }];
-
+  services.nginx.virtualHosts."nix-nextcloud" = {
+    locations = {
+      "/" = {
+        # Fix for Photoprism sync to nextcloud
+        fastcgi_buffering = "on";
+      };
+    };
+    listen = [{
+      addr = "127.0.0.1";
+      port = 8009;
+    }];
+  };
 }
