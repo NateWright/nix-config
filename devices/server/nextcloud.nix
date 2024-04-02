@@ -1,4 +1,7 @@
 { config, pkgs, ... }: {
+
+  imports = [ ./nextcloud-module.nix ];
+  disabledModules = [ "services/web-apps/nextcloud.nix" ];
   services.nextcloud = {
     enable = true;
     configureRedis = true;
