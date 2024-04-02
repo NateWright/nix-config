@@ -1,6 +1,7 @@
 { lib, config, pkgs, ... }: {
   programs.helix = {
     enable = true;
+    defaultEditor = true;
     extraPackages = with pkgs; [ marksman clang-tools nil gopls ];
     settings = { theme = "onedark"; };
     languages = {
