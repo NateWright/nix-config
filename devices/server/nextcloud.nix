@@ -26,6 +26,7 @@
       overwriteProtocol = "https";
       defaultPhoneRegion = "US";
     };
+    nginx.enableFastcgiRequestBuffering = true;
   };
 
   services.postgresql = {
@@ -45,10 +46,6 @@
   };
 
   services.nginx.virtualHosts."nix-nextcloud" = {
-    "/" = {
-      # Fix for Photoprism sync to nextcloud
-      fastcgi_buffering = "on";
-    };
     listen = [{
       addr = "127.0.0.1";
       port = 8009;
