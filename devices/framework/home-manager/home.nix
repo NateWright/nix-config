@@ -1,8 +1,7 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
-{ lib, config, pkgs, inputs, outputs, ... }:
-{
+{ lib, config, pkgs, inputs, outputs, ... }: {
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -43,12 +42,14 @@
   home = {
     username = "nwright";
     homeDirectory = "/home/nwright";
+
+    packages = with pkgs; [ gh ];
   };
 
   news.display = "silent";
 
   # Enable home-manager and git
-  programs.home-manager.enable = true;
+  programs = { home-manager.enable = true; };
 
   # Enable bluetooth pause/play
   services.mpris-proxy.enable = true;
