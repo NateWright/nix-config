@@ -1257,6 +1257,7 @@ in {
               fastcgi_pass unix:${fpm.socket};
               fastcgi_intercept_errors on;
               fastcgi_request_buffering ${cfg.nginx.enableFastcgiRequestBuffering};
+              chunked_transfer_encoding on;
               fastcgi_read_timeout ${builtins.toString cfg.fastcgiTimeout}s;
             '';
           };
