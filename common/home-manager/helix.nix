@@ -2,19 +2,15 @@
   programs.helix = {
     enable = true;
     defaultEditor = true;
-    extraPackages = with pkgs; [ marksman clang-tools nil gopls ];
+    extraPackages = with pkgs; [
+      marksman
+      clang-tools
+      nil
+      gopls
+      python311Packages.python-lsp-server
+    ];
     settings = { theme = "onedark"; };
     languages = {
-
-      language-server.typescript-language-server = with pkgs.nodePackages; {
-        command =
-          "${typescript-language-server}/bin/typescript-language-server";
-        args = [
-          "--stdio"
-          "--tsserver-path=${typescript}/lib/node_modules/typescript/lib"
-        ];
-      };
-
       language = [
         {
           name = "rust";
@@ -37,7 +33,27 @@
           name = "go";
           auto-format = true;
         }
+        {
+          name = "python";
+          auto-format = true;
+          language-servers = [ "pylsp" ];
+        }
       ];
+      language-server = {
+        pylsp = {
+          command = "${pkgs.python311Packages.python-lsp-server}/bin/pylsp";
+          config = { provideFormatter = true; };
+        };
+
+        typescript-language-server = with pkgs.nodePackages; {
+          command =
+            "${typescript-language-server}/bin/typescript-language-server";
+          args = [
+            "--stdio"
+            "--tsserver-path=${typescript}/lib/node_modules/typescript/lib"
+          ];
+        };
+      };
     };
   };
 }
