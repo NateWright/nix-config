@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }: {
+{ pkgs, ... }: {
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -8,6 +8,7 @@
       nil
       gopls
       python311Packages.python-lsp-server
+      marksman
     ];
     settings = { theme = "onedark"; };
     languages = {
@@ -26,7 +27,7 @@
           auto-format = true;
           formatter = {
             command = "${pkgs.clang-tools}/bin/clang-format";
-            args = [ ''--args="{ColumnLimit: 120}"'' ];
+            args = [ "--style=file" "--fallback-style" "LLVM" ];
           };
         }
         {
