@@ -188,9 +188,9 @@
   };
 
   services.flatpak.enable = true;
-  # virtualisation.podman.enable = true;
-  virtualisation.docker.enable = true;
-  virtualisation.docker.storageDriver = "btrfs";
+  virtualisation.podman.enable = true;
+  # virtualisation.docker.enable = true;
+  # virtualisation.docker.storageDriver = "btrfs";
   xdg.portal.enable = true;
   virtualisation.libvirtd.enable = true;
 
