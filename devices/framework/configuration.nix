@@ -2,23 +2,18 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, outputs, ... }:
-let
-  #tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
-in
-{
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./arduino.nix
-      ./fonts.nix
-      ../../common/pkgs.nix
-      ../../common/de/common.nix
-      ../../common/de/gnome.nix
-      # ../../common/de/hyprland.nix
-      # ../../common/de/cosmic.nix
-    ];
+{ config, pkgs, inputs, outputs, ... }: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./arduino.nix
+    ./fonts.nix
+    ../../common/pkgs.nix
+    ../../common/de/common.nix
+    ../../common/de/gnome.nix
+    # ../../common/de/hyprland.nix
+    # ../../common/de/cosmic.nix
+  ];
 
   nixpkgs = {
     # You can add overlays here
@@ -42,7 +37,8 @@ in
     trusted-users = [ "nwright" ];
 
     substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    trusted-public-keys =
+      [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
   # Bootloader.
   boot = {
@@ -109,7 +105,6 @@ in
   # for a WiFi printer
   services.avahi.openFirewall = true;
 
-
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -127,11 +122,7 @@ in
     #media-session.enable = true;
   };
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.settings = {
-    General = {
-      Experimental = true;
-    };
-  };
+  hardware.bluetooth.settings = { General = { Experimental = true; }; };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -140,16 +131,12 @@ in
   users.users.nwright = {
     isNormalUser = true;
     description = "nwright";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-      "libvirtd"
-    ];
-    packages = with pkgs; [
-      firefox
-      #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
+    packages = with pkgs;
+      [
+        firefox
+        #  thunderbird
+      ];
   };
 
   # Enable automatic login for the user.
@@ -159,7 +146,6 @@ in
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   # systemd.services."getty@tty1".enable = false;
   # systemd.services."autovt@tty1".enable = false;
-
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -198,9 +184,7 @@ in
   ];
   services.fwupd = {
     enable = true;
-    extraRemotes = [
-      "lvfs-testing"
-    ];
+    extraRemotes = [ "lvfs-testing" ];
   };
 
   services.flatpak.enable = true;
@@ -244,18 +228,10 @@ in
     trustedInterfaces = [ "tailscale0" ];
 
     # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [
-      config.services.tailscale.port
-      7236
-      5353
-    ];
+    allowedUDPPorts = [ config.services.tailscale.port 7236 5353 ];
 
     # allow you to SSH in over the public internet
-    allowedTCPPorts = [
-      22
-      7236
-      7250
-    ];
+    allowedTCPPorts = [ 22 7236 7250 ];
   };
 
   # Open ports in the firewall.
