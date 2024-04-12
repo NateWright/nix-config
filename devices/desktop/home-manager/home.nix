@@ -13,7 +13,6 @@
     ../../../common/home-manager/gtk.nix
     ../../../common/home-manager/vscode.nix
     ../../../common/home-manager/helix.nix
-    ../../../common/home-manager/nvim.nix
   ];
 
   nixpkgs = {
