@@ -2,25 +2,25 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, outputs, ... }:
-{
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./amd.nix
-      ../../common/pkgs.nix
-      ../../common/de/common.nix
-      # ../../common/de/plasma.nix
-      ../../common/de/gnome.nix
-      # ../../common/de/cosmic.nix
-    ];
+{ config, pkgs, inputs, outputs, ... }: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./amd.nix
+    ../../common/pkgs.nix
+    ../../common/de/common.nix
+    # ../../common/de/plasma.nix
+    ../../common/de/gnome.nix
+    # ../../common/de/cosmic.nix
+  ];
 
   nixpkgs = {
     # You can add overlays here
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.unstable-packages
+      outputs.overlays.modifications
+      outputs.overlays.additions
     ];
     # Configure your nixpkgs instance
     config = {
@@ -38,17 +38,12 @@
     };
   };
 
-
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  fileSystems = {
-    "/home/nwright/Vault".options = [ "compress=zstd" ];
-  };
-
+  fileSystems = { "/home/nwright/Vault".options = [ "compress=zstd" ]; };
 
   networking.hostName = "nwright-nixos-pc"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -110,9 +105,7 @@
     isNormalUser = true;
     description = "Nathan Wright";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-      firefox
-    ];
+    packages = with pkgs; [ firefox ];
   };
 
   # Enable automatic login for the user.
@@ -137,7 +130,6 @@
     htop
     lm_sensors
     radeontop
-    busybox
     pulseaudio
     godot_4
     gpu-screen-recorder
@@ -158,17 +150,15 @@
   programs.gamescope.enable = true;
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    remotePlay.openFirewall =
+      true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall =
+      true; # Open ports in the firewall for Source Dedicated Server
     gamescopeSession.enable = true;
   };
 
   services.gvfs.enable = true;
-  services.fwupd = {
-    enable = true;
-  };
-
-
+  services.fwupd = { enable = true; };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
