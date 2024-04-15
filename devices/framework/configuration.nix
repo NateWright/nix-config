@@ -131,7 +131,7 @@
   users.users.nwright = {
     isNormalUser = true;
     description = "nwright";
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "kvm" ];
     packages = with pkgs;
       [
         firefox
@@ -150,7 +150,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    busybox
+    # busybox
     cifs-utils
     tpm2-tss
 
@@ -188,9 +188,9 @@
   };
 
   services.flatpak.enable = true;
-  virtualisation.podman.enable = true;
-  # virtualisation.docker.enable = true;
-  # virtualisation.docker.storageDriver = "btrfs";
+  # virtualisation.podman.enable = true;
+  virtualisation.docker.enable = true;
+  virtualisation.docker.storageDriver = "btrfs";
   xdg.portal.enable = true;
   virtualisation.libvirtd.enable = true;
 
