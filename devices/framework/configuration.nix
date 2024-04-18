@@ -36,9 +36,12 @@
     auto-optimise-store = true;
     trusted-users = [ "nwright" ];
 
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys =
-      [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    substituters =
+      [ "https://hyprland.cachix.org" "https://cosmic.cachix.org/" ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+    ];
   };
   # Bootloader.
   boot = {
@@ -122,7 +125,14 @@
     #media-session.enable = true;
   };
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.settings = { General = { Experimental = true; }; };
+  hardware.bluetooth.settings = {
+    General = {
+      Experimental = true;
+      ControllerMode = "dual";
+      MultiProfile = "multiple";
+      AutoEnable = true;
+    };
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
