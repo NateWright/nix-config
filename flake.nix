@@ -17,15 +17,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    # nixvim = {
+    #   url = "github:nix-community/nixvim";
+    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # };
 
-    ags.url = "github:Aylur/ags";
-    astal.url = "github:Aylur/astal";
-    hyprland.url = "github:hyprwm/Hyprland";
-    matugen.url = "github:InioX/matugen";
+    # ags.url = "github:Aylur/ags";
+    # astal.url = "github:Aylur/astal";
+    # hyprland.url = "github:hyprwm/Hyprland";
+    # matugen.url = "github:InioX/matugen";
 
     # gBar.url = "github:scorpion-26/gBar";
     # hyprland-contrib = {
