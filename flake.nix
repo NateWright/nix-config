@@ -3,12 +3,8 @@
   description = "flake for nwright-surface";
 
   inputs = {
-    nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-23.11";
-    };
-    nixpkgs-unstable = {
-      url = "github:Nixos/nixpkgs/nixos-unstable";
-    };
+    nixpkgs = { url = "github:NixOS/nixpkgs/nixos-23.11"; };
+    nixpkgs-unstable = { url = "github:Nixos/nixpkgs/nixos-unstable"; };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
@@ -21,15 +17,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    # nixvim = {
+    #   url = "github:nix-community/nixvim";
+    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # };
 
-    ags.url = "github:Aylur/ags";
-    astal.url = "github:Aylur/astal";
-    hyprland.url = "github:hyprwm/Hyprland";
-    matugen.url = "github:InioX/matugen";
+    # ags.url = "github:Aylur/ags";
+    # astal.url = "github:Aylur/astal";
+    # hyprland.url = "github:hyprwm/Hyprland";
+    # matugen.url = "github:InioX/matugen";
 
     # gBar.url = "github:scorpion-26/gBar";
     # hyprland-contrib = {
@@ -40,32 +36,16 @@
 
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , nixpkgs-unstable
-    , nixos-hardware
-    , nixos-cosmic
-    , home-manager
-    , vscode-server
-    , ...
-    }@inputs:
-    let
-      inherit (self) outputs;
-    in
-    rec {
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nixos-cosmic
+    , home-manager, vscode-server, ... }@inputs:
+    let inherit (self) outputs;
+    in rec {
       overlays = import ./overlays { inherit inputs; };
       nixosConfigurations = {
         nwright-framework = nixpkgs-unstable.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit outputs inputs; };
           modules = [
-            {
-              nix.settings = {
-                substituters = [ "https://cosmic.cachix.org/" ];
-                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-              };
-            }
             nixos-cosmic.nixosModules.default
             nixos-hardware.nixosModules.framework-13-7040-amd
             ./devices/framework/configuration.nix
@@ -96,25 +76,30 @@
       };
       homeConfigurations = {
         "nwright@nwright-surface" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          pkgs =
+            nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = {
+            inherit inputs;
+          }; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
           modules = [ ./devices/surface/home-manager/home.nix ];
         };
         "nwright@nwright-nixos-pc" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          pkgs =
+            nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
           modules = [ ./devices/desktop/home-manager/home.nix ];
         };
 
         "nwright@framework" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit outputs inputs; }; # Pass flake inputs to our config
+          pkgs =
+            nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = {
+            inherit outputs inputs;
+          }; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
-          modules = [
-            ./devices/framework/home-manager/home.nix
-          ];
+          modules = [ ./devices/framework/home-manager/home.nix ];
         };
 
       };

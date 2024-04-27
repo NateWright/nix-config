@@ -2,23 +2,18 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, outputs, ... }:
-let
-  #tokyo-night-sddm = pkgs.libsForQt5.callPackage ./tokyo-night-sddm/default.nix { };
-in
-{
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./arduino.nix
-      ./fonts.nix
-      ../../common/pkgs.nix
-      ../../common/de/common.nix
-      ../../common/de/gnome.nix
-      # ../../common/de/hyprland.nix
-      # ../../common/de/cosmic.nix
-    ];
+{ config, pkgs, inputs, outputs, ... }: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./arduino.nix
+    ./fonts.nix
+    ../../common/pkgs.nix
+    ../../common/de/common.nix
+    ../../common/de/gnome.nix
+    # ../../common/de/hyprland.nix
+    # ../../common/de/cosmic.nix
+  ];
 
   nixpkgs = {
     # You can add overlays here
@@ -41,8 +36,12 @@ in
     auto-optimise-store = true;
     trusted-users = [ "nwright" ];
 
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+    substituters =
+      [ "https://hyprland.cachix.org" "https://cosmic.cachix.org/" ];
+    trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+    ];
   };
   # Bootloader.
   boot = {
@@ -109,7 +108,6 @@ in
   # for a WiFi printer
   services.avahi.openFirewall = true;
 
-
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
@@ -130,6 +128,9 @@ in
   hardware.bluetooth.settings = {
     General = {
       Experimental = true;
+      ControllerMode = "dual";
+      MultiProfile = "multiple";
+      AutoEnable = true;
     };
   };
 
@@ -140,16 +141,12 @@ in
   users.users.nwright = {
     isNormalUser = true;
     description = "nwright";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "docker"
-      "libvirtd"
-    ];
-    packages = with pkgs; [
-      firefox
-      #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "kvm" ];
+    packages = with pkgs;
+      [
+        firefox
+        #  thunderbird
+      ];
   };
 
   # Enable automatic login for the user.
@@ -160,11 +157,10 @@ in
   # systemd.services."getty@tty1".enable = false;
   # systemd.services."autovt@tty1".enable = false;
 
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    busybox
+    # busybox
     cifs-utils
     tpm2-tss
 
@@ -198,9 +194,7 @@ in
   ];
   services.fwupd = {
     enable = true;
-    extraRemotes = [
-      "lvfs-testing"
-    ];
+    extraRemotes = [ "lvfs-testing" ];
   };
 
   services.flatpak.enable = true;
@@ -244,18 +238,10 @@ in
     trustedInterfaces = [ "tailscale0" ];
 
     # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [
-      config.services.tailscale.port
-      7236
-      5353
-    ];
+    allowedUDPPorts = [ config.services.tailscale.port 7236 5353 ];
 
     # allow you to SSH in over the public internet
-    allowedTCPPorts = [
-      22
-      7236
-      7250
-    ];
+    allowedTCPPorts = [ 22 7236 7250 ];
   };
 
   # Open ports in the firewall.

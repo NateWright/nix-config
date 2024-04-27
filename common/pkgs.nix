@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
-{
+{ pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     vim
     wget
     unzip
     zip
+    glow
     bat
     git
     gnumake
