@@ -1,6 +1,6 @@
 # /etc/nixos/flake.nix
 {
-  description = "flake for nwright-surface";
+  description = "flake for nwright's machines";
 
   inputs = {
     nixpkgs = { url = "github:NixOS/nixpkgs/nixos-23.11"; };
@@ -8,6 +8,10 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
+      url = "github:nix-community/home-manager/release-23.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager-unstable = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
@@ -37,7 +41,7 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nixos-cosmic
-    , home-manager, vscode-server, ... }@inputs:
+    , home-manager, home-manager-unstable, vscode-server, ... }@inputs:
     let inherit (self) outputs;
     in rec {
       overlays = import ./overlays { inherit inputs; };
@@ -75,31 +79,34 @@
         };
       };
       homeConfigurations = {
-        "nwright@nwright-surface" = home-manager.lib.homeManagerConfiguration {
+        "nwright@nwright-nixos-pc" =
+          home-manager-unstable.lib.homeManagerConfiguration {
+            pkgs =
+              nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+            # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+            # > Our main home-manager configuration file <
+            modules = [ ./devices/desktop/home-manager/home.nix ];
+          };
+
+        "nwright@framework" =
+          home-manager-unstable.lib.homeManagerConfiguration {
+            pkgs =
+              nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+            extraSpecialArgs = {
+              inherit outputs inputs;
+            }; # Pass flake inputs to our config
+            # > Our main home-manager configuration file <
+            modules = [ ./devices/framework/home-manager/home.nix ];
+          };
+
+        "nwright@server" = home-manager.lib.homeManagerConfiguration {
           pkgs =
             nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = {
-            inherit inputs;
-          }; # Pass flake inputs to our config
-          # > Our main home-manager configuration file <
-          modules = [ ./devices/surface/home-manager/home.nix ];
-        };
-        "nwright@nwright-nixos-pc" = home-manager.lib.homeManagerConfiguration {
-          pkgs =
-            nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-          # > Our main home-manager configuration file <
-          modules = [ ./devices/desktop/home-manager/home.nix ];
-        };
-
-        "nwright@framework" = home-manager.lib.homeManagerConfiguration {
-          pkgs =
-            nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = {
             inherit outputs inputs;
           }; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
-          modules = [ ./devices/framework/home-manager/home.nix ];
+          modules = [ ./devices/server/home-manager/home.nix ];
         };
 
       };

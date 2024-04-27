@@ -24,5 +24,8 @@ framework-home-manager:
 server:
 	nixos-rebuild switch --flake .#server
 
+server-home-manager:
+	home-manager switch --flake .#nwright@server
+
 update:
 	nix flake update
