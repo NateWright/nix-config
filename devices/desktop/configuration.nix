@@ -138,6 +138,7 @@
     virt-manager
 
     unstable.r2modman
+    webcord
 
     (pkgs.wrapOBS {
       plugins = with pkgs.obs-studio-plugins; [
