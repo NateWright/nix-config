@@ -5,25 +5,24 @@
 { config, pkgs, inputs, outputs, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./caddy.nix
-      ./cloudflared.nix
-      ./data-collection.nix
-      ./docker.nix
-      ./hardware-configuration.nix
-      ./minecraft.nix
-      ./nextcloud.nix
-      ./photoprism.nix
-      ./samba.nix
-      ./snapper.nix
-      ./tailscale.nix
-      ./vs-code-server.nix
-      ./virtmanager.nix
-      ./NateWright.nix
-      ../../common/pkgs.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./caddy.nix
+    ./cloudflared.nix
+    ./data-collection.nix
+    ./docker.nix
+    ./hardware-configuration.nix
+    ./minecraft.nix
+    ./nextcloud.nix
+    ./photoprism.nix
+    ./samba.nix
+    ./snapper.nix
+    ./tailscale.nix
+    ./vs-code-server.nix
+    ./virtmanager.nix
+    ./NateWright.nix
+    ../../common/pkgs.nix
+  ];
 
   nixpkgs = {
     # You can add overlays here
@@ -39,11 +38,9 @@
     };
   };
 
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
 
   fileSystems = {
     "/".options = [ "compress=zstd" ];
@@ -58,7 +55,6 @@
     interval = "monthly";
     fileSystems = [ "/" ];
   };
-
 
   networking.hostName = "nixos"; # Define your hostname.
 
@@ -134,11 +130,7 @@
     isNormalUser = true;
     description = "nwright";
     extraGroups = [ "networkmanager" "wheel" "libvirtd" "nginx" ];
-    packages = with pkgs; [
-    ];
-
   };
-
 
   programs.gnome-disks.enable = true;
 
@@ -154,6 +146,7 @@
     lm_sensors
     distrobox
     # timeshift
+    cloudflared
   ];
 
   services.flatpak.enable = true;
@@ -190,7 +183,8 @@
     enable = true;
 
     # always allow traffic from your Tailscale network
-    trustedInterfaces = [ "tailscale0" "docker0" "br-collabora" "br-photprism" "br-onlyoffice" ];
+    trustedInterfaces =
+      [ "tailscale0" "docker0" "br-collabora" "br-photprism" "br-onlyoffice" ];
 
     # allow the Tailscale UDP port through the firewall
     allowedUDPPorts = [ config.services.tailscale.port ];
@@ -205,7 +199,8 @@
   # 25565-25566 - Minecraft
   # 444 - Document server
   # 445 - 
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts = [ 22 5900 25565 25566 80 443 446 ];
+  networking.firewall.interfaces."tailscale0".allowedTCPPorts =
+    [ 22 5900 25565 25566 80 443 446 ];
   networking.firewall.interfaces."docker0".allowedTCPPorts = [ 80 443 ];
   networking.firewall.interfaces."docker0".allowedUDPPorts = [ 80 443 ];
   networking.firewall.allowedTCPPorts = [ 8009 ];
