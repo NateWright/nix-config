@@ -20,6 +20,7 @@
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.unstable-packages
+      outputs.overlays.stable-packages
       outputs.overlays.modifications
     ];
     # Configure your nixpkgs instance
@@ -177,10 +178,9 @@
     qemu
     bridge-utils
 
-    unstable.godot_4
     distrobox
     tailscale
-    unstable.cosmic-term
+    cosmic-term
 
     gnome.gnome-boxes
     (unstable.pkgs.wrapOBS {
