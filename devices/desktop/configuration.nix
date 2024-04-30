@@ -137,6 +137,8 @@
     steamtinkerlaunch
     virt-manager
 
+    gnomeExtensions.gsconnect
+
     unstable.r2modman
     webcord
 
@@ -188,9 +190,17 @@
 
     # allow the Tailscale UDP port through the firewall
     allowedUDPPorts = [ config.services.tailscale.port ];
-
+    allowedUDPPortRanges = [{
+      from = 1714;
+      to = 1764;
+    }];
     # allow you to SSH in over the public internet
     # allowedTCPPorts = [ ];
+    allowedTCPPortRanges = [{
+      from = 1714;
+      to = 1764;
+    }];
+
   };
   services.tailscale.enable = true;
 
