@@ -7,6 +7,7 @@
     glow
     bat
     git
+    ripgrep
     gnumake
     dua
     neofetch
