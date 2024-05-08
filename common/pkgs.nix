@@ -10,7 +10,7 @@
     ripgrep
     gnumake
     dua
-    neofetch
+    fastfetch
     cpufetch
     htop
     bottom
@@ -25,6 +25,7 @@
 
     google-chrome
     localsend
+    resources
 
     unstable.vscode
     nixpkgs-fmt
