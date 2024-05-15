@@ -28,6 +28,5 @@
     resources
 
     unstable.vscode
-    nixpkgs-fmt
   ];
 }
