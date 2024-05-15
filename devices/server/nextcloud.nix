@@ -5,7 +5,7 @@
   services.nextcloud = {
     enable = true;
     configureRedis = true;
-    package = pkgs.nextcloud28;
+    package = pkgs.nextcloud29;
     hostName = "nix-nextcloud";
     datadir = "/vault/datastorage/nextcloud-data";
     config = {
