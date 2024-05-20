@@ -21,6 +21,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-gaming.url = "github:fufexan/nix-gaming";
+
     # nixvim = {
     #   url = "github:nix-community/nixvim";
     #   inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -59,13 +61,7 @@
           system = "x86_64-linux";
           specialArgs = { inherit outputs inputs; };
           modules = [
-            # {
-            #   nix.settings = {
-            #     substituters = [ "https://cosmic.cachix.org/" ];
-            #     trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-            #   };
-            # }
-            # nixos-cosmic.nixosModules.default
+            nixos-cosmic.nixosModules.default
             ./devices/desktop/configuration.nix
           ];
         };

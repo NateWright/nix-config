@@ -4,6 +4,7 @@
 
 { config, pkgs, inputs, outputs, ... }: {
   imports = [
+    inputs.nix-gaming.nixosModules.pipewireLowLatency
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./amd.nix
@@ -30,7 +31,15 @@
   };
 
   nix = {
-    settings.auto-optimise-store = true;
+    settings = {
+      auto-optimise-store = true;
+      substituters =
+        [ "https://cosmic.cachix.org/" "https://nix-gaming.cachix.org" ];
+      trusted-public-keys = [
+        "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+        "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      ];
+    };
     gc = {
       automatic = true;
       dates = "weekly";
@@ -90,7 +99,9 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    jack.enable = true;
+    # jack.enable = true;
+
+    lowLatency = { enable = true; };
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -116,6 +127,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    cosmic-term
     usbutils
     neofetch
     tailscale
