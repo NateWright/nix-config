@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
 
   imports = [ ./nextcloud-module.nix ];
   disabledModules = [ "services/web-apps/nextcloud.nix" ];
@@ -15,13 +15,7 @@
       dbname = "nextcloud";
       adminpassFile = "/etc/nixos/password.txt";
       adminuser = "root";
-      trustedProxies = [
-        "localhost"
-        "127.0.0.1"
-        "172.17.0.1"
-        "100.93.196.119"
-        "nwright.cloud"
-      ];
+      trustedProxies = [ "127.0.0.1" ];
       extraTrustedDomains = [ "nwright.cloud" ];
       overwriteProtocol = "https";
       defaultPhoneRegion = "US";

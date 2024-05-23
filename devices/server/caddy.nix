@@ -1,5 +1,4 @@
-{ inputs, config, pkgs, ... }:
-{
+{ inputs, config, pkgs, ... }: {
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "nathanwrightbusiness@gmail.com";
   security.acme.certs."nwright.cloud" = {
@@ -36,7 +35,7 @@
           redir /.well-known/nodeinfo /index.php/.well-known/nodeinfo 301
 
           encode gzip
-          reverse_proxy localhost:8009
+          reverse_proxy 127.0.0.1:8009
         '';
       };
 
@@ -88,7 +87,11 @@
   services.nginx.virtualHosts."blog" = {
     forceSSL = false;
     enableACME = false;
-    listen = [{ port = 8013; addr = "0.0.0.0"; ssl = false; }];
+    listen = [{
+      port = 8013;
+      addr = "0.0.0.0";
+      ssl = false;
+    }];
     root = "/var/www/nwright.tech";
   };
 
@@ -102,6 +105,5 @@
   #   listen = [{ port = 8014; addr = "127.0.0.1"; ssl = true; }];
   #   root = pkgs.nwright-tech.nwright-hugo-website;
   # };
-
 
 }
