@@ -21,7 +21,7 @@
     ./vs-code-server.nix
     ./virtmanager.nix
     ./NateWright.nix
-    ../../common/pkgs.nix
+    ../../common/pkgs-cli.nix
   ];
 
   nixpkgs = {

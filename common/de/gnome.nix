@@ -1,5 +1,4 @@
-{ config, lib, pkgs, ... }:
-{
+{ pkgs, ... }: {
   services.xserver = {
     displayManager = {
       gdm = {
@@ -7,9 +6,7 @@
         wayland = true;
       };
     };
-    desktopManager = {
-      gnome.enable = true;
-    };
+    desktopManager = { gnome.enable = true; };
   };
 
   environment.systemPackages = with pkgs; [
@@ -19,9 +16,10 @@
     gnome.sushi
     gnomeExtensions.pop-shell
     nautilus-open-any-terminal
+    adw-gtk3
   ];
-  services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
-    nautilus-open-any-terminal
-  ];
+  services.xserver.desktopManager.gnome.extraGSettingsOverridePackages =
+    with pkgs;
+    [ nautilus-open-any-terminal ];
 
 }

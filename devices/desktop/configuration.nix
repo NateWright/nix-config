@@ -9,6 +9,7 @@
     ./hardware-configuration.nix
     ./amd.nix
     ../../common/pkgs.nix
+    ../../common/pkgs-cli.nix
     ../../common/de/common.nix
     # ../../common/de/plasma.nix
     ../../common/de/gnome.nix
