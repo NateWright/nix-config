@@ -1,12 +1,12 @@
 { pkgs, ... }: {
 
-  imports = [ ./nextcloud-module.nix ];
-  disabledModules = [ "services/web-apps/nextcloud.nix" ];
+  # imports = [ ./nextcloud-module.nix ];
+  # disabledModules = [ "services/web-apps/nextcloud.nix" ];
   services.nextcloud = {
     enable = true;
     configureRedis = true;
     package = pkgs.nextcloud29;
-    hostName = "nix-nextcloud";
+    hostName = "nwright.cloud";
     datadir = "/vault/datastorage/nextcloud-data";
     config = {
       dbtype = "pgsql";
@@ -20,7 +20,7 @@
       overwriteProtocol = "https";
       defaultPhoneRegion = "US";
     };
-    nginx.enableFastcgiRequestBuffering = true;
+    # nginx.enableFastcgiRequestBuffering = true;
   };
 
   services.postgresql = {
@@ -39,7 +39,7 @@
     after = [ "postgresql.service" ];
   };
 
-  services.nginx.virtualHosts."nix-nextcloud" = {
+  services.nginx.virtualHosts."nwright.cloud" = {
     listen = [{
       addr = "127.0.0.1";
       port = 8009;
