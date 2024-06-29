@@ -15,10 +15,12 @@
       dbname = "nextcloud";
       adminpassFile = "/etc/nixos/password.txt";
       adminuser = "root";
-      trustedProxies = [ "127.0.0.1" ];
-      extraTrustedDomains = [ "nwright.cloud" ];
-      overwriteProtocol = "https";
-      defaultPhoneRegion = "US";
+    };
+    settings = {
+      trusted_proxies = [ "127.0.0.1" ];
+      trusted_domains = [ "nwright.cloud" ];
+      overwriteprotocol = "https";
+      default_phone_region = "US";
     };
     # nginx.enableFastcgiRequestBuffering = true;
   };

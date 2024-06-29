@@ -91,16 +91,23 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.autoLogin.user = "nwright";
-  services.xserver.displayManager.autoLogin.enable = true;
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
+  # services.xserver.displayManager.autoLogin.user = "nwright";
+  # services.xserver.displayManager.autoLogin.enable = true;
+  # systemd.services."getty@tty1".enable = false;
+  # systemd.services."autovt@tty1".enable = false;
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
+    xkb.variant = "";
   };
+
+  # Disable the GNOME3/GDM auto-suspend feature that cannot be disabled in GUI!
+  # If no user is logged in, the machine will power down after 20 minutes.
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -147,6 +154,7 @@
     distrobox
     # timeshift
     cloudflared
+    gnome.gnome-remote-desktop
   ];
 
   services.flatpak.enable = true;
