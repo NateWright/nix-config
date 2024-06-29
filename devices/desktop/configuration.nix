@@ -140,6 +140,10 @@
       true; # Open ports in the firewall for Source Dedicated Server
     gamescopeSession.enable = true;
   };
+  programs.nh = {
+    enable = true;
+    flake = "/home/nwright/nix-config";
+  };
 
   services.gvfs.enable = true;
   services.fwupd = { enable = true; };
