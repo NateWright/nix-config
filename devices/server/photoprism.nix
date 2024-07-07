@@ -1,9 +1,8 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   services = {
     photoprism = {
       enable = true;
-      port = 8017;
+      port = 2343;
       originalsPath = "/var/lib/private/photoprism";
       address = "0.0.0.0";
       settings = {
@@ -26,16 +25,13 @@
       ensureDatabases = [ "photoprism" ];
       ensureUsers = [{
         name = "photoprism";
-        ensurePermissions = {
-          "photoprism.*" = "ALL PRIVILEGES";
-        };
+        ensurePermissions = { "photoprism.*" = "ALL PRIVILEGES"; };
       }];
     };
   };
 
-  fileSystems."/var/lib/private/photoprism" =
-    {
-      device = "/vault/datastorage/photoprism-data";
-      options = [ "bind" ];
-    };
+  fileSystems."/var/lib/private/photoprism" = {
+    device = "/vault/datastorage/photoprism-data";
+    options = [ "bind" ];
+  };
 }

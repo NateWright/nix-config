@@ -12,9 +12,10 @@
     ./data-collection.nix
     ./docker.nix
     ./hardware-configuration.nix
+    ./matrix.nix
     ./minecraft.nix
     ./nextcloud.nix
-    ./photoprism.nix
+    # ./photoprism.nix
     ./samba.nix
     ./snapper.nix
     ./tailscale.nix
@@ -154,6 +155,7 @@
     distrobox
     # timeshift
     cloudflared
+    firefox
     gnome.gnome-remote-desktop
   ];
 
@@ -213,7 +215,7 @@
   # 444 - Document server
   # 445 - 
   networking.firewall.interfaces."tailscale0".allowedTCPPorts =
-    [ 22 5900 25565 25566 80 443 446 ];
+    [ 22 5900 25565 25566 80 443 446 8008 ];
   networking.firewall.interfaces."docker0".allowedTCPPorts = [ 80 443 ];
   networking.firewall.interfaces."docker0".allowedUDPPorts = [ 80 443 ];
   networking.firewall.allowedTCPPorts = [ 8009 ];

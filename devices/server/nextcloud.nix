@@ -27,7 +27,7 @@
 
   services.postgresql = {
     enable = true;
-    dataDir = "/vault/datastorage/nextcloud-postgres";
+    dataDir = "/vault/datastorage/postgres";
     ensureDatabases = [ "nextcloud" ];
     ensureUsers = [{
       name = "nextcloud";

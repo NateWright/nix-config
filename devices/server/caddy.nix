@@ -88,15 +88,6 @@ in {
 
           file_server
         '';
-        # extraConfig = ''
-        #   redir /.well-known/carddav /remote.php/dav 301
-        #   redir /.well-known/caldav /remote.php/dav 301
-        #   redir /.well-known/webfinger /index.php/.well-known/webfinger 301
-        #   redir /.well-known/nodeinfo /index.php/.well-known/nodeinfo 301
-
-        #   encode gzip
-        #   reverse_proxy 127.0.0.1:8009
-        # '';
       };
 
       "photos.nwright.cloud" = {
@@ -124,7 +115,7 @@ in {
       "matrix-admin.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
-          reverse_proxy 127.0.0.1:8012
+          root * ${pkgs.synapse-admin};
         '';
       };
 
@@ -138,7 +129,7 @@ in {
       "latex.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
-          reverse_proxy 127.0.0.1:8016
+          reverse_proxy 127.0.0.1:8017
         '';
       };
 

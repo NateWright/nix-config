@@ -4,4 +4,5 @@
 
   # ags-conf = pkgs.callPackage ./ags-conf/default.nix { };
   alyur-dotfiles = pkgs.callPackage ./alyur-dotfiles.nix { };
+  synapse-admin = pkgs.callPackage ./synapse-admin/default.nix { };
 }
