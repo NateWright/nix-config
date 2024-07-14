@@ -1,8 +1,7 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
-{ lib, config, pkgs, ... }:
-{
+{ lib, config, pkgs, ... }: {
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -13,6 +12,7 @@
     ../../../common/home-manager/gtk.nix
     ../../../common/home-manager/vscode.nix
     ../../../common/home-manager/helix.nix
+    ../../../common/home-manager/zsh.nix
   ];
 
   nixpkgs = {
@@ -42,8 +42,6 @@
     homeDirectory = "/home/nwright";
   };
 
-
-
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
   # home.packages = with pkgs; [ steam ];
@@ -60,11 +58,13 @@
         default = {
           background_color = "#1f1305";
           foreground_color = "#b4e1fd";
-          palette = "#3f3f3f:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#bebebe:#474747:#ff1e8e:#8eff1e:#ff8e1e:#0883ff:#8e1eff:#1eff8e:#c4c4c4";
+          palette =
+            "#3f3f3f:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#bebebe:#474747:#ff1e8e:#8eff1e:#ff8e1e:#0883ff:#8e1eff:#1eff8e:#c4c4c4";
 
         };
         noetic = {
-          palette = "#000000:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#bbbbbb:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff";
+          palette =
+            "#000000:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#bbbbbb:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff";
           use_custom_command = true;
           custom_command = "distrobox enter noetic";
 

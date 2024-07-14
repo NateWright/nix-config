@@ -100,7 +100,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    cosmic-term
+    # cosmic-term
     usbutils
     neofetch
     tailscale
@@ -131,18 +131,21 @@
       ];
     })
   ];
-  programs.gamescope.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall =
-      true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall =
-      true; # Open ports in the firewall for Source Dedicated Server
-    gamescopeSession.enable = true;
-  };
-  programs.nh = {
-    enable = true;
-    flake = "/home/nwright/nix-config";
+  programs = {
+    steam = {
+      enable = true;
+      remotePlay.openFirewall =
+        true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall =
+        true; # Open ports in the firewall for Source Dedicated Server
+      gamescopeSession.enable = true;
+    };
+    gamescope.enable = true;
+    nh = {
+      enable = true;
+      flake = "/home/nwright/nix-config";
+    };
+    zsh.enable = true;
   };
 
   services.gvfs.enable = true;
