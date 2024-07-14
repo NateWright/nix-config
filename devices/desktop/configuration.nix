@@ -90,6 +90,7 @@
     description = "Nathan Wright";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [ firefox ];
+    shell = pkgs.zsh;
   };
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
