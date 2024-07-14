@@ -17,7 +17,6 @@
     man-pages
     man-pages-posix
     zellij
-    terminator
     alacritty
   ];
 }
