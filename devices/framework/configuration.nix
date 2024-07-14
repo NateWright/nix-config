@@ -10,10 +10,10 @@
     ./fonts.nix
     ../../common/pkgs.nix
     ../../common/de/common.nix
-    ../../common/de/gnome.nix
+    # ../../common/de/gnome.nix
     ../../common/pkgs-cli.nix
     # ../../common/de/hyprland.nix
-    # ../../common/de/cosmic.nix
+    ../../common/de/cosmic.nix
   ];
 
   nixpkgs = {
@@ -168,7 +168,7 @@
 
     gnome.gnome-tweaks
     tailscale-systray
-    nextcloud-client
+    # nextcloud-client
     pika-backup
     libreoffice-fresh
     hunspell
@@ -193,6 +193,12 @@
       ];
     })
   ];
+
+  programs.nh = {
+    enable = true;
+    flake = "/home/nwright/nix-config";
+  };
+
   services.fwupd = {
     enable = true;
     extraRemotes = [ "lvfs-testing" ];
