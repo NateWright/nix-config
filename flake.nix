@@ -82,14 +82,14 @@
             modules = [ ./devices/framework/home-manager/home.nix ];
           };
 
-        "nwright@server" = home-manager.lib.homeManagerConfiguration {
+        "nwright@server-nixos-1" = home-manager.lib.homeManagerConfiguration {
           pkgs =
             nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = {
             inherit outputs inputs;
           }; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
-          modules = [ ./devices/server/home-manager/home.nix ];
+          modules = [ ./devices/server-nixos-1/home-manager/home.nix ];
         };
 
       };
