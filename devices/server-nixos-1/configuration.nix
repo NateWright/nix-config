@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, outputs, ... }:
+{ config, pkgs, outputs, ... }:
 
 {
   imports = [
@@ -57,7 +57,7 @@
     fileSystems = [ "/" ];
   };
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "server-nixos-1"; # Define your hostname.
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -92,10 +92,6 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  # services.xserver.displayManager.autoLogin.user = "nwright";
-  # services.xserver.displayManager.autoLogin.enable = true;
-  # systemd.services."getty@tty1".enable = false;
-  # systemd.services."autovt@tty1".enable = false;
 
   # Configure keymap in X11
   services.xserver = {
@@ -153,7 +149,6 @@
     gnome-extension-manager
     lm_sensors
     distrobox
-    # timeshift
     cloudflared
     firefox
     gnome.gnome-remote-desktop
@@ -205,20 +200,8 @@
     allowedUDPPorts = [ config.services.tailscale.port ];
 
     # allow you to SSH in over the public internet
-    # allowedTCPPorts = [ ];
+    allowedTCPPorts = [ 22 ];
   };
-
-  # Ports
-  # 22 - SSH
-  # 5900 - RDP
-  # 25565-25566 - Minecraft
-  # 444 - Document server
-  # 445 - 
-  networking.firewall.interfaces."tailscale0".allowedTCPPorts =
-    [ 22 5900 25565 25566 80 443 446 8008 ];
-  networking.firewall.interfaces."docker0".allowedTCPPorts = [ 80 443 ];
-  networking.firewall.interfaces."docker0".allowedUDPPorts = [ 80 443 ];
-  networking.firewall.allowedTCPPorts = [ 8009 ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
