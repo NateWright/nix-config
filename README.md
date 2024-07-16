@@ -1,40 +1,8 @@
-### Install Example
-```bash
-cd ~/nix-config
-sudo nixos-rebuild switch --flake .#device
-home-manager switch --flake .#nwright@device
-```
-### Update Example
-```bash
-cd ~/nix-config
-nix flake update
-```
-### nwright-surface
-```bash
-cd ~/nix-config
-sudo nixos-rebuild switch --flake .#nwright-surface
-home-manager switch --flake .#nwright@nwright-surface
-```
+# Nate's Nix Configs
+This git repo contains all of my computers from my house to the cloud. All declaritive which gives me piece of mind.
 
-### nwright-framework
+### Useful commands
 ```bash
-cd ~/nix-config
-sudo nixos-rebuild switch --flake .#nwright-framework
-```
-
-### nwright-nixos-pc
-```bash
-cd ~/nix-config
-sudo nixos-rebuild switch --flake .#nwright-nixos-pc
-home-manager switch --flake .#nwright@nwright-nixos-pc
-```
-
-### server
-```bash
-cd ~/nix-config
-sudo nixos-rebuild switch --flake .#server
-```
-#### get hugo revision
-```bash
+# Used for rev in fetchFromGithub
 git rev-parse HEAD
 ```
