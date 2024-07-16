@@ -21,23 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nixvim = {
-    #   url = "github:nix-community/nixvim";
-    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
-    # };
-
-    # ags.url = "github:Aylur/ags";
-    # astal.url = "github:Aylur/astal";
-    # hyprland.url = "github:hyprwm/Hyprland";
-    # matugen.url = "github:InioX/matugen";
-
-    # gBar.url = "github:scorpion-26/gBar";
-    # hyprland-contrib = {
-    #   url = "github:hyprwm/contrib";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
     vscode-server.url = "github:nix-community/nixos-vscode-server";
-
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nixos-cosmic
@@ -63,13 +47,18 @@
             ./devices/desktop/configuration.nix
           ];
         };
-        server = nixpkgs.lib.nixosSystem {
+        server-nixos-1 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit outputs inputs; };
           modules = [
             vscode-server.nixosModules.default
-            ./devices/server/configuration.nix
+            ./devices/server-nixos-1/configuration.nix
           ];
+        };
+        linode-nixos-1 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit outputs inputs; };
+          modules = [ ./devices/linode-nixos-1/configuration.nix ];
         };
       };
       homeConfigurations = {
@@ -93,14 +82,14 @@
             modules = [ ./devices/framework/home-manager/home.nix ];
           };
 
-        "nwright@server" = home-manager.lib.homeManagerConfiguration {
+        "nwright@server-nixos-1" = home-manager.lib.homeManagerConfiguration {
           pkgs =
             nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = {
             inherit outputs inputs;
           }; # Pass flake inputs to our config
           # > Our main home-manager configuration file <
-          modules = [ ./devices/server/home-manager/home.nix ];
+          modules = [ ./devices/server-nixos-1/home-manager/home.nix ];
         };
 
       };
