@@ -44,7 +44,7 @@
           specialArgs = { inherit outputs inputs; };
           modules = [
             nixos-cosmic.nixosModules.default
-            ./devices/desktop/configuration.nix
+            ./devices/nwright-nixos-pc/configuration.nix
           ];
         };
         server-nixos-1 = nixpkgs.lib.nixosSystem {
