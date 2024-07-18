@@ -12,7 +12,6 @@
     ./data-collection.nix
     ./docker.nix
     ./hardware-configuration.nix
-    ./matrix.nix
     ./minecraft.nix
     ./nextcloud.nix
     # ./photoprism.nix
@@ -23,6 +22,7 @@
     ./virtmanager.nix
     ./NateWright.nix
     ../../common/pkgs-cli.nix
+    ./containers/matrix.nix
   ];
 
   nixpkgs = {
