@@ -5,5 +5,6 @@
   };
   security.pam.services.cosmic-greeter.enableGnomeKeyring = true;
 
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   environment.systemPackages = with pkgs; [ seahorse ];
 }

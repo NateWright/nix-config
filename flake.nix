@@ -36,7 +36,7 @@
           modules = [
             nixos-cosmic.nixosModules.default
             nixos-hardware.nixosModules.framework-13-7040-amd
-            ./devices/framework/configuration.nix
+            ./devices/nwright-framework/configuration.nix
           ];
         };
         nwright-nixos-pc = nixpkgs-unstable.lib.nixosSystem {
