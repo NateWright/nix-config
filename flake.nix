@@ -26,9 +26,21 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nixos-cosmic
     , home-manager, home-manager-unstable, vscode-server, ... }@inputs:
-    let inherit (self) outputs;
+    let
+      inherit (self) outputs;
+      systems = [
+        "aarch64-linux"
+        "i686-linux"
+        "x86_64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
     in rec {
       overlays = import ./overlays { inherit inputs; };
+      packages =
+        forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+
       nixosConfigurations = {
         nwright-framework = nixpkgs-unstable.lib.nixosSystem {
           system = "x86_64-linux";
