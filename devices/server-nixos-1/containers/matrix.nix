@@ -1,15 +1,4 @@
 { ... }: {
-  networking.nat = {
-    enable = true;
-    internalInterfaces = [ "ve-+" ];
-    externalInterface = "enp7s0";
-    # Lazy IPv6 connectivity for the container
-    # forwardPorts = [{
-    #   destination = "192.168.100.11:8008";
-    #   sourcePort = 8008;
-    # }];
-  };
-
   containers.matrix = {
     autoStart = true;
     privateNetwork = true;

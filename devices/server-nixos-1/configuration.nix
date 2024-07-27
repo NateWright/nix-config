@@ -20,6 +20,7 @@
     ./virtmanager.nix
     ./NateWright.nix
     ../../common/pkgs-cli.nix
+    ./containers/default.nix
     ./containers/matrix.nix
     ./docker/default.nix
     ./docker/it-tools.nix
