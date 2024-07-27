@@ -10,11 +10,9 @@
     ./caddy.nix
     ./cloudflared.nix
     ./data-collection.nix
-    ./docker.nix
     ./hardware-configuration.nix
     ./minecraft.nix
     ./nextcloud.nix
-    # ./photoprism.nix
     ./samba.nix
     ./snapper.nix
     ./tailscale.nix
@@ -23,6 +21,10 @@
     ./NateWright.nix
     ../../common/pkgs-cli.nix
     ./containers/matrix.nix
+    ./docker/default.nix
+    ./docker/it-tools.nix
+    ./docker/lubelogger.nix
+    ./docker/collabora-code.nix
   ];
 
   nixpkgs = {
@@ -133,7 +135,7 @@
   users.users.nwright = {
     isNormalUser = true;
     description = "nwright";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "nginx" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "nginx" "docker" ];
   };
 
   programs.gnome-disks.enable = true;
