@@ -129,7 +129,7 @@ in {
       "latex.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
-          reverse_proxy 127.0.0.1:8017
+          reverse_proxy 127.0.0.1:8016
         '';
       };
 
