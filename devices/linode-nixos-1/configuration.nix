@@ -13,6 +13,14 @@
     ../../common/pkgs-cli.nix
     ];
 
+  nix.settings = {
+    # Enable flakes and new 'nix' command
+    experimental-features = "nix-command flakes";
+    # Deduplicate and optimize nix store
+    auto-optimise-store = true;
+
+  };
+
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
   boot.loader.grub.forceInstall=true;
