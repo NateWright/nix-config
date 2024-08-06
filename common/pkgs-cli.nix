@@ -4,16 +4,19 @@
     wget
     unzip
     zip
+
+    # rust alternatives
     glow
     bat
+    dua
     git
+    bottom
+
     ripgrep
     gnumake
-    dua
     fastfetch
     cpufetch
     htop
-    bottom
     man-pages
     man-pages-posix
     zellij
