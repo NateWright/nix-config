@@ -165,7 +165,6 @@
     cifs-utils
     tpm2-tss
 
-    gnome.gnome-tweaks
     tailscale-systray
     nextcloud-client
     pika-backup
