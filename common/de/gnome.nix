@@ -10,10 +10,10 @@
   };
 
   environment.systemPackages = with pkgs; [
-    gnome.gnome-tweaks
+    gnome-tweaks
     gnome-extension-manager
-    gnome.nautilus-python
-    gnome.sushi
+    nautilus-python
+    sushi
     gnomeExtensions.pop-shell
     nautilus-open-any-terminal
     adw-gtk3
