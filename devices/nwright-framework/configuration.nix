@@ -9,11 +9,11 @@
     ./arduino.nix
     ./fonts.nix
     ../../common/pkgs.nix
-    ../../common/de/common.nix
-    # ../../common/de/gnome.nix
     ../../common/pkgs-cli.nix
+    ../../common/de/common.nix
+    ../../common/de/gnome.nix
     # ../../common/de/hyprland.nix
-    ../../common/de/cosmic.nix
+    # ../../common/de/cosmic.nix
   ];
 
   nixpkgs = {
