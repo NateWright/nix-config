@@ -13,7 +13,6 @@
     ./hardware-configuration.nix
     ./minecraft.nix
     ./nextcloud.nix
-    ./samba.nix
     ./snapper.nix
     ./tailscale.nix
     ./vs-code-server.nix
@@ -50,6 +49,7 @@
     "/".options = [ "compress=zstd" ];
     "/home".options = [ "compress=zstd" ];
     "/nix".options = [ "compress=zstd" "noatime" ];
+    "/vault/backups".options = [ "compress=zstd" ];
     "/vault/containers".options = [ "compress=zstd" ];
     "/vault/datastorage".options = [ "compress=zstd" ];
   };
