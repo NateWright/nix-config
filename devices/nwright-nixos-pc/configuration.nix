@@ -142,6 +142,7 @@
       gamescopeSession.enable = true;
     };
     gamescope.enable = true;
+    gamemode.enable = true;
     nh = {
       enable = true;
       flake = "/home/nwright/nix-config";
@@ -151,7 +152,6 @@
 
   services.gvfs.enable = true;
   services.fwupd = { enable = true; };
-  services.system76-scheduler.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
