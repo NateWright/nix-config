@@ -15,7 +15,7 @@
     ../../common/pkgs-cli.nix
 
     ../../common/de/common.nix
-    ../../common/de/gnome.nix
+    ../../common/de/plasma.nix
   ];
 
   nixpkgs = {
@@ -93,10 +93,11 @@
     shell = pkgs.zsh;
   };
 
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
-  systemd.services.NetworkManager-wait-online.enable = false;
+  catppuccin = {
+    flavor = "macchiato";
+    accent = "mauve";
+    enable = true;
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

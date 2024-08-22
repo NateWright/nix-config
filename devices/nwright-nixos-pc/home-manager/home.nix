@@ -9,7 +9,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    ../../../common/home-manager/gtk.nix
+    ../../../common/home-manager/gtk-plasma.nix
     ../../../common/home-manager/vscode.nix
     ../../../common/home-manager/helix.nix
     ../../../common/home-manager/zsh.nix
@@ -41,48 +41,20 @@
     username = "nwright";
     homeDirectory = "/home/nwright";
   };
+  catppuccin = {
+    flavor = "macchiato";
+    accent = "mauve";
+    enable = true;
+  };
 
-  # Add stuff for your user as you see fit:
-  # programs.neovim.enable = true;
-  # home.packages = with pkgs; [ steam ];
-
-  # Enable home-manager and git
   programs.home-manager.enable = true;
   programs.git.enable = true;
-  programs.terminator = {
-    enable = true;
-    config = {
-      global_config.suppress_multiple_term_dialog = true;
-      # default
-      profiles = {
-        default = {
-          background_color = "#1f1305";
-          foreground_color = "#b4e1fd";
-          palette =
-            "#3f3f3f:#ff0883:#83ff08:#ff8308:#0883ff:#8308ff:#08ff83:#bebebe:#474747:#ff1e8e:#8eff1e:#ff8e1e:#0883ff:#8e1eff:#1eff8e:#c4c4c4";
-
-        };
-        noetic = {
-          palette =
-            "#000000:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#bbbbbb:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff";
-          use_custom_command = true;
-          custom_command = "distrobox enter noetic";
-
-        };
-      };
-      layouts.default = {
-        window0 = {
-          type = "Window";
-          parent = "";
-        };
-        child1 = {
-          type = "Terminal";
-          parent = "window0";
-        };
-      };
-    };
-
-  };
+  programs.alacritty.enable = true;
+  programs.bat.enable = true;
+  programs.bottom.enable = true;
+  programs.fuzzel.enable = true;
+  programs.lazygit.enable = true;
+  programs.zellij.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

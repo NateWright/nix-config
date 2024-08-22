@@ -11,7 +11,7 @@
       marksman
       nixfmt-classic
     ];
-    settings = { theme = "onedark"; };
+    # settings = { theme = "catppuccin_macchiato"; };
     languages = {
       language = [
         {
