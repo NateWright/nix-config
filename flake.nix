@@ -22,10 +22,12 @@
     };
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nixos-cosmic
-    , home-manager, home-manager-unstable, vscode-server, ... }@inputs:
+    , home-manager, home-manager-unstable, vscode-server, catppuccin, ...
+    }@inputs:
     let
       inherit (self) outputs;
       systems = [
@@ -56,6 +58,7 @@
           specialArgs = { inherit outputs inputs; };
           modules = [
             nixos-cosmic.nixosModules.default
+            catppuccin.nixosModules.catppuccin
             ./devices/nwright-nixos-pc/configuration.nix
           ];
         };
@@ -80,7 +83,10 @@
               nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
             # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
             # > Our main home-manager configuration file <
-            modules = [ ./devices/desktop/home-manager/home.nix ];
+            modules = [
+              catppuccin.homeManagerModules.catppuccin
+              ./devices/nwright-nixos-pc/home-manager/home.nix
+            ];
           };
 
         "nwright@framework" =
