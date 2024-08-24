@@ -94,9 +94,9 @@
   };
 
   catppuccin = {
+    enable = true;
     flavor = "macchiato";
     accent = "mauve";
-    enable = true;
   };
 
   # List packages installed in system profile. To search, run:
