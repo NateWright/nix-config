@@ -50,6 +50,7 @@
           modules = [
             nixos-cosmic.nixosModules.default
             nixos-hardware.nixosModules.framework-13-7040-amd
+            catppuccin.nixosModules.catppuccin
             ./devices/nwright-framework/configuration.nix
           ];
         };
@@ -89,7 +90,7 @@
             ];
           };
 
-        "nwright@framework" =
+        "nwright@nwright-framework" =
           home-manager-unstable.lib.homeManagerConfiguration {
             pkgs =
               nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
@@ -97,7 +98,10 @@
               inherit outputs inputs;
             }; # Pass flake inputs to our config
             # > Our main home-manager configuration file <
-            modules = [ ./devices/framework/home-manager/home.nix ];
+            modules = [
+              catppuccin.homeManagerModules.catppuccin
+              ./devices/nwright-framework/home-manager/home.nix
+            ];
           };
 
         "nwright@server-nixos-1" = home-manager.lib.homeManagerConfiguration {

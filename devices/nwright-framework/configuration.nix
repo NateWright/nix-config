@@ -143,25 +143,18 @@
     isNormalUser = true;
     description = "nwright";
     extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "kvm" ];
-    packages = with pkgs;
-      [
-        firefox
-        #  thunderbird
-      ];
+    packages = with pkgs; [ firefox ];
   };
 
-  # Enable automatic login for the user.
-  # services.xserver.displayManager.autoLogin.enable = true;
-  # services.xserver.displayManager.autoLogin.user = "nwright";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  # systemd.services."getty@tty1".enable = false;
-  # systemd.services."autovt@tty1".enable = false;
+  catppuccin = {
+    enable = true;
+    flavor = "macchiato";
+    accent = "mauve";
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # busybox
     cifs-utils
     tpm2-tss
 

@@ -6,7 +6,6 @@
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
-    ../../../common/home-manager/gtk.nix
     ../../../common/home-manager/vscode.nix
     ../../../common/home-manager/helix.nix
     # ./hyprland/ags.nix
@@ -46,8 +45,20 @@
 
   news.display = "silent";
 
-  # Enable home-manager and git
-  programs = { home-manager.enable = true; };
+  catppuccin = {
+    enable = true;
+    flavor = "macchiato";
+    accent = "mauve";
+  };
+  programs = {
+    home-manager.enable = true;
+    alacritty.enable = true;
+    bat.enable = true;
+    bottom.enable = true;
+    fuzzel.enable = true;
+    lazygit.enable = true;
+    zellij.enable = true;
+  };
 
   # Enable bluetooth pause/play
   services.mpris-proxy.enable = true;
