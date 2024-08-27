@@ -10,6 +10,7 @@
     ./amd.nix
     ./nix-settings.nix
     ./audio.nix
+    ./system76-scheduler.nix
 
     ../../common/pkgs.nix
     ../../common/pkgs-cli.nix
