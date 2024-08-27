@@ -21,6 +21,7 @@
     ../../common/pkgs-cli.nix
     ./containers/default.nix
     ./containers/matrix.nix
+    ./containers/mattermost.nix
     ./docker/default.nix
     ./docker/it-tools.nix
     ./docker/lubelogger.nix

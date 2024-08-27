@@ -16,20 +16,6 @@ in {
     group = "root";
 
     virtualHosts = {
-      "collabora.nwright.cloud" = {
-        useACMEHost = "nwright.cloud";
-        extraConfig = ''
-          encode gzip
-          reverse_proxy 127.0.0.1:8017
-        '';
-      };
-      "onlyoffice.nwright.cloud" = {
-        useACMEHost = "nwright.cloud";
-        extraConfig = ''
-          reverse_proxy 127.0.0.1:8015
-        '';
-      };
-
       "nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
@@ -126,10 +112,46 @@ in {
         '';
       };
 
+      "mattermost.nwright.cloud" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          reverse_proxy 192.168.100.12:8015
+        '';
+      };
+
+      "mattermost.nwright.cloud:8443" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          reverse_proxy 192.168.100.12:8443
+        '';
+      };
+
+      "mattermost.nwright.cloud:8045" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          reverse_proxy 192.168.100.12:8045
+        '';
+      };
+
+      "mattermost.nwright.cloud:3478" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          reverse_proxy 192.168.100.12:3478
+        '';
+      };
+
       "latex.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
           reverse_proxy 127.0.0.1:8016
+        '';
+      };
+
+      "collabora.nwright.cloud" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          encode gzip
+          reverse_proxy 127.0.0.1:8017
         '';
       };
 
