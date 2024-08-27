@@ -5,13 +5,12 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./caddy.nix
-      ./tailscale.nix
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./caddy.nix
+    ./tailscale.nix
     ../../common/pkgs-cli.nix
-    ];
+  ];
 
   nix.settings = {
     # Enable flakes and new 'nix' command
@@ -23,8 +22,8 @@
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.forceInstall=true;
-  boot.loader.grub.device="nodev";
+  boot.loader.grub.forceInstall = true;
+  boot.loader.grub.device = "nodev";
   boot.loader.timeout = 10;
   # boot.loader.grub.efiSupport = true;
   # boot.loader.grub.efiInstallAsRemovable = true;
@@ -55,9 +54,6 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
-
-  
-
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -81,23 +77,22 @@
     isNormalUser = true;
     home = "/home/nwright";
     extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
-  #   packages = with pkgs; [
-  #     firefox
-  #     tree
-  #   ];
+    #   packages = with pkgs; [
+    #     firefox
+    #     tree
+    #   ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     helix
     zellij
     inetutils
     mtr
     sysstat
-    nixfmt-classic
   ];
 
   programs.nh = {
@@ -119,8 +114,8 @@
   services.openssh = {
     enable = true;
     settings = {
-    PermitRootLogin = "no";
-          PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
     };
   };
@@ -136,10 +131,10 @@
     interfaces.eth0.useDHCP = true;
 
     firewall = {
-    enable = true;
-    trustedInterfaces = [ "tailscale0" ];
-    allowedUDPPorts = [ config.services.tailscale.port ];
-    allowedTCPPorts = [ 22 80 443 8448 ];  
+      enable = true;
+      trustedInterfaces = [ "tailscale0" ];
+      allowedUDPPorts = [ config.services.tailscale.port ];
+      allowedTCPPorts = [ 22 80 443 8448 ];
     };
 
   };
