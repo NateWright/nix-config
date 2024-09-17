@@ -2,7 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, outputs, ... }: {
+{
+  config,
+  pkgs,
+  inputs,
+  outputs,
+  ...
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -10,7 +17,6 @@
     ./amd.nix
     ./nix-settings.nix
     ./audio.nix
-    ./system76-scheduler.nix
 
     ../../common/pkgs.nix
     ../../common/pkgs-cli.nix
@@ -43,7 +49,15 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-  fileSystems = { "/home/nwright/Vault".options = [ "compress=zstd" ]; };
+  fileSystems = {
+    "/".options = [ "compress=zstd" ];
+    "/home".options = [ "compress=zstd" ];
+    "/nix".options = [
+      "compress=zstd"
+      "noatime"
+    ];
+    "/home/nwright/Vault".options = [ "compress=zstd" ];
+  };
 
   networking.hostName = "nwright-nixos-pc"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -89,7 +103,11 @@
   users.users.nwright = {
     isNormalUser = true;
     description = "Nathan Wright";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     packages = with pkgs; [ firefox ];
     shell = pkgs.zsh;
   };
@@ -109,7 +127,6 @@
     tailscale
     nextcloud-client
     distrobox
-    pika-backup
     cifs-utils # Needed for automounting
     htop
     lm_sensors
@@ -137,10 +154,8 @@
   programs = {
     steam = {
       enable = true;
-      remotePlay.openFirewall =
-        true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall =
-        true; # Open ports in the firewall for Source Dedicated Server
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       gamescopeSession.enable = true;
     };
     gamescope.enable = true;
@@ -153,7 +168,9 @@
   };
 
   services.gvfs.enable = true;
-  services.fwupd = { enable = true; };
+  services.fwupd = {
+    enable = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -182,16 +199,20 @@
 
     # allow the Tailscale UDP port through the firewall
     allowedUDPPorts = [ config.services.tailscale.port ];
-    allowedUDPPortRanges = [{
-      from = 1714;
-      to = 1764;
-    }];
+    allowedUDPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
     # allow you to SSH in over the public internet
     # allowedTCPPorts = [ ];
-    allowedTCPPortRanges = [{
-      from = 1714;
-      to = 1764;
-    }];
+    allowedTCPPortRanges = [
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
 
   };
   services.tailscale.enable = true;
@@ -202,7 +223,6 @@
   virtualisation.podman.enable = false;
   virtualisation.docker.enable = true;
   # virtualisation.docker.enableNvidia = true;
-  virtualisation.docker.storageDriver = "btrfs";
   boot.supportedFilesystems = [ "ntfs" ];
 
   # This value determines the NixOS release from which the default
