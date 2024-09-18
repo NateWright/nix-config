@@ -9,6 +9,11 @@
   outputs,
   ...
 }:
+let
+  xone-custom = pkgs.callPackage ../../pkgs/xone/default.nix {
+    kernel = config.boot.kernelPackages.kernel;
+  };
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -233,6 +238,15 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
   services.flatpak.enable = true;
-  hardware.xone.enable = true;
+  # hardware.xone.enable = true;
   hardware.xpadneo.enable = true;
+  boot = {
+    blacklistedKernelModules = [
+      "xpad"
+      "mt76x2u"
+    ];
+
+    extraModulePackages = with pkgs; [ xone-custom ];
+  };
+  hardware.firmware = [ pkgs.xow_dongle-firmware ];
 }
