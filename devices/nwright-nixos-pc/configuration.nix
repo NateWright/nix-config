@@ -112,6 +112,8 @@ in
       "networkmanager"
       "wheel"
       "docker"
+      "kvm"
+      "libvirtd"
     ];
     packages = with pkgs; [ firefox ];
     shell = pkgs.zsh;
@@ -141,7 +143,6 @@ in
     gpu-screen-recorder
     pavucontrol
     steamtinkerlaunch
-    virt-manager
 
     gnomeExtensions.gsconnect
 
@@ -224,7 +225,7 @@ in
 
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
-
+  virtualisation.spiceUSBRedirection.enable = true;
   virtualisation.podman.enable = false;
   virtualisation.docker.enable = true;
   # virtualisation.docker.enableNvidia = true;
