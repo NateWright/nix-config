@@ -59,7 +59,7 @@
   services.btrfs.autoScrub = {
     enable = true;
     interval = "monthly";
-    fileSystems = [ "/" ];
+    fileSystems = [ "/" "/vault-old" ];
   };
 
   networking.hostName = "server-nixos-1"; # Define your hostname.
