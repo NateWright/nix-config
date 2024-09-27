@@ -7,6 +7,7 @@
 {
   imports = [
     # Include the results of the hardware scan.
+    ./borgbackup.nix
     ./caddy.nix
     ./cloudflared.nix
     ./data-collection.nix
