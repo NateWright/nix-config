@@ -8,6 +8,7 @@
     # inputs.nix-colors.homeManagerModule
     ../../../common/home-manager/vscode.nix
     ../../../common/home-manager/helix.nix
+    ../../../common/home-manager/zsh.nix
     # ./hyprland/ags.nix
     # ./hyprland/hyprland.nix
     # ./hyprland/theme.nix

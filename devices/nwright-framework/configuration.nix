@@ -2,7 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, outputs, ... }: {
+{
+  config,
+  pkgs,
+  inputs,
+  outputs,
+  ...
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -38,8 +45,10 @@
     auto-optimise-store = true;
     trusted-users = [ "nwright" ];
 
-    substituters =
-      [ "https://hyprland.cachix.org" "https://cosmic.cachix.org/" ];
+    substituters = [
+      "https://hyprland.cachix.org"
+      "https://cosmic.cachix.org/"
+    ];
     trusted-public-keys = [
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
@@ -65,14 +74,23 @@
   };
 
   fileSystems = {
-    "/".options = [ "compress=zstd" "noatime" ];
-    "/home".options = [ "compress=zstd" "noatime" ];
-    "/nix".options = [ "compress=zstd" "noatime" ];
+    "/".options = [
+      "compress=zstd"
+      "noatime"
+    ];
+    "/home".options = [
+      "compress=zstd"
+      "noatime"
+    ];
+    "/nix".options = [
+      "compress=zstd"
+      "noatime"
+    ];
     "/swap".options = [ "noatime" ];
 
   };
 
-  swapDevices = [{ device = "/swap/swapfile"; }];
+  swapDevices = [ { device = "/swap/swapfile"; } ];
 
   networking.hostName = "nwright-framework"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -142,8 +160,15 @@
   users.users.nwright = {
     isNormalUser = true;
     description = "nwright";
-    extraGroups = [ "networkmanager" "wheel" "docker" "libvirtd" "kvm" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+      "libvirtd"
+      "kvm"
+    ];
     packages = with pkgs; [ firefox ];
+    shell = pkgs.zsh;
   };
 
   catppuccin = {
@@ -185,11 +210,13 @@
     })
   ];
 
-  programs.nh = {
-    enable = true;
-    flake = "/home/nwright/nix-config";
+  programs = {
+    nh = {
+      enable = true;
+      flake = "/home/nwright/nix-config";
+    };
+    zsh.enable = true;
   };
-
   services.fwupd = {
     enable = true;
     extraRemotes = [ "lvfs-testing" ];
@@ -236,10 +263,18 @@
     trustedInterfaces = [ "tailscale0" ];
 
     # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [ config.services.tailscale.port 7236 5353 ];
+    allowedUDPPorts = [
+      config.services.tailscale.port
+      7236
+      5353
+    ];
 
     # allow you to SSH in over the public internet
-    allowedTCPPorts = [ 22 7236 7250 ];
+    allowedTCPPorts = [
+      22
+      7236
+      7250
+    ];
   };
 
   # Open ports in the firewall.
