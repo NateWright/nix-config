@@ -174,7 +174,7 @@
     tailscale
     cosmic-term
 
-    gnome.gnome-boxes
+    gnome-boxes
     (unstable.pkgs.wrapOBS {
       plugins = with unstable.pkgs.obs-studio-plugins; [
         wlrobs
@@ -202,8 +202,8 @@
   xdg.portal.enable = true;
   virtualisation.libvirtd.enable = true;
 
-  hardware.xone.enable = true;
-  hardware.xpadneo.enable = true;
+  # hardware.xone.enable = true;
+  # hardware.xpadneo.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
