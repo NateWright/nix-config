@@ -130,7 +130,6 @@ in
   environment.systemPackages = with pkgs; [
     # cosmic-term
     usbutils
-    neofetch
     tailscale
     nextcloud-client
     distrobox
@@ -138,16 +137,12 @@ in
     htop
     lm_sensors
     radeontop
-    pulseaudio
     godot_4
     gpu-screen-recorder
     pavucontrol
     steamtinkerlaunch
 
-    gnomeExtensions.gsconnect
-
     unstable.r2modman
-    webcord
 
     (pkgs.wrapOBS {
       plugins = with pkgs.obs-studio-plugins; [
