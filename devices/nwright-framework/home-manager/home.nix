@@ -1,7 +1,15 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
-{ lib, config, pkgs, inputs, outputs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  outputs,
+  ...
+}:
+{
   # You can import other home-manager modules here
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
@@ -9,9 +17,7 @@
     ../../../common/home-manager/vscode.nix
     ../../../common/home-manager/helix.nix
     ../../../common/home-manager/zsh.nix
-    # ./hyprland/ags.nix
-    # ./hyprland/hyprland.nix
-    # ./hyprland/theme.nix
+    ../../../common/de/hyprland/home/home.nix
   ];
 
   nixpkgs = {
