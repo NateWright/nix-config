@@ -16,7 +16,7 @@
     ./nextcloud.nix
     ./snapper.nix
     ./tailscale.nix
-    ./vs-code-server.nix
+    # ./vs-code-server.nix
     ./virtmanager.nix
     ./NateWright.nix
     ../../common/pkgs-cli.nix
@@ -91,48 +91,12 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    xkb.layout = "us";
-    xkb.variant = "";
-  };
-
   # Disable the GNOME3/GDM auto-suspend feature that cannot be disabled in GUI!
   # If no user is logged in, the machine will power down after 20 minutes.
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
   systemd.targets.hibernate.enable = false;
   systemd.targets.hybrid-sleep.enable = false;
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nwright = {
@@ -148,18 +112,10 @@
   environment.systemPackages = with pkgs; [
     btrfs-progs
     parted
-    deja-dup
-    gnome.gnome-boxes
-    gnome.gnome-remote-desktop
-    gnome-extension-manager
     lm_sensors
     distrobox
     cloudflared
-    firefox
-    gnome.gnome-remote-desktop
   ];
-
-  services.flatpak.enable = true;
 
   programs.nh = {
     enable = true;
