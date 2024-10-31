@@ -18,7 +18,7 @@
     ../../common/pkgs.nix
     ../../common/pkgs-cli.nix
     ../../common/de/common.nix
-    ../../common/de/cosmic.nix
+    ../../common/de/gnome.nix
   ];
 
   nixpkgs = {
