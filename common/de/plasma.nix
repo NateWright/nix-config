@@ -1,11 +1,11 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
   services = {
     displayManager.sddm = {
       enable = true;
       wayland.enable = true;
     };
     desktopManager.plasma6.enable = true;
-    gnome.gnome-keyring.enable = true;
   };
 
   security.pam.services.login.enableGnomeKeyring = true;
@@ -22,6 +22,7 @@
     fuzzel
     dracula-theme
     vorta
+    tailscale-systray
   ];
 
 }
