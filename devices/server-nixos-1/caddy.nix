@@ -1,14 +1,23 @@
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 let
   nextcloud-cfg = config.services.nextcloud;
   nextcloud-fpm = config.services.phpfpm.pools.nextcloud;
-in {
+in
+{
   security.acme.acceptTerms = true;
   security.acme.defaults.email = "nathanwrightbusiness@gmail.com";
   security.acme.certs."nwright.cloud" = {
     dnsProvider = "cloudflare";
     credentialsFile = "/var/lib/secrets/cloudflare";
-    extraDomainNames = [ "*.nwright.cloud" "*.nwright.tech" ];
+    extraDomainNames = [
+      "*.nwright.cloud"
+      "*.nwright.tech"
+    ];
   };
   services.caddy = {
     enable = true;
@@ -21,9 +30,7 @@ in {
         extraConfig = ''
           encode zstd gzip
 
-          root * ${
-            config.services.nginx.virtualHosts.${nextcloud-cfg.hostName}.root
-          }
+          root * ${config.services.nginx.virtualHosts.${nextcloud-cfg.hostName}.root}
 
           redir /.well-known/carddav /remote.php/dav 301
           redir /.well-known/caldav /remote.php/dav 301
@@ -43,9 +50,7 @@ in {
           }
 
           php_fastcgi unix/${nextcloud-fpm.socket} {
-            root ${
-              config.services.nginx.virtualHosts.${nextcloud-cfg.hostName}.root
-            }
+            root ${config.services.nginx.virtualHosts.${nextcloud-cfg.hostName}.root}
             env front_controller_active true
             env modHeadersAvailable true
           }
@@ -160,11 +165,13 @@ in {
   services.nginx.virtualHosts."blog" = {
     forceSSL = false;
     enableACME = false;
-    listen = [{
-      port = 8013;
-      addr = "0.0.0.0";
-      ssl = false;
-    }];
+    listen = [
+      {
+        port = 8013;
+        addr = "0.0.0.0";
+        ssl = false;
+      }
+    ];
     root = "/var/www/nwright.tech";
   };
 
