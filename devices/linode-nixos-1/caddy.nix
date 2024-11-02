@@ -15,6 +15,11 @@
           reverse_proxy /_matrix/* 100.93.196.119:8008
         '';
       };
+      "sliding-sync.nwright.tech" = {
+        extraConfig = ''
+          reverse_proxy 100.93.196.119:8015
+        '';
+      };
     };
   };
 }
