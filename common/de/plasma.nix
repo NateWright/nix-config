@@ -18,7 +18,6 @@
     kdePackages.kwallet
     kdePackages.partitionmanager
     kdePackages.filelight
-    xwaylandvideobridge
     fuzzel
     dracula-theme
     vorta
