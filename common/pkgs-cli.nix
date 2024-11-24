@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   environment.systemPackages = with pkgs; [
     vim
     wget
@@ -13,6 +14,7 @@
     bottom
 
     ripgrep
+    nixfmt-rfc-style
     gnumake
     fastfetch
     cpufetch
@@ -23,4 +25,3 @@
     alacritty
   ];
 }
-
