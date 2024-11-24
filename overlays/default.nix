@@ -8,12 +8,6 @@
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    fprintd = prev.fprintd.overrideAttrs (_: {
-      mesonCheckFlags = [
-        "--no-suite"
-        "fprintd:TestPamFprintd"
-      ];
-    });
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
