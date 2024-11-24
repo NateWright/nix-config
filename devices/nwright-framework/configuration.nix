@@ -178,7 +178,6 @@
 
     tailscale-systray
     nextcloud-client
-    pika-backup
     libreoffice-fresh
     hunspell
     hunspellDicts.en_US
@@ -189,7 +188,6 @@
     distrobox
     tailscale
 
-    gnome-boxes
     (unstable.pkgs.wrapOBS {
       plugins = with unstable.pkgs.obs-studio-plugins; [
         wlrobs
@@ -198,6 +196,8 @@
         obs-vaapi
       ];
     })
+    nixd
+    unstable.zed-editor
   ];
 
   programs = {
@@ -216,7 +216,6 @@
   # virtualisation.podman.enable = true;
   virtualisation.docker.enable = true;
   virtualisation.docker.storageDriver = "btrfs";
-  xdg.portal.enable = true;
   virtualisation.libvirtd.enable = true;
 
   # hardware.xone.enable = true;

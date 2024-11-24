@@ -53,12 +53,12 @@
       ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
     in
-    rec {
+    {
       overlays = import ./overlays { inherit inputs; };
       packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
 
       nixosConfigurations = {
-        nwright-framework = nixpkgs-unstable.lib.nixosSystem {
+        nwright-framework = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit outputs inputs;
@@ -100,18 +100,8 @@
         };
       };
       homeConfigurations = {
-        "nwright@nwright-nixos-pc" = home-manager-unstable.lib.homeManagerConfiguration {
-          pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
-          # > Our main home-manager configuration file <
-          modules = [
-            catppuccin.homeManagerModules.catppuccin
-            ./devices/nwright-nixos-pc/home-manager/home.nix
-          ];
-        };
-
-        "nwright@nwright-framework" = home-manager-unstable.lib.homeManagerConfiguration {
-          pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+        "nwright@nwright-framework" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = {
             inherit outputs inputs;
           }; # Pass flake inputs to our config
@@ -119,6 +109,16 @@
           modules = [
             catppuccin.homeManagerModules.catppuccin
             ./devices/nwright-framework/home-manager/home.nix
+          ];
+        };
+
+        "nwright@nwright-nixos-pc" = home-manager-unstable.lib.homeManagerConfiguration {
+          pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          # extraSpecialArgs = { inherit inputs; }; # Pass flake inputs to our config
+          # > Our main home-manager configuration file <
+          modules = [
+            catppuccin.homeManagerModules.catppuccin
+            ./devices/nwright-nixos-pc/home-manager/home.nix
           ];
         };
 
