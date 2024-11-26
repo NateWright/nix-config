@@ -27,6 +27,7 @@
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     catppuccin.url = "github:catppuccin/nix";
+    umu.url = "github:Open-Wine-Components/umu-launcher?dir=packaging/nix";
   };
 
   outputs =
