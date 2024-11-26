@@ -1,7 +1,15 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   gtk = {
     enable = true;
-    cursorTheme = { name = "Catppuccin-Macchiato-Mauve-Cursors"; };
+    cursorTheme = {
+      name = "Catppuccin-Macchiato-Mauve-Cursors";
+    };
     theme = {
       name = "Breeze-Dark";
       package = pkgs.kdePackages.breeze-gtk;
@@ -21,9 +29,13 @@
       gtk-font-name="Noto Sans,  10"
     '';
 
-    gtk3.extraConfig = { gtk-application-prefer-dark-theme = 0; };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 0;
+    };
 
-    gtk4.extraConfig = { gtk-application-prefer-dark-theme = 0; };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 0;
+    };
 
   };
 
