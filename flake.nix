@@ -59,7 +59,7 @@
       packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
 
       nixosConfigurations = {
-        nwright-framework = nixpkgs.lib.nixosSystem {
+        nwright-framework = nixpkgs-unstable.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit outputs inputs;
@@ -102,7 +102,7 @@
       };
       homeConfigurations = {
         "nwright@nwright-framework" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          pkgs = nixpkgs-unstable.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = {
             inherit outputs inputs;
           }; # Pass flake inputs to our config
