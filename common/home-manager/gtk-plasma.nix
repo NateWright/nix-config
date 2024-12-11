@@ -1,6 +1,4 @@
 {
-  lib,
-  config,
   pkgs,
   ...
 }:
@@ -16,8 +14,6 @@
     };
 
     gtk2.extraConfig = ''
-      gtk-cursor-theme-name = "Catppuccin-Macchiato-Mauve-Cursors"
-      gtk-theme-name = "Breeze-Dark"
       gtk-enable-animations=1
       gtk-primary-button-warps-slider=1
       gtk-toolbar-style=3
@@ -30,10 +26,12 @@
     '';
 
     gtk3.extraConfig = {
+      gtk-cursor-theme-size = 24;
       gtk-application-prefer-dark-theme = 0;
     };
 
     gtk4.extraConfig = {
+      gtk-cursor-theme-size = 24;
       gtk-application-prefer-dark-theme = 0;
     };
 
