@@ -2,9 +2,7 @@
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
 {
-  lib,
-  config,
-  pkgs,
+  inputs,
   ...
 }:
 {
@@ -19,6 +17,7 @@
     ../../../common/home-manager/vscode.nix
     ../../../common/home-manager/helix.nix
     ../../../common/home-manager/zsh.nix
+    inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
   nixpkgs = {
@@ -61,7 +60,6 @@
   programs.fuzzel.enable = true;
   programs.lazygit.enable = true;
   programs.zellij.enable = true;
-
   # Nicely reload system units when changing configs
   # systemd.user.startServices = "sd-switch";
 

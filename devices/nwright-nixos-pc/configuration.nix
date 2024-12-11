@@ -23,6 +23,7 @@
 
     ../../common/de/common.nix
     ../../common/de/plasma.nix
+    inputs.home-manager-unstable.nixosModules.home-manager
   ];
 
   nixpkgs = {
@@ -113,7 +114,10 @@
     packages = with pkgs; [ firefox ];
     shell = pkgs.zsh;
   };
-
+  home-manager.users.nwright = import ./home-manager/home.nix {
+    inputs = inputs;
+  };
+  home-manager.backupFileExtension = "hm-backup";
   catppuccin = {
     enable = true;
     flavor = "macchiato";
