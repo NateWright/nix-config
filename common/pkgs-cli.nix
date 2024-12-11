@@ -13,6 +13,7 @@
     git
     bottom
 
+    fd
     ripgrep
     nixfmt-rfc-style
     gnumake
