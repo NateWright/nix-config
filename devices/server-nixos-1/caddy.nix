@@ -159,6 +159,13 @@ in
           reverse_proxy 127.0.0.1:8017
         '';
       };
+      "mealie.nwright.cloud" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          encode gzip
+          reverse_proxy 127.0.0.1:8018
+        '';
+      };
 
     };
   };

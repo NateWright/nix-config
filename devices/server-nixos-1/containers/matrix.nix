@@ -71,15 +71,6 @@
             ];
           };
 
-          matrix-sliding-sync = {
-            enable = true;
-            environmentFile = "/vault/datastorage/matrix/secrets/sliding-sync-env";
-            settings = {
-              SYNCV3_SERVER = "https://nwright.tech:443";
-              SYNCV3_BINDADDR = "[::]:8015";
-            };
-          };
-
           postgresql = {
             enable = true;
             dataDir = "/vault/datastorage/matrix/postgres";

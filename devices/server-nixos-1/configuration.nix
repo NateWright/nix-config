@@ -33,7 +33,7 @@
     ./docker/it-tools.nix
     ./docker/lubelogger.nix
     ./docker/collabora-code.nix
-    inputs.home-manager-unstable.nixosModules.home-manager
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   nixpkgs = {
