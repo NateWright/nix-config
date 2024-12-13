@@ -114,10 +114,15 @@
     packages = with pkgs; [ firefox ];
     shell = pkgs.zsh;
   };
-  home-manager.users.nwright = import ./home-manager/home.nix {
-    inputs = inputs;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.nwright = import ./home-manager/home.nix;
+    extraSpecialArgs = {
+      inherit outputs inputs;
+    }; # Pass flake inputs to our config
+    backupFileExtension = "hm-backup";
   };
-  home-manager.backupFileExtension = "hm-backup";
   catppuccin = {
     enable = true;
     flavor = "macchiato";

@@ -2,7 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, outputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  outputs,
+  ...
+}:
 
 {
   imports = [
@@ -27,6 +33,7 @@
     ./docker/it-tools.nix
     ./docker/lubelogger.nix
     ./docker/collabora-code.nix
+    inputs.home-manager-unstable.nixosModules.home-manager
   ];
 
   nixpkgs = {
@@ -50,7 +57,10 @@
   fileSystems = {
     "/".options = [ "compress=zstd" ];
     "/home".options = [ "compress=zstd" ];
-    "/nix".options = [ "compress=zstd" "noatime" ];
+    "/nix".options = [
+      "compress=zstd"
+      "noatime"
+    ];
     "/vault/backups".options = [ "compress=zstd" ];
     "/vault/containers".options = [ "compress=zstd" ];
     "/vault/datastorage".options = [ "compress=zstd" ];
@@ -59,7 +69,10 @@
   services.btrfs.autoScrub = {
     enable = true;
     interval = "monthly";
-    fileSystems = [ "/" "/vault-old" ];
+    fileSystems = [
+      "/"
+      "/vault-old"
+    ];
   };
 
   networking.hostName = "server-nixos-1"; # Define your hostname.
@@ -102,10 +115,24 @@
   users.users.nwright = {
     isNormalUser = true;
     description = "nwright";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "nginx" "docker" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "libvirtd"
+      "nginx"
+      "docker"
+    ];
+    shell = pkgs.zsh;
   };
-
-  programs.gnome-disks.enable = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.nwright = import ./home-manager/home.nix;
+    extraSpecialArgs = {
+      inherit outputs inputs;
+    }; # Pass flake inputs to our config
+    backupFileExtension = "hm-backup";
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -117,9 +144,13 @@
     cloudflared
   ];
 
-  programs.nh = {
-    enable = true;
-    flake = "/home/nwright/nix-config";
+  programs = {
+    gnome-disks.enable = true;
+    nh = {
+      enable = true;
+      flake = "/home/nwright/nix-config";
+    };
+    zsh.enable = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -154,8 +185,13 @@
     enable = true;
 
     # always allow traffic from your Tailscale network
-    trustedInterfaces =
-      [ "tailscale0" "docker0" "br-collabora" "br-photprism" "br-onlyoffice" ];
+    trustedInterfaces = [
+      "tailscale0"
+      "docker0"
+      "br-collabora"
+      "br-photprism"
+      "br-onlyoffice"
+    ];
 
     # allow the Tailscale UDP port through the firewall
     allowedUDPPorts = [ config.services.tailscale.port ];

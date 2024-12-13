@@ -13,7 +13,8 @@
     ../../common/pkgs.nix
     ../../common/pkgs-cli.nix
     ../../common/de/common.nix
-    ../../common/de/plasma.nix
+    ../../common/de/cosmic.nix
+    inputs.home-manager-unstable.nixosModules.home-manager
   ];
 
   nixpkgs = {
@@ -163,7 +164,15 @@
     packages = with pkgs; [ firefox ];
     shell = pkgs.zsh;
   };
-
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.nwright = import ./home-manager/home.nix;
+    extraSpecialArgs = {
+      inherit outputs inputs;
+    }; # Pass flake inputs to our config
+    backupFileExtension = "hm-backup";
+  };
   catppuccin = {
     enable = true;
     flavor = "macchiato";
