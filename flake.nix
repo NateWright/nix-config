@@ -100,17 +100,9 @@
           modules = [ ./devices/linode-nixos-1/configuration.nix ];
         };
       };
-      homeConfigurations = {
-        "nwright@server-nixos-1" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = {
-            inherit outputs inputs;
-          }; # Pass flake inputs to our config
-          # > Our main home-manager configuration file <
-          modules = [ ./devices/server-nixos-1/home-manager/home.nix ];
-        };
+      # homeConfigurations = {
 
-      };
+      # };
 
     };
 }
