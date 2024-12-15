@@ -44,8 +44,6 @@
   home = {
     username = "nwright";
     homeDirectory = "/home/nwright";
-
-    packages = with pkgs; [ gh ];
   };
 
   news.display = "silent";
@@ -76,7 +74,7 @@
   # };
 
   # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
+  # systemd.user.startServices = "sd-switch";
 
   home.stateVersion = "23.11";
 }
