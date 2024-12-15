@@ -2,14 +2,22 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  outputs,
+  ...
+}:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./caddy.nix
     ./tailscale.nix
     ../../common/pkgs-cli.nix
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   nix.settings = {
@@ -76,11 +84,20 @@
   users.users.nwright = {
     isNormalUser = true;
     home = "/home/nwright";
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
-    #   packages = with pkgs; [
-    #     firefox
-    #     tree
-    #   ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
+    shell = pkgs.zsh;
+  };
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.nwright = import ./home-manager/home.nix;
+    extraSpecialArgs = {
+      inherit outputs inputs;
+    }; # Pass flake inputs to our config
+    backupFileExtension = "hm-backup";
   };
 
   # List packages installed in system profile. To search, run:
@@ -95,9 +112,12 @@
     sysstat
   ];
 
-  programs.nh = {
-    enable = true;
-    flake = "/home/nwright/nix-config";
+  programs = {
+    nh = {
+      enable = true;
+      flake = "/home/nwright/nix-config";
+    };
+    zsh.enable = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -134,9 +154,13 @@
       enable = true;
       trustedInterfaces = [ "tailscale0" ];
       allowedUDPPorts = [ config.services.tailscale.port ];
-      allowedTCPPorts = [ 22 80 443 8448 ];
+      allowedTCPPorts = [
+        22
+        80
+        443
+        8448
+      ];
     };
-
   };
 
   # Copy the NixOS configuration file and link it from the resulting system
@@ -164,4 +188,3 @@
   system.stateVersion = "24.05"; # Did you read the comment?
 
 }
-
