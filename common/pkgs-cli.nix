@@ -12,8 +12,9 @@
     dua
     git
     bottom
-
     fd
+
+    gh
     ripgrep
     nixfmt-rfc-style
     gnumake
