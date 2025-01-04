@@ -62,9 +62,7 @@
       timeout = 0;
 
     };
-
-    kernelPackages = pkgs.linuxPackages_latest;
-
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
   };
 
   fileSystems = {
@@ -116,7 +114,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.printing.drivers = [ pkgs.hplip ];
+  # services.printing.drivers = [ pkgs.hplip ];
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
   # for a WiFi printer
