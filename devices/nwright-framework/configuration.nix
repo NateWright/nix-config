@@ -183,7 +183,7 @@
     cifs-utils
     tpm2-tss
 
-    tailscale-systray
+    trayscale
     nextcloud-client
     libreoffice-fresh
     hunspell
