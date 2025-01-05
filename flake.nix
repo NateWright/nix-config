@@ -71,12 +71,13 @@
             ./devices/nwright-framework/configuration.nix
           ];
         };
-        nwright-nixos-pc = nixpkgs-unstable.lib.nixosSystem {
+        nwright-nixos-pc = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit outputs inputs;
           };
           modules = [
+            home-manager.nixosModules.home-manager
             nixos-cosmic.nixosModules.default
             catppuccin.nixosModules.catppuccin
             ./devices/nwright-nixos-pc/configuration.nix

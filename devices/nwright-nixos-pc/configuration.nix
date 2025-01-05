@@ -23,13 +23,13 @@
 
     ../../common/de/common.nix
     ../../common/de/plasma.nix
-    inputs.home-manager-unstable.nixosModules.home-manager
   ];
 
   nixpkgs = {
     # You can add overlays here
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
+      outputs.overlays.stable-packages
       outputs.overlays.unstable-packages
       outputs.overlays.modifications
       outputs.overlays.additions
