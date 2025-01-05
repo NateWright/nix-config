@@ -25,5 +25,6 @@
     man-pages-posix
     zellij
     alacritty
+    tailscale
   ];
 }

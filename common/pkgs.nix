@@ -5,5 +5,9 @@
     localsend
     unstable.resources
     unstable.vscode
+
+    # Zed pkgs
+    unstable.zed-editor
+    nixd
   ];
 }

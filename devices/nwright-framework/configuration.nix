@@ -193,8 +193,6 @@
     bridge-utils
 
     distrobox
-    tailscale
-
     (unstable.pkgs.wrapOBS {
       plugins = with unstable.pkgs.obs-studio-plugins; [
         wlrobs
@@ -203,8 +201,6 @@
         obs-vaapi
       ];
     })
-    nixd
-    unstable.zed-editor
   ];
 
   programs = {
