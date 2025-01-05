@@ -65,6 +65,8 @@
             inherit outputs inputs;
           };
           modules = [
+            home-manager-unstable.nixosModules.home-manager
+            # home-manager.nixosModules.home-manager
             nixos-cosmic.nixosModules.default
             nixos-hardware.nixosModules.framework-13-7040-amd
             catppuccin.nixosModules.catppuccin
@@ -77,6 +79,7 @@
             inherit outputs inputs;
           };
           modules = [
+            # home-manager-unstable.nixosModules.home-manager
             home-manager.nixosModules.home-manager
             nixos-cosmic.nixosModules.default
             catppuccin.nixosModules.catppuccin

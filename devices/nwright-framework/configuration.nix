@@ -14,7 +14,6 @@
     ../../common/pkgs-cli.nix
     ../../common/de/common.nix
     ../../common/de/cosmic.nix
-    inputs.home-manager-unstable.nixosModules.home-manager
   ];
 
   nixpkgs = {
