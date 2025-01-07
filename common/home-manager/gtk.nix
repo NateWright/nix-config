@@ -1,7 +1,13 @@
-{ lib, config, pkgs, ... }: {
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   gtk = {
     enable = true;
-    cursorTheme.name = "Adwaita";
+    cursorTheme.name = "Catppuccin-Macchiato-Mauve-Cursors";
     theme = {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;
@@ -18,7 +24,6 @@
     gtk4.extraConfig = {
       gtk-application-prefer-dark-theme = 0;
     };
-
   };
 
   dconf.settings = {
