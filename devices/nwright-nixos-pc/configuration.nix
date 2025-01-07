@@ -26,7 +26,6 @@
   ];
 
   nixpkgs = {
-    # You can add overlays here
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.stable-packages
@@ -34,9 +33,7 @@
       outputs.overlays.modifications
       outputs.overlays.additions
     ];
-    # Configure your nixpkgs instance
     config = {
-      # Disable if you don't want unfree packages
       allowUnfree = true;
     };
   };
@@ -48,6 +45,11 @@
       efi.canTouchEfiVariables = true;
     };
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    supportedFilesystems = [ "ntfs" ];
+    #   blacklistedKernelModules = [
+    #     "xpad"
+    #     "mt76x2u"
+    #   ];
   };
 
   fileSystems = {
@@ -60,19 +62,20 @@
     "/home/nwright/Vault".options = [ "compress=zstd" ];
   };
 
-  networking.hostName = "nwright-nixos-pc"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking = {
+    hostName = "nwright-nixos-pc";
+    networkmanager.enable = true;
+    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+    firewall = {
+      enable = true;
+      trustedInterfaces = [ "tailscale0" ];
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-  networking.networkmanager.plugins = with pkgs; [
-    networkmanager-openconnect
-    networkmanager-openvpn
-  ];
+      # allow the Tailscale UDP port through the firewall
+      allowedUDPPorts = [ config.services.tailscale.port ];
+      # allow you to SSH in over the public internet
+      # allowedTCPPorts = [ ];
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -171,65 +174,30 @@
       flake = "/home/nwright/nix-config";
     };
     zsh.enable = true;
+    virt-manager.enable = true;
   };
-
-  services.gvfs.enable = true;
-  services.fwupd = {
-    enable = true;
-  };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-  networking.firewall = {
-    # enable the firewall
-    enable = true;
-
-    # always allow traffic from your Tailscale network
-    trustedInterfaces = [ "tailscale0" ];
-
-    # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [ config.services.tailscale.port ];
-    allowedUDPPortRanges = [
-      {
-        from = 1714;
-        to = 1764;
-      }
-    ];
-    # allow you to SSH in over the public internet
-    # allowedTCPPorts = [ ];
-    allowedTCPPortRanges = [
-      {
-        from = 1714;
-        to = 1764;
-      }
-    ];
-
+  services = {
+    gvfs.enable = true;
+    fwupd.enable = true;
+    openssh.enable = true;
+    tailscale.enable = true;
+    flatpak.enable = true;
   };
-  services.tailscale.enable = true;
 
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
-  virtualisation.podman.enable = false;
-  virtualisation.docker.enable = true;
-  # virtualisation.docker.enableNvidia = true;
-  boot.supportedFilesystems = [ "ntfs" ];
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
+    podman.enable = false;
+    docker.enable = true;
+  };
+
+  hardware = {
+    xone.enable = true;
+    xpadneo.enable = true;
+    firmware = [ pkgs.xow_dongle-firmware ];
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -238,16 +206,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-  services.flatpak.enable = true;
-  hardware.xone.enable = true;
-  hardware.xpadneo.enable = true;
-  boot = {
-    blacklistedKernelModules = [
-      "xpad"
-      "mt76x2u"
-    ];
-
-    # extraModulePackages = with pkgs; [ xone-custom ];
-  };
-  hardware.firmware = [ pkgs.xow_dongle-firmware ];
 }

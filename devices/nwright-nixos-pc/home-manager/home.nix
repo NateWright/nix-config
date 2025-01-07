@@ -31,14 +31,17 @@
     enable = true;
   };
 
-  programs.home-manager.enable = true;
-  programs.git.enable = true;
-  programs.alacritty.enable = true;
-  programs.bat.enable = true;
-  programs.bottom.enable = true;
-  programs.fuzzel.enable = true;
-  programs.lazygit.enable = true;
-  programs.zellij.enable = true;
+  programs = {
+    home-manager.enable = true;
+    git.enable = true;
+    alacritty.enable = true;
+    bat.enable = true;
+    bottom.enable = true;
+    fuzzel.enable = true;
+    lazygit.enable = true;
+    zellij.enable = true;
+  };
+
   # Nicely reload system units when changing configs
   # systemd.user.startServices = "sd-switch";
 
