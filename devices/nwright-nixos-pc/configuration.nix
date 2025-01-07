@@ -15,9 +15,9 @@
     ./hardware-configuration.nix
 
     ./amd.nix
-    ./nix-settings.nix
     ./audio.nix
 
+    ../../common/nix-settings.nix
     ../../common/pkgs.nix
     ../../common/pkgs-cli.nix
 
