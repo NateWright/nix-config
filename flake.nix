@@ -28,6 +28,7 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     catppuccin.url = "github:catppuccin/nix";
     umu.url = "github:Open-Wine-Components/umu-launcher?dir=packaging/nix";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
   outputs =
@@ -41,6 +42,7 @@
       home-manager-unstable,
       vscode-server,
       catppuccin,
+      chaotic,
       ...
     }@inputs:
     let
@@ -79,11 +81,16 @@
             inherit outputs inputs;
           };
           modules = [
+            ./devices/nwright-nixos-pc/configuration.nix
+
             # home-manager-unstable.nixosModules.home-manager
             home-manager.nixosModules.home-manager
             nixos-cosmic.nixosModules.default
             catppuccin.nixosModules.catppuccin
-            ./devices/nwright-nixos-pc/configuration.nix
+
+            chaotic.nixosModules.nyx-cache
+            chaotic.nixosModules.nyx-overlay
+            chaotic.nixosModules.nyx-registry
           ];
         };
         server-nixos-1 = nixpkgs.lib.nixosSystem {
