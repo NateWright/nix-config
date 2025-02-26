@@ -7,7 +7,7 @@
     unstable.vscode
 
     # Zed pkgs
-    unstable.zed-editor
+    # unstable.zed-editor
     nixd
   ];
 }
