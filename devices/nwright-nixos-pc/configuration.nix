@@ -150,7 +150,7 @@
     steamtinkerlaunch
 
     unstable.r2modman
-    inputs.umu.packages.x86_64-linux.umu
+    inputs.umu.packages.x86_64-linux.umu-launcher
 
     (pkgs.wrapOBS {
       plugins = with pkgs.obs-studio-plugins; [
