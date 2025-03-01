@@ -8,6 +8,7 @@
         "https://nix-gaming.cachix.org"
         "https://hyprland.cachix.org"
         "https://chaotic-nyx.cachix.org/"
+        "server-nixos-1"
       ];
       trusted-public-keys = [
         "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="

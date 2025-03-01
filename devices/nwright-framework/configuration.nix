@@ -16,7 +16,7 @@
     ../../common/pkgs-cli.nix
 
     ../../common/de/common.nix
-    ../../common/de/cosmic.nix
+    ../../common/de/gnome.nix
   ];
 
   nixpkgs = {
@@ -33,6 +33,28 @@
       allowUnfree = true;
     };
   };
+  nix = {
+    buildMachines = [
+      {
+        hostName = "server-nixos-1";
+        system = "x86_64-linux";
+        protocol = "ssh-ng";
+        # if the builder supports building for multiple architectures,
+        # replace the previous line by, e.g.
+        # systems = ["x86_64-linux" "aarch64-linux"];
+        maxJobs = 4;
+        speedFactor = 4;
+        supportedFeatures = [
+          "nixos-test"
+          "benchmark"
+          "big-parallel"
+          "kvm"
+        ];
+        mandatoryFeatures = [ ];
+      }
+    ];
+    distributedBuilds = true;
+  };
   # Bootloader.
   boot = {
     loader = {
@@ -44,7 +66,7 @@
       efi.canTouchEfiVariables = true;
       timeout = 0;
     };
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = inputs.chaotic.legacyPackages.x86_64-linux.linuxPackages_cachyos;
   };
 
   fileSystems = {
@@ -133,6 +155,10 @@
 
     flatpak.enable = true;
     tailscale.enable = true;
+    kmscon = {
+      enable = true;
+      useXkbConfig = true;
+    };
   };
   virtualisation = {
     docker.enable = true;

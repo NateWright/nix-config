@@ -67,12 +67,12 @@
             inherit outputs inputs;
           };
           modules = [
+            ./devices/nwright-framework/configuration.nix
+
             home-manager-unstable.nixosModules.home-manager
-            # home-manager.nixosModules.home-manager
             nixos-cosmic.nixosModules.default
             nixos-hardware.nixosModules.framework-13-7040-amd
             catppuccin.nixosModules.catppuccin
-            ./devices/nwright-framework/configuration.nix
           ];
         };
         nwright-nixos-pc = nixpkgs.lib.nixosSystem {
