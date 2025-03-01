@@ -134,6 +134,11 @@
     backupFileExtension = "hm-backup";
   };
 
+  users.users.nixremote = {
+    isNormalUser = true;
+    shell = pkgs.zsh;
+  };
+  nix.settings.trusted-users = [ "nixremote" ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
