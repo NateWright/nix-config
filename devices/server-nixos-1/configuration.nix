@@ -137,6 +137,9 @@
   users.users.nixremote = {
     isNormalUser = true;
     shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJH3haonogegqln0iGZMSK/VJtlkLqHN/YuTTPdjpfwQ root@nwright-framework"
+    ];
   };
   nix.settings.trusted-users = [ "nixremote" ];
   # List packages installed in system profile. To search, run:
