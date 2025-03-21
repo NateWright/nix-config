@@ -19,7 +19,6 @@
     kdePackages.partitionmanager
     kdePackages.filelight
     fuzzel
-    dracula-theme
     vorta
     tailscale-systray
   ];
