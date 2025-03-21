@@ -22,7 +22,7 @@
     ../../common/pkgs-cli.nix
 
     ../../common/de/common.nix
-    ../../common/de/gnome.nix
+    ../../common/de/plasma.nix
   ];
 
   nixpkgs = {
@@ -150,7 +150,7 @@
     steamtinkerlaunch
 
     unstable.r2modman
-    inputs.umu.packages.x86_64-linux.umu-launcher
+    # inputs.umu.packages.x86_64-linux.umu-launcher
 
     (pkgs.wrapOBS {
       plugins = with pkgs.obs-studio-plugins; [
