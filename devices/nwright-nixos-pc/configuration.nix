@@ -15,7 +15,7 @@
     ./hardware-configuration.nix
 
     ./amd.nix
-    ./audio.nix
+    # ./audio.nix
 
     ../../common/nix-settings.nix
     ../../common/pkgs.nix
@@ -150,7 +150,7 @@
     steamtinkerlaunch
 
     unstable.r2modman
-    # inputs.umu.packages.x86_64-linux.umu-launcher
+    inputs.umu.packages.x86_64-linux.umu-launcher
 
     (pkgs.wrapOBS {
       plugins = with pkgs.obs-studio-plugins; [
