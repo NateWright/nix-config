@@ -14,7 +14,7 @@
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
     ../../../common/home-manager/gtk-plasma.nix
-    ../../../common/home-manager/vscode.nix
+    # ../../../common/home-manager/vscode.nix
     ../../../common/home-manager/helix.nix
     ../../../common/home-manager/zsh.nix
     ../../../common/home-manager/zed-editor.nix
