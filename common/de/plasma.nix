@@ -18,6 +18,7 @@
     kdePackages.kwallet
     kdePackages.partitionmanager
     kdePackages.filelight
+    dracula-theme
     fuzzel
     vorta
     tailscale-systray
