@@ -18,7 +18,7 @@
     ./cloudflared.nix
     ./data-collection.nix
     ./hardware-configuration.nix
-    ./minecraft.nix
+    # ./minecraft.nix
     ./nextcloud.nix
     ./snapper.nix
     ./tailscale.nix
