@@ -1,4 +1,10 @@
-{ pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   services = {
     nextcloud = {
       enable = true;
@@ -9,8 +15,7 @@
       config = {
         dbtype = "pgsql";
         dbuser = "nextcloud";
-        dbhost =
-          "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
+        dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
         dbname = "nextcloud";
         adminpassFile = "/etc/nixos/password.txt";
         adminuser = "root";
@@ -28,17 +33,21 @@
       enable = true;
       dataDir = "/vault/datastorage/postgres";
       ensureDatabases = [ "nextcloud" ];
-      ensureUsers = [{
-        name = "nextcloud";
-        ensureDBOwnership = true;
-      }];
+      ensureUsers = [
+        {
+          name = "nextcloud";
+          ensureDBOwnership = true;
+        }
+      ];
     };
 
     nginx.virtualHosts."nwright.cloud" = {
-      listen = [{
-        addr = "127.0.0.1";
-        port = 8009;
-      }];
+      listen = [
+        {
+          addr = "127.0.0.1";
+          port = 8009;
+        }
+      ];
     };
   };
 
@@ -47,5 +56,9 @@
     requires = [ "postgresql.service" ];
     after = [ "postgresql.service" ];
   };
+
+  systemd.services."phpfpm-nextcloud".postStart = ''
+    ${config.services.nextcloud.occ}/bin/nextcloud-occ config:app:set recognize node_binary --value '${lib.getExe pkgs.nodejs_20}'
+  '';
 
 }
