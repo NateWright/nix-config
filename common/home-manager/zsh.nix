@@ -39,4 +39,5 @@
 
   };
   programs.zellij.enableBashIntegration = false;
+  programs.zellij.enableZshIntegration = false;
 }
