@@ -95,14 +95,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.nwright = {
     isNormalUser = true;
@@ -179,11 +171,16 @@
 
   # List services that you want to enable:
   services = {
+    printing.enable = true;
     gvfs.enable = true;
     fwupd.enable = true;
     openssh.enable = true;
     tailscale.enable = true;
     flatpak.enable = true;
+    kmscon = {
+      enable = true;
+      useXkbConfig = true;
+    };
   };
 
   virtualisation = {
