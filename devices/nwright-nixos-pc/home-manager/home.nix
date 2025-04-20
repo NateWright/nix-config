@@ -18,7 +18,7 @@
     ../../../common/home-manager/helix.nix
     ../../../common/home-manager/zsh.nix
     ../../../common/home-manager/zed-editor.nix
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
   ];
 
   home = {
