@@ -8,9 +8,9 @@
     desktopManager.plasma6.enable = true;
   };
 
-  security.pam.services.login.enableGnomeKeyring = true;
-  security.pam.services.login.kwallet.enable = lib.mkForce false;
-  security.pam.services.kde.kwallet.enable = lib.mkForce false;
+  # security.pam.services.login.enableGnomeKeyring = true;
+  # security.pam.services.login.kwallet.enable = lib.mkForce false;
+  # security.pam.services.kde.kwallet.enable = lib.mkForce false;
   programs.dconf.enable = true;
   environment.systemPackages = with pkgs; [
     kdePackages.breeze-gtk
