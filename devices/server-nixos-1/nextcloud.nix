@@ -9,7 +9,7 @@
     nextcloud = {
       enable = true;
       configureRedis = true;
-      package = pkgs.nextcloud30;
+      package = pkgs.nextcloud31;
       hostName = "nwright.cloud";
       datadir = "/vault/datastorage/nextcloud-data";
       config = {
@@ -26,6 +26,11 @@
         trusted_domains = [ "nwright.cloud" ];
         overwriteprotocol = "https";
         default_phone_region = "US";
+
+        "memories.exiftool" = "${lib.getExe pkgs.exiftool}";
+        "memories.vod.ffmpeg" = "${lib.getExe pkgs.ffmpeg-headless}";
+        "memories.vod.ffprobe" = "${pkgs.ffmpeg-headless}/bin/ffprobe";
+        preview_ffmpeg_path = "${pkgs.ffmpeg-headless}/bin/ffmpeg";
       };
     };
 
@@ -60,5 +65,9 @@
   systemd.services."phpfpm-nextcloud".postStart = ''
     ${config.services.nextcloud.occ}/bin/nextcloud-occ config:app:set recognize node_binary --value '${lib.getExe pkgs.nodejs_20}'
   '';
+
+  systemd.services.nextcloud-cron = {
+    path = [ pkgs.perl ];
+  };
 
 }
