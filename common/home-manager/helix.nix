@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.helix = {
     enable = true;
     defaultEditor = true;
@@ -7,7 +8,7 @@
       clang-tools
       nil
       gopls
-      python311Packages.python-lsp-server
+      # python311Packages.python-lsp-server
       marksman
       nixfmt-rfc-style
     ];
@@ -28,28 +29,31 @@
           auto-format = true;
           formatter = {
             command = "${pkgs.clang-tools}/bin/clang-format";
-            args = [ "--style=file" "--fallback-style" "LLVM" ];
+            args = [
+              "--style=file"
+              "--fallback-style"
+              "LLVM"
+            ];
           };
         }
         {
           name = "go";
           auto-format = true;
         }
-        {
-          name = "python";
-          auto-format = true;
-          language-servers = [ "pylsp" ];
-        }
+        # {
+        #   name = "python";
+        #   auto-format = true;
+        #   language-servers = [ "pylsp" ];
+        # }
       ];
       language-server = {
-        pylsp = {
-          command = "${pkgs.python311Packages.python-lsp-server}/bin/pylsp";
-          config = { provideFormatter = true; };
-        };
+        # pylsp = {
+        #   command = "${pkgs.python311Packages.python-lsp-server}/bin/pylsp";
+        #   config = { provideFormatter = true; };
+        # };
 
         typescript-language-server = with pkgs.nodePackages; {
-          command =
-            "${typescript-language-server}/bin/typescript-language-server";
+          command = "${typescript-language-server}/bin/typescript-language-server";
           args = [
             "--stdio"
             "--tsserver-path=${typescript}/lib/node_modules/typescript/lib"

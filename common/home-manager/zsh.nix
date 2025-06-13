@@ -1,15 +1,11 @@
 { config, pkgs, ... }:
 {
-  programs.thefuck = {
-    enable = true;
-    enableZshIntegration = true;
-  };
   programs.zsh = {
     enable = true;
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    initExtra = ''
+    initContent = ''
       bindkey '^ ' autosuggest-accept
     '';
 
@@ -21,7 +17,6 @@
       enable = true;
       plugins = [
         "git"
-        "thefuck"
       ];
     };
     plugins = [

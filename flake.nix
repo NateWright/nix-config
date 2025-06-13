@@ -75,7 +75,7 @@
             catppuccin.nixosModules.catppuccin
           ];
         };
-        nwright-nixos-pc = nixpkgs.lib.nixosSystem {
+        nwright-nixos-pc = nixpkgs-unstable.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit outputs inputs;
@@ -83,8 +83,8 @@
           modules = [
             ./devices/nwright-nixos-pc/configuration.nix
 
-            # home-manager-unstable.nixosModules.home-manager
-            home-manager.nixosModules.home-manager
+            home-manager-unstable.nixosModules.home-manager
+            # home-manager.nixosModules.home-manager
             nixos-cosmic.nixosModules.default
             catppuccin.nixosModules.catppuccin
 
