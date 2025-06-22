@@ -15,7 +15,7 @@
     ./hardware-configuration.nix
 
     ./amd.nix
-    # ./audio.nix
+    ./audio.nix
 
     ../../common/nix-settings.nix
     ../../common/pkgs.nix
@@ -182,6 +182,7 @@
       enable = true;
       useXkbConfig = true;
     };
+    hardware.openrgb.enable = true;
   };
 
   virtualisation = {
