@@ -16,7 +16,7 @@
     ./borgbackup.nix
     ./caddy.nix
     ./cloudflared.nix
-    ./data-collection.nix
+    # ./data-collection.nix
     ./hardware-configuration.nix
     # ./minecraft.nix
     ./nextcloud.nix
@@ -26,14 +26,14 @@
     ./virtmanager.nix
     ./NateWright.nix
     ../../common/pkgs-cli.nix
+    ../../common/nix-settings.nix
     ./containers/default.nix
     ./containers/matrix.nix
-    ./containers/mattermost.nix
+    # ./containers/mattermost.nix
     ./docker/default.nix
     ./docker/it-tools.nix
     ./docker/lubelogger.nix
     ./docker/collabora-code.nix
-    inputs.home-manager.nixosModules.home-manager
   ];
 
   nixpkgs = {
