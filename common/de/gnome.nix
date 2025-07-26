@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  services.xserver = {
+  services = {
     displayManager = {
       gdm = {
         enable = true;
@@ -22,7 +22,7 @@
     nautilus-open-any-terminal
     adw-gtk3
   ];
-  services.xserver.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
+  services.desktopManager.gnome.extraGSettingsOverridePackages = with pkgs; [
     nautilus-open-any-terminal
   ];
 

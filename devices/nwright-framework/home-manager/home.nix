@@ -10,7 +10,7 @@
   imports = [
     # If you want to use home-manager modules from other flakes (such as nix-colors):
     # inputs.nix-colors.homeManagerModule
-    ../../../common/home-manager/vscode.nix
+    # ../../../common/home-manager/vscode.nix
     ../../../common/home-manager/helix.nix
     ../../../common/home-manager/zsh.nix
     ../../../common/home-manager/zed-editor.nix
