@@ -166,6 +166,12 @@ in
           reverse_proxy 127.0.0.1:8018
         '';
       };
+      "neko.nwright.cloud" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:8019
+        '';
+      };
 
     };
   };
