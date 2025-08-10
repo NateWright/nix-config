@@ -29,6 +29,7 @@
     ../../common/nix-settings.nix
     ./containers/default.nix
     ./containers/matrix.nix
+    ./containers/authentik.nix
     # ./containers/mattermost.nix
     ./docker/default.nix
     ./docker/it-tools.nix

@@ -26,6 +26,7 @@
         trusted_domains = [ "nwright.cloud" ];
         overwriteprotocol = "https";
         default_phone_region = "US";
+        allow_local_remote_servers = true;
 
         "memories.exiftool" = "${lib.getExe pkgs.exiftool}";
         "memories.vod.ffmpeg" = "${lib.getExe pkgs.ffmpeg-headless}";

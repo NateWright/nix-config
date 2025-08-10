@@ -29,6 +29,7 @@
     catppuccin.url = "github:catppuccin/nix";
     umu.url = "github:Open-Wine-Components/umu-launcher?dir=packaging/nix";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    authentik-nix.url = "github:nix-community/authentik-nix";
   };
 
   outputs =

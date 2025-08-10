@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   pkgs,
   ...
@@ -81,13 +80,13 @@ in
         '';
       };
 
-      "photos.nwright.cloud" = {
-        useACMEHost = "nwright.cloud";
-        extraConfig = ''
-          encode gzip
-          reverse_proxy 127.0.0.1:2343
-        '';
-      };
+      # "photos.nwright.cloud" = {
+      #   useACMEHost = "nwright.cloud";
+      #   extraConfig = ''
+      #     encode gzip
+      #     reverse_proxy 127.0.0.1:2343
+      #   '';
+      # };
 
       "penpot.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
@@ -163,7 +162,7 @@ in
         useACMEHost = "nwright.cloud";
         extraConfig = ''
           encode gzip
-          reverse_proxy 127.0.0.1:8018
+          reverse_proxy 100.126.55.82:9000
         '';
       };
       "neko.nwright.cloud" = {
@@ -172,7 +171,18 @@ in
           reverse_proxy 127.0.0.1:8019
         '';
       };
-
+      "auth.nwright.cloud" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          reverse_proxy 192.168.102.11:9000
+        '';
+      };
+      "photos.nwright.cloud" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          reverse_proxy 100.91.45.126:2283
+        '';
+      };
     };
   };
   services.nginx.virtualHosts."blog" = {
