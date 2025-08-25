@@ -183,6 +183,12 @@ in
           reverse_proxy 100.91.45.126:2283
         '';
       };
+      "docmost.nwright.cloud" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          reverse_proxy 100.121.152.117:3000
+        '';
+      };
     };
   };
   services.nginx.virtualHosts."blog" = {
