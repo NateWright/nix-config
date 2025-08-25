@@ -113,9 +113,56 @@
           modules = [ ./devices/linode-nixos-1/configuration.nix ];
         };
       };
-      # homeConfigurations = {
+      homeConfigurations = {
+        "nwright@nwright-framework" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          extraSpecialArgs = {
+            inherit outputs inputs;
+          }; # Pass flake inputs to our config
+          # > Our main home-manager configuration file <
+          modules = [
+            {
+              # You can import other home-manager modules here
+              imports = [
+                # If you want to use home-manager modules from other flakes (such as nix-colors):
+                # inputs.nix-colors.homeManagerModule
+                # ../../../common/home-manager/vscode.nix
+                common/home-manager/helix.nix
+                common/home-manager/zsh.nix
+                common/home-manager/zed-editor.nix
+                inputs.catppuccin.homeModules.catppuccin
+              ];
 
-      # };
+              home = {
+                username = "nwright";
+                homeDirectory = "/home/nwright/distrobox/home/dev";
+              };
+
+              catppuccin = {
+                enable = true;
+                flavor = "macchiato";
+                accent = "mauve";
+              };
+              programs = {
+                home-manager.enable = true;
+                alacritty.enable = true;
+                bat.enable = true;
+                bottom.enable = true;
+                fuzzel.enable = true;
+                lazygit.enable = true;
+                zellij.enable = true;
+              };
+
+              services.mpris-proxy.enable = true; # Enable bluetooth pause/play
+
+              # Nicely reload system units when changing configs
+              # systemd.user.startServices = "sd-switch";
+
+              home.stateVersion = "23.11";
+            }
+          ];
+        };
+      };
 
     };
 }
