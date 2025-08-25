@@ -49,6 +49,7 @@
           "benchmark"
           "big-parallel"
           "kvm"
+          "libvirt"
         ];
         mandatoryFeatures = [ ];
       }
@@ -114,6 +115,12 @@
       ];
     };
   };
+  networking.interfaces.br0.useDHCP = true;
+  networking.bridges = {
+    "br0" = {
+      interfaces = [ "wlp1s0" ];
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -161,9 +168,11 @@
     };
   };
   virtualisation = {
-    docker.enable = true;
-    docker.storageDriver = "btrfs";
+    # docker.enable = true;
+    # docker.storageDriver = "btrfs";
     libvirtd.enable = true;
+    podman.enable = true;
+    podman.dockerCompat = true;
   };
 
   security.rtkit.enable = true; # Pipewire enhancement
@@ -246,6 +255,7 @@
       flake = "/home/nwright/nix-config";
     };
     zsh.enable = true;
+    virt-manager.enable = true;
   };
 
   # This value determines the NixOS release from which the default
