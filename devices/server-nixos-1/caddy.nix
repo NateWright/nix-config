@@ -80,21 +80,13 @@ in
         '';
       };
 
-      # "photos.nwright.cloud" = {
+      # "penpot.nwright.cloud" = {
       #   useACMEHost = "nwright.cloud";
       #   extraConfig = ''
       #     encode gzip
-      #     reverse_proxy 127.0.0.1:2343
+      #     reverse_proxy 127.0.0.1:8010
       #   '';
       # };
-
-      "penpot.nwright.cloud" = {
-        useACMEHost = "nwright.cloud";
-        extraConfig = ''
-          encode gzip
-          reverse_proxy 127.0.0.1:8010
-        '';
-      };
 
       "it-tools.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
@@ -113,34 +105,6 @@ in
         useACMEHost = "nwright.cloud";
         extraConfig = ''
           reverse_proxy 127.0.0.1:8014
-        '';
-      };
-
-      "mattermost.nwright.cloud" = {
-        useACMEHost = "nwright.cloud";
-        extraConfig = ''
-          reverse_proxy 192.168.100.12:8015
-        '';
-      };
-
-      "mattermost.nwright.cloud:8443" = {
-        useACMEHost = "nwright.cloud";
-        extraConfig = ''
-          reverse_proxy 192.168.100.12:8443
-        '';
-      };
-
-      "mattermost.nwright.cloud:8045" = {
-        useACMEHost = "nwright.cloud";
-        extraConfig = ''
-          reverse_proxy 192.168.100.12:8045
-        '';
-      };
-
-      "mattermost.nwright.cloud:3478" = {
-        useACMEHost = "nwright.cloud";
-        extraConfig = ''
-          reverse_proxy 192.168.100.12:3478
         '';
       };
 
@@ -187,6 +151,12 @@ in
         useACMEHost = "nwright.cloud";
         extraConfig = ''
           reverse_proxy 100.121.152.117:3000
+        '';
+      };
+      "budget.nwright.cloud" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          reverse_proxy 100.82.103.107:5006
         '';
       };
     };
