@@ -23,7 +23,6 @@
     ./nextcloud.nix
     ./snapper.nix
     ./tailscale.nix
-    # ./vs-code-server.nix
     ./virtmanager.nix
     ./NateWright.nix
     ../../common/pkgs-cli.nix
@@ -55,6 +54,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   fileSystems = {
     "/".options = [ "compress=zstd" ];
