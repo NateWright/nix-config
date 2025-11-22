@@ -16,6 +16,7 @@
     ./avahi.nix
     ./borgbackup.nix
     ./caddy.nix
+    ./cockpit.nix
     ./cloudflared.nix
     # ./data-collection.nix
     ./hardware-configuration.nix

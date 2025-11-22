@@ -135,6 +135,12 @@ in
           reverse_proxy 127.0.0.1:8019
         '';
       };
+      "cockpit.nwright.cloud" = {
+        useACMEHost = "nwright.cloud";
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:8021
+        '';
+      };
       "auth.nwright.cloud" = {
         useACMEHost = "nwright.cloud";
         extraConfig = ''
