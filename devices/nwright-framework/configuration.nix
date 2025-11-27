@@ -10,7 +10,6 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./fonts.nix
-
     ../../common/nix-settings.nix
     ../../common/pkgs.nix
     ../../common/pkgs-cli.nix
@@ -34,27 +33,27 @@
     };
   };
   nix = {
-    buildMachines = [
-      {
-        hostName = "server-nixos-1";
-        system = "x86_64-linux";
-        protocol = "ssh-ng";
-        # if the builder supports building for multiple architectures,
-        # replace the previous line by, e.g.
-        # systems = ["x86_64-linux" "aarch64-linux"];
-        maxJobs = 4;
-        speedFactor = 4;
-        supportedFeatures = [
-          "nixos-test"
-          "benchmark"
-          "big-parallel"
-          "kvm"
-          "libvirt"
-        ];
-        mandatoryFeatures = [ ];
-      }
-    ];
-    distributedBuilds = true;
+    # buildMachines = [
+    #   {
+    #     hostName = "server-nixos-1";
+    #     system = "x86_64-linux";
+    #     protocol = "ssh-ng";
+    #     # if the builder supports building for multiple architectures,
+    #     # replace the previous line by, e.g.
+    #     # systems = ["x86_64-linux" "aarch64-linux"];
+    #     maxJobs = 4;
+    #     speedFactor = 4;
+    #     supportedFeatures = [
+    #       "nixos-test"
+    #       "benchmark"
+    #       "big-parallel"
+    #       "kvm"
+    #       "libvirt"
+    #     ];
+    #     mandatoryFeatures = [ ];
+    #   }
+    # ];
+    # distributedBuilds = true;
   };
   # Bootloader.
   boot = {
@@ -115,12 +114,12 @@
       ];
     };
   };
-  networking.interfaces.br0.useDHCP = true;
-  networking.bridges = {
-    "br0" = {
-      interfaces = [ "wlp1s0" ];
-    };
-  };
+  # networking.interfaces.br0.useDHCP = true;
+  # networking.bridges = {
+  #   "br0" = {
+  #     interfaces = [ "wlp1s0" ];
+  #   };
+  # };
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -229,7 +228,6 @@
     cifs-utils
     tpm2-tss
 
-    trayscale
     nextcloud-client
     libreoffice-fresh
     hunspell
