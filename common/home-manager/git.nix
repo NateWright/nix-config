@@ -2,8 +2,12 @@
 {
   programs.git = {
     enable = true;
-    userEmail = "nathanwrightbusiness@gmail.com";
-    userName = "Nathan Wright";
+    settings = {
+      user = {
+        email = "nathanwrightbusiness@gmail.com";
+        name = "Nathan Wright";
+      };
+    };
   };
   programs.gh = {
     enable = true;
