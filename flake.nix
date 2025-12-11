@@ -4,7 +4,7 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-25.05";
+      url = "github:NixOS/nixpkgs/nixos-25.11";
     };
     nixpkgs-unstable = {
       url = "github:Nixos/nixpkgs/nixos-unstable";
@@ -12,7 +12,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager-unstable = {
@@ -90,6 +90,18 @@
           modules = [
             home-manager.nixosModules.home-manager
             ./devices/server-nixos-1/configuration.nix
+          ];
+        };
+
+        server-nixos-2 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit outputs inputs;
+          };
+          modules = [
+            home-manager.nixosModules.home-manager
+            catppuccin.nixosModules.catppuccin
+            ./devices/server-nixos-2/configuration.nix
           ];
         };
 
