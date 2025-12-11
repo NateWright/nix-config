@@ -113,7 +113,9 @@
           specialArgs = {
             inherit outputs inputs;
           };
-          modules = [ ./devices/linode-nixos-1/configuration.nix ];
+          modules = [ 
+            home-manager.nixosModules.home-manager
+          ./devices/linode-nixos-1/configuration.nix ];
         };
       };
       homeConfigurations = {
