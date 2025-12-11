@@ -79,7 +79,7 @@
   };
 
   networking.hostName = "server-nixos-1"; # Define your hostname.
-  networking.defaultGateway = "enp7s0";
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
