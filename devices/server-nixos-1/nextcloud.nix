@@ -17,7 +17,7 @@
     nextcloud = {
       enable = true;
       configureRedis = true;
-      package = pkgs.nextcloud31;
+      package = pkgs.nextcloud32;
       hostName = "nwright.cloud";
       webserver = "caddy";
       https = true;
