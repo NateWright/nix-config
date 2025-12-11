@@ -21,6 +21,7 @@
     };
 
     catppuccin.url = "github:catppuccin/nix";
+    stylix.url = "github:nix-community/stylix/release-25.11";
     authentik-nix.url = "github:nix-community/authentik-nix";
   };
 
@@ -33,6 +34,7 @@
       home-manager,
       home-manager-unstable,
       catppuccin,
+      stylix,
       ...
     }@inputs:
     let
@@ -101,6 +103,7 @@
           modules = [
             home-manager.nixosModules.home-manager
             catppuccin.nixosModules.catppuccin
+            stylix.nixosModules.stylix
             ./devices/server-nixos-2/configuration.nix
           ];
         };

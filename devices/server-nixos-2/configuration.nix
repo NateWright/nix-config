@@ -107,10 +107,14 @@
     zsh.enable = true;
   };
 
-  catppuccin = {
+  # catppuccin = {
+  #   enable = true;
+  #   flavor = "macchiato";
+  #   accent = "mauve";
+  # };
+  stylix = {
     enable = true;
-    flavor = "macchiato";
-    accent = "mauve";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
   };
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).

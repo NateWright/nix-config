@@ -10,7 +10,8 @@
     ../../../common/home-manager/git.nix
     ../../../common/home-manager/helix.nix
     ../../../common/home-manager/zsh.nix
-    inputs.catppuccin.homeModules.catppuccin
+    # inputs.catppuccin.homeModules.catppuccin
+    # inputs.stylix.homeModules.stylix
   ];
 
   # nixpkgs = {
@@ -34,11 +35,11 @@
 
   news.display = "silent";
 
-  catppuccin = {
-    enable = true;
-    flavor = "macchiato";
-    accent = "mauve";
-  };
+  # catppuccin = {
+  #   enable = true;
+  #   flavor = "macchiato";
+  #   accent = "mauve";
+  # };
   programs = {
     home-manager.enable = true;
     bat.enable = true;
