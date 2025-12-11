@@ -17,22 +17,11 @@
     ./hardware-configuration.nix
     ../../common/pkgs-cli.nix
     ../../common/nix-settings.nix
+    ../../common/nixpkgs.nix
+    ../../common/stylix.nix
     ../server-nixos-1/tailscale.nix
   ];
 
-  nixpkgs = {
-    # You can add overlays here
-    overlays = [
-      # Add overlays your own flake exports (from overlays and pkgs dir):
-      outputs.overlays.additions
-      outputs.overlays.unstable-packages
-    ];
-    # Configure your nixpkgs instance
-    config = {
-      # Disable if you don't want unfree packages
-      allowUnfree = true;
-    };
-  };
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -112,10 +101,6 @@
   #   flavor = "macchiato";
   #   accent = "mauve";
   # };
-  stylix = {
-    enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
-  };
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
