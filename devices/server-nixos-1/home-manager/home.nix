@@ -5,13 +5,9 @@
 {
   # You can import other home-manager modules here
   imports = [
-    # If you want to use home-manager modules from other flakes (such as nix-colors):
-    # inputs.nix-colors.homeManagerModule
     ../../../common/home-manager/git.nix
     ../../../common/home-manager/helix.nix
     ../../../common/home-manager/zsh.nix
-    # inputs.catppuccin.homeModules.catppuccin
-    # inputs.stylix.homeModules.stylix
   ];
 
   # nixpkgs = {
@@ -35,11 +31,6 @@
 
   news.display = "silent";
 
-  # catppuccin = {
-  #   enable = true;
-  #   flavor = "macchiato";
-  #   accent = "mauve";
-  # };
   programs = {
     home-manager.enable = true;
     bat.enable = true;

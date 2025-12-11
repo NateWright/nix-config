@@ -17,16 +17,9 @@
     ./caddy.nix
     ./tailscale.nix
     ../../common/pkgs-cli.nix
-    inputs.home-manager.nixosModules.home-manager
+    ../../common/nix-settings.nix
+    ../../common/nixpkgs.nix
   ];
-
-  nix.settings = {
-    # Enable flakes and new 'nix' command
-    experimental-features = "nix-command flakes";
-    # Deduplicate and optimize nix store
-    auto-optimise-store = true;
-
-  };
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -93,7 +86,7 @@
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    users.nwright = import ./home-manager/home.nix;
+    users.nwright = import ../server-nixos-1/home-manager/home.nix;
     extraSpecialArgs = {
       inherit outputs inputs;
     }; # Pass flake inputs to our config
@@ -103,10 +96,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    helix
-    zellij
     inetutils
     mtr
     sysstat
