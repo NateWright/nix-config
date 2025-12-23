@@ -10,6 +10,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./fonts.nix
+    ../../common/nixpkgs.nix
     ../../common/nix-settings.nix
     ../../common/pkgs.nix
     ../../common/pkgs-cli.nix
@@ -18,43 +19,6 @@
     ../../common/de/gnome.nix
   ];
 
-  nixpkgs = {
-    # You can add overlays here
-    overlays = [
-      # Add overlays your own flake exports (from overlays and pkgs dir):
-      outputs.overlays.unstable-packages
-      outputs.overlays.stable-packages
-      outputs.overlays.modifications
-    ];
-    # Configure your nixpkgs instance
-    config = {
-      # Disable if you don't want unfree packages
-      allowUnfree = true;
-    };
-  };
-  nix = {
-    # buildMachines = [
-    #   {
-    #     hostName = "server-nixos-1";
-    #     system = "x86_64-linux";
-    #     protocol = "ssh-ng";
-    #     # if the builder supports building for multiple architectures,
-    #     # replace the previous line by, e.g.
-    #     # systems = ["x86_64-linux" "aarch64-linux"];
-    #     maxJobs = 4;
-    #     speedFactor = 4;
-    #     supportedFeatures = [
-    #       "nixos-test"
-    #       "benchmark"
-    #       "big-parallel"
-    #       "kvm"
-    #       "libvirt"
-    #     ];
-    #     mandatoryFeatures = [ ];
-    #   }
-    # ];
-    # distributedBuilds = true;
-  };
   # Bootloader.
   boot = {
     loader = {
@@ -167,11 +131,9 @@
     };
   };
   virtualisation = {
-    # docker.enable = true;
-    # docker.storageDriver = "btrfs";
+    docker.enable = true;
+    docker.storageDriver = "btrfs";
     libvirtd.enable = true;
-    podman.enable = true;
-    podman.dockerCompat = true;
   };
 
   security.rtkit.enable = true; # Pipewire enhancement
