@@ -96,6 +96,7 @@
           };
           modules = [
             home-manager.nixosModules.home-manager
+            stylix.nixosModules.stylix
             ./devices/server-nixos-1/configuration.nix
           ];
         };
