@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   services = {
     photoprism = {
       enable = true;
@@ -20,18 +21,22 @@
 
     mysql = {
       enable = true;
-      dataDir = "/vault/datastorage/photoprism-db";
+      dataDir = "/vault/services/photoprism-db";
       package = pkgs.mariadb;
       ensureDatabases = [ "photoprism" ];
-      ensureUsers = [{
-        name = "photoprism";
-        ensurePermissions = { "photoprism.*" = "ALL PRIVILEGES"; };
-      }];
+      ensureUsers = [
+        {
+          name = "photoprism";
+          ensurePermissions = {
+            "photoprism.*" = "ALL PRIVILEGES";
+          };
+        }
+      ];
     };
   };
 
   fileSystems."/var/lib/private/photoprism" = {
-    device = "/vault/datastorage/photoprism-data";
+    device = "/vault/services/photoprism-data";
     options = [ "bind" ];
   };
 }

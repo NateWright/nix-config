@@ -21,7 +21,7 @@
       hostName = "nwright.cloud";
       webserver = "caddy";
       https = true;
-      datadir = "/vault/datastorage/nextcloud-data";
+      datadir = "/vault/services/nextcloud-data";
       config = {
         dbtype = "pgsql";
         dbuser = "nextcloud";
@@ -47,7 +47,7 @@
 
     postgresql = {
       enable = true;
-      dataDir = "/vault/datastorage/postgres";
+      dataDir = "/vault/services/postgres";
       ensureDatabases = [ "nextcloud" ];
       ensureUsers = [
         {

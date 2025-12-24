@@ -13,7 +13,7 @@
     ];
     bindMounts = {
       storage = {
-        hostPath = "/vault/datastorage/authentik";
+        hostPath = "/vault/services/authentik";
         mountPoint = "/authentik";
         isReadOnly = false;
       };

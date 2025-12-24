@@ -16,13 +16,13 @@
     ./avahi.nix
     ./borgbackup.nix
     ./caddy.nix
-    ./cockpit.nix
-    ./cloudflared.nix
+    # ./cockpit.nix
+    # ./cloudflared.nix
     # ./data-collection.nix
     ./hardware-configuration.nix
     # ./minecraft.nix
     ./nextcloud.nix
-    ./snapper.nix
+    # ./snapper.nix
     ./tailscale.nix
     ./virtmanager.nix
     ./NateWright.nix
@@ -55,7 +55,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  # boot.kernelPackages = pkgs.linuxPackages_zen;
 
   fileSystems = {
     "/".options = [ "compress=zstd" ];
@@ -64,9 +64,6 @@
       "compress=zstd"
       "noatime"
     ];
-    "/vault/backups".options = [ "compress=zstd" ];
-    "/vault/containers".options = [ "compress=zstd" ];
-    "/vault/datastorage".options = [ "compress=zstd" ];
   };
 
   services.btrfs.autoScrub = {
@@ -74,11 +71,11 @@
     interval = "monthly";
     fileSystems = [
       "/"
-      "/vault-old"
     ];
   };
 
   networking.hostName = "server-nixos-1"; # Define your hostname.
+  networking.hostId = "f2e79e12";
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -153,6 +150,7 @@
     lm_sensors
     distrobox
     cloudflared
+    zfs
   ];
 
   programs = {

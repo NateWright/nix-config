@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
 
   # enable the docker service
   virtualisation = {
@@ -8,5 +9,7 @@
     };
   };
 
-  virtualisation.oci-containers = { backend = "docker"; };
+  virtualisation.oci-containers = {
+    backend = "docker";
+  };
 }

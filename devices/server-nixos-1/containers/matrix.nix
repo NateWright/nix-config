@@ -17,13 +17,13 @@
     ];
     bindMounts = {
       config = {
-        hostPath = "/vault/datastorage/matrix/config";
+        hostPath = "/vault/services/matrix/config";
         mountPoint = "/var/lib/matrix-synapse";
         isReadOnly = false;
       };
       storage = {
-        hostPath = "/vault/datastorage/matrix";
-        mountPoint = "/vault/datastorage/matrix";
+        hostPath = "/vault/services/matrix";
+        mountPoint = "/vault/services/matrix";
         isReadOnly = false;
       };
     };
@@ -62,7 +62,7 @@
               ];
             };
             extraConfigFiles = [
-              "/vault/datastorage/matrix/secrets/join-code.txt"
+              "/vault/services/matrix/secrets/join-code.txt"
               (pkgs.writeText "matrix-synapse_extraConfigs" ''
                 extra_well_known_client_content:
                   "org.matrix.msc3575.proxy":
@@ -73,7 +73,7 @@
 
           postgresql = {
             enable = true;
-            dataDir = "/vault/datastorage/matrix/postgres";
+            dataDir = "/vault/services/matrix/postgres";
             ensureDatabases = [ "matrix-synapse" ];
             ensureUsers = [
               {
