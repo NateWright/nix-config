@@ -14,6 +14,7 @@
     ../../common/nix-settings.nix
     ../../common/pkgs.nix
     ../../common/pkgs-cli.nix
+    ../../common/stylix.nix
 
     ../../common/de/common.nix
     ../../common/de/gnome.nix
@@ -147,6 +148,10 @@
           ControllerMode = "dual";
           MultiProfile = "multiple";
           AutoEnable = true;
+          Privacy = "device";
+          JustWorksRepairing = "always";
+          Class = "0x000100";
+          FastConnectable = "true";
         };
       };
     };
@@ -178,11 +183,16 @@
     }; # Pass flake inputs to our config
     backupFileExtension = "hm-backup";
   };
-  catppuccin = {
-    enable = true;
-    flavor = "macchiato";
-    accent = "mauve";
-  };
+  # catppuccin = {
+  #   enable = true;
+  #   flavor = "macchiato";
+  #   accent = "mauve";
+  # };
+
+  # stylix = {
+  #   enable = true;
+  #   base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
+  # };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -199,14 +209,14 @@
     bridge-utils
 
     distrobox
-    (unstable.pkgs.wrapOBS {
-      plugins = with unstable.pkgs.obs-studio-plugins; [
-        wlrobs
-        obs-backgroundremoval
-        obs-pipewire-audio-capture
-        obs-vaapi
-      ];
-    })
+    # (wrapOBS {
+    #   plugins = with pkgs.obs-studio-plugins; [
+    #     wlrobs
+    #     obs-backgroundremoval
+    #     obs-pipewire-audio-capture
+    #     obs-vaapi
+    #   ];
+    # })
   ];
 
   programs = {

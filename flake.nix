@@ -22,6 +22,10 @@
 
     catppuccin.url = "github:catppuccin/nix";
     stylix.url = "github:nix-community/stylix/release-25.11";
+    stylix-unstable = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     authentik-nix.url = "github:nix-community/authentik-nix";
   };
 
@@ -35,6 +39,7 @@
       home-manager-unstable,
       catppuccin,
       stylix,
+      stylix-unstable,
       ...
     }@inputs:
     let
@@ -59,11 +64,11 @@
             inherit outputs inputs;
           };
           modules = [
-            ./devices/nwright-framework/configuration.nix
-
             home-manager-unstable.nixosModules.home-manager
             nixos-hardware.nixosModules.framework-13-7040-amd
-            catppuccin.nixosModules.catppuccin
+            # catppuccin.nixosModules.catppuccin
+            stylix-unstable.nixosModules.stylix
+            ./devices/nwright-framework/configuration.nix
           ];
         };
         # nwright-nixos-pc = nixpkgs-unstable.lib.nixosSystem {
@@ -113,9 +118,10 @@
           specialArgs = {
             inherit outputs inputs;
           };
-          modules = [ 
+          modules = [
             home-manager.nixosModules.home-manager
-          ./devices/linode-nixos-1/configuration.nix ];
+            ./devices/linode-nixos-1/configuration.nix
+          ];
         };
       };
       homeConfigurations = {

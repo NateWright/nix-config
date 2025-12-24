@@ -2,7 +2,7 @@
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 
 {
-  inputs,
+  pkgs,
   ...
 }:
 {
@@ -14,7 +14,6 @@
     ../../../common/home-manager/helix.nix
     ../../../common/home-manager/zsh.nix
     ../../../common/home-manager/zed-editor.nix
-    inputs.catppuccin.homeModules.catppuccin
   ];
 
   home = {
@@ -22,11 +21,11 @@
     homeDirectory = "/home/nwright";
   };
 
-  catppuccin = {
-    enable = true;
-    flavor = "macchiato";
-    accent = "mauve";
-  };
+  # catppuccin = {
+  #   enable = true;
+  #   flavor = "macchiato";
+  #   accent = "mauve";
+  # };
   programs = {
     home-manager.enable = true;
     alacritty.enable = true;
