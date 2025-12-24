@@ -3,8 +3,8 @@
   environment.systemPackages = with pkgs; [
     alacritty
     localsend
-    unstable.resources
-    unstable.vscode
+    resources
+    vscode
 
     # Zed pkgs
     # unstable.zed-editor

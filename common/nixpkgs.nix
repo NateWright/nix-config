@@ -6,6 +6,7 @@
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.unstable-packages
+      outputs.overlays.modifications
     ];
     # Configure your nixpkgs instance
     config = {
