@@ -3,7 +3,7 @@
   nix = {
     settings = {
       experimental-features = "nix-command flakes";
-      auto-optimise-store = true;
+      # auto-optimise-store = true;
       substituters = [
         "https://cosmic.cachix.org/"
         "https://nix-gaming.cachix.org"
@@ -20,6 +20,10 @@
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 10d";
+    };
+    optimise = {
+      automatic = true;
+      dates = "03:45";
     };
   };
 
