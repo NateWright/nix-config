@@ -26,27 +26,47 @@
   boot.zfs.extraPools = [ "vault" ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/83b007f0-5e1a-4e5d-a5fe-efa3ca97ca65";
-    fsType = "btrfs";
-    options = [ "subvol=@root" ];
+    device = "rpool/root";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/83b007f0-5e1a-4e5d-a5fe-efa3ca97ca65";
-    fsType = "btrfs";
-    options = [ "subvol=@home" ];
+    device = "rpool/home";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/83b007f0-5e1a-4e5d-a5fe-efa3ca97ca65";
-    fsType = "btrfs";
-    options = [ "subvol=@nix" ];
+    device = "rpool/nix";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
+  };
+
+  fileSystems."/var" = {
+    device = "rpool/var";
+    fsType = "zfs";
+    options = [ "zfsutil" ];
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/BB7B-7FF2";
+    device = "/dev/disk/by-uuid/61F4-ACC2";
     fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
   };
+
+  fileSystems."/boot-fallback" = {
+    device = "/dev/disk/by-uuid/6270-7C76";
+    fsType = "vfat";
+    options = [
+      "fmask=0022"
+      "dmask=0022"
+    ];
+  };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

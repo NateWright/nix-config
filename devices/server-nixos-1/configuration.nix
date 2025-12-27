@@ -41,26 +41,23 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  # boot.kernelPackages = pkgs.linuxPackages_zen;
-
-  fileSystems = {
-    "/".options = [ "compress=zstd" ];
-    "/home".options = [ "compress=zstd" ];
-    "/nix".options = [
-      "compress=zstd"
-      "noatime"
-    ];
-  };
-
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "monthly";
-    fileSystems = [
-      "/"
-    ];
-  };
+  boot.loader.grub.enable = true;
+  boot.loader.grub.forceInstall = true;
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.efiSupport = true;
+  boot.loader.timeout = 10;
+  boot.loader.grub.copyKernels = true;
+  boot.loader.grub.mirroredBoots = [
+    {
+      path = "/boot";
+      devices = [ "/dev/disk/by-uuid/61F4-ACC2" ];
+    }
+    {
+      path = "/boot-fallback";
+      devices = [ "/dev/disk/by-uuid/6270-7C76" ];
+    }
+  ];
 
   networking.hostName = "server-nixos-1"; # Define your hostname.
   networking.hostId = "f2e79e12";
@@ -133,7 +130,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    btrfs-progs
+    # btrfs-progs
     parted
     lm_sensors
     distrobox
