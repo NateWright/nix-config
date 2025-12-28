@@ -26,6 +26,7 @@
     ./tailscale.nix
     ./virtmanager.nix
     ./NateWright.nix
+    ./zfs.nix
     ../../common/pkgs-cli.nix
     ../../common/nix-settings.nix
     ../../common/nixpkgs.nix
@@ -51,11 +52,11 @@
   boot.loader.grub.mirroredBoots = [
     {
       path = "/boot";
-      devices = [ "/dev/disk/by-uuid/61F4-ACC2" ];
+      devices = [ "nodev" ];
     }
     {
       path = "/boot-fallback";
-      devices = [ "/dev/disk/by-uuid/6270-7C76" ];
+      devices = [ "nodev" ];
     }
   ];
 
@@ -119,14 +120,21 @@
     backupFileExtension = "hm-backup";
   };
 
-  users.users.nixremote = {
+  # users.users.nixremote = {
+  #   isNormalUser = true;
+  #   shell = pkgs.zsh;
+  #   openssh.authorizedKeys.keys = [
+  #     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJH3haonogegqln0iGZMSK/VJtlkLqHN/YuTTPdjpfwQ root@nwright-framework"
+  #   ];
+  # };
+  # nix.settings.trusted-users = [ "nixremote" ];
+  users.users.zfs-syncoid = {
     isNormalUser = true;
-    shell = pkgs.zsh;
+    description = "ZFS Syncoid user";
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJH3haonogegqln0iGZMSK/VJtlkLqHN/YuTTPdjpfwQ root@nwright-framework"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDoCDpcMY9f/eo6lNgVQISbB4cCAtFS8xrC/KaWzhRBe"
     ];
   };
-  nix.settings.trusted-users = [ "nixremote" ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
