@@ -20,6 +20,7 @@
     ../../common/nixpkgs.nix
     ../../common/stylix.nix
     ../server-nixos-1/tailscale.nix
+    ./zfs.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
