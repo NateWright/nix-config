@@ -16,3 +16,9 @@ zfs create vault/containers
 zfs create vault/containers
 zfs create vault/backups
 ```
+zfs creation server-nixos-2
+```bash
+zpool create backup mirror -o ashift=12 -O compression=zstd /dev/disk/by-id/ata-ST12000VN0008-2PH103_ZL2Q3GYN /dev/disk/by-id/ata-ST12000VN0008-2PH103_ZTN1CB2P
+zfs create backup/server-nixos-1_rpool
+zfs create backup/server-nixos-1_vault
+```
