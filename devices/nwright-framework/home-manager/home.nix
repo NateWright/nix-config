@@ -36,6 +36,11 @@
     zellij.enable = true;
   };
 
+  programs.zsh = {
+    initContent = ''
+      eval "$(op completion zsh)"; compdef _op op
+    '';
+  };
   services.mpris-proxy.enable = true; # Enable bluetooth pause/play
 
   # Nicely reload system units when changing configs
