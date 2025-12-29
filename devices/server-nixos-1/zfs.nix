@@ -11,14 +11,35 @@
         autosnap = true;
         autoprune = true;
       };
+      "template_none" = {
+        yearly = 0;
+        monthly = 0;
+        daily = 0;
+        hourly = 0;
+        autosnap = false;
+        autoprune = true;
+      };
     };
     datasets = {
-      "rpool" = {
+      "rpool/root" = {
+        useTemplate = [
+          "template_none"
+        ];
+      };
+      "rpool/nix" = {
+        useTemplate = [
+          "template_none"
+        ];
+      };
+      "rpool/home" = {
         useTemplate = [
           "template_production"
         ];
-        recursive = true;
-        processChildrenOnly = true;
+      };
+      "rpool/var" = {
+        useTemplate = [
+          "template_production"
+        ];
       };
       "vault" = {
         useTemplate = [
