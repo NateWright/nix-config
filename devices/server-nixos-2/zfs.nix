@@ -50,6 +50,7 @@
         source = "zfs-syncoid@server-nixos-1:rpool";
         target = "backup/server-nixos-1_rpool";
         extraArgs = [
+          "--exclude-datasets=root"
           "--exclude-datasets=nix"
         ];
       };
