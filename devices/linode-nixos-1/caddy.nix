@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   services.caddy = {
     enable = true;
     virtualHosts = {
@@ -7,7 +8,8 @@
           reverse_proxy /_matrix/* 100.93.196.119:8008
           reverse_proxy /_synapse/client/* 100.93.196.119:8008
 
-          reverse_proxy 100.93.196.119:8013
+          root * /var/www/nwright.tech
+          file_server
         '';
       };
       "nwright.tech:8448" = {
