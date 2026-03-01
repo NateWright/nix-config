@@ -17,7 +17,7 @@
 
     gh
     ripgrep
-    nixfmt-rfc-style
+    nixfmt
     gnumake
     fastfetch
     cpufetch

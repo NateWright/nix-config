@@ -10,7 +10,7 @@
       gopls
       # python311Packages.python-lsp-server
       marksman
-      nixfmt-rfc-style
+      nixfmt
     ];
     # settings = { theme = "catppuccin_macchiato"; };
     languages = {
@@ -22,7 +22,7 @@
         {
           name = "nix";
           auto-format = true;
-          formatter.command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
+          formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
         }
         {
           name = "c";

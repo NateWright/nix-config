@@ -17,7 +17,7 @@
     ../../common/stylix.nix
 
     ../../common/de/common.nix
-    ../../common/de/gnome.nix
+    ../../common/de/plasma.nix
   ];
 
   # Bootloader.

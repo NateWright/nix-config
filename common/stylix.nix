@@ -24,6 +24,7 @@ in
           targets.helix.enable = true;
           targets.lazygit.enable = true;
           targets.zellij.enable = true;
+          targets.fuzzel.enable = true;
         };
 
       }

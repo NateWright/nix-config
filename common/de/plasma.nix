@@ -1,10 +1,11 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   services = {
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-    };
+    # displayManager.sddm = {
+    #   enable = true;
+    #   wayland.enable = true;
+    # };
+    displayManager.plasma-login-manager.enable = true;
     desktopManager.plasma6.enable = true;
   };
 
@@ -13,12 +14,12 @@
   # security.pam.services.kde.kwallet.enable = lib.mkForce false;
   programs.dconf.enable = true;
   environment.systemPackages = with pkgs; [
-    kdePackages.breeze-gtk
-    kdePackages.discover
-    kdePackages.kwallet
+    # kdePackages.breeze-gtk
+    # kdePackages.discover
+    # kdePackages.kwallet
     kdePackages.partitionmanager
-    kdePackages.filelight
-    dracula-theme
+    # kdePackages.filelight
+    # dracula-theme
     fuzzel
     vorta
     tailscale-systray
