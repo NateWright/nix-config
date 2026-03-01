@@ -12,20 +12,13 @@
 
 {
   imports = [
-    # Include the results of the hardware scan.
-    ./avahi.nix
+    ./hardware-configuration.nix
+
     ./borgbackup.nix
     ./caddy.nix
-    # ./cockpit.nix
-    # ./cloudflared.nix
-    # ./data-collection.nix
-    ./hardware-configuration.nix
-    # ./minecraft.nix
     ./nextcloud.nix
-    # ./snapper.nix
     ./tailscale.nix
     ./virtmanager.nix
-    ./NateWright.nix
     ./zfs.nix
     ../../common/pkgs-cli.nix
     ../../common/nix-settings.nix
@@ -34,7 +27,6 @@
     ./containers/default.nix
     ./containers/matrix.nix
     ./containers/authentik.nix
-    # ./containers/mattermost.nix
     ./docker/default.nix
     ./docker/it-tools.nix
     ./docker/lubelogger.nix

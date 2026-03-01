@@ -1,12 +1,7 @@
 {
-  config,
   pkgs,
   ...
 }:
-let
-  nextcloud-cfg = config.services.nextcloud;
-  nextcloud-fpm = config.services.phpfpm.pools.nextcloud;
-in
 {
   systemd.services.caddy.serviceConfig.EnvironmentFile = [ "/var/lib/secrets/cloudflare" ];
   services.caddy = {
@@ -14,7 +9,7 @@ in
 
     package = pkgs.caddy.withPlugins {
       plugins = [ "github.com/caddy-dns/cloudflare@v0.2.2" ];
-      hash = "sha256-dnhEjopeA0UiI+XVYHYpsjcEI6Y1Hacbi28hVKYQURg=";
+      hash = "sha256-SrAHzXhaT3XO3jypulUvlVHq8oiLVYmH3ibh3W3aXAs=";
     };
 
     globalConfig = ''
@@ -65,11 +60,11 @@ in
           reverse_proxy 127.0.0.1:8019
         '';
       };
-      "cockpit.nwright.cloud" = {
-        extraConfig = ''
-          reverse_proxy 127.0.0.1:8021
-        '';
-      };
+      # "cockpit.nwright.cloud" = {
+      #   extraConfig = ''
+      #     reverse_proxy 127.0.0.1:8021
+      #   '';
+      # };
       "auth.nwright.cloud" = {
         extraConfig = ''
           reverse_proxy 192.168.102.11:9000
@@ -92,28 +87,4 @@ in
       };
     };
   };
-  services.nginx.virtualHosts."blog" = {
-    forceSSL = false;
-    enableACME = false;
-    listen = [
-      {
-        port = 8013;
-        addr = "0.0.0.0";
-        ssl = false;
-      }
-    ];
-    root = "/var/www/nwright.tech";
-  };
-
-  # services.nginx.virtualHosts."blog2" = {
-  #   forceSSL = false;
-  #   enableACME = false;
-  #   sslCertificate = "/var/lib/secrets/host.cert";
-  #   sslCertificateKey = "/var/lib/secrets/host.key";
-  #   serverName = "t.nwright.tech";
-  #   onlySSL = true;
-  #   listen = [{ port = 8014; addr = "127.0.0.1"; ssl = true; }];
-  #   root = pkgs.nwright-tech.nwright-hugo-website;
-  # };
-
 }
