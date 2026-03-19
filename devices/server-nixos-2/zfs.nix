@@ -3,26 +3,26 @@
   services.sanoid = {
     enable = true;
     templates = {
-      "template_production" = {
+      "template_backup" = {
         yearly = 0;
-        monthly = 3;
+        monthly = 12;
         daily = 30;
-        hourly = 36;
+        hourly = 24;
         autosnap = false;
         autoprune = true;
       };
     };
     datasets = {
-      "backup/rpool" = {
+      "backup/server-nixos-1_rpool" = {
         useTemplate = [
-          "template_production"
+          "template_backup"
         ];
         recursive = true;
         processChildrenOnly = true;
       };
-      "backup/vault" = {
+      "backup/server-nixos-1_vault" = {
         useTemplate = [
-          "template_production"
+          "template_backup"
         ];
         recursive = true;
         processChildrenOnly = true;
@@ -31,6 +31,7 @@
   };
   services.syncoid = {
     enable = true;
+    interval = "*-*-* 01:00:00";
     commonArgs = [
       "--no-privilege-elevation"
     ];

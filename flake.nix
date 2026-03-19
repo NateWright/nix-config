@@ -20,7 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    catppuccin.url = "github:catppuccin/nix";
+    # catppuccin.url = "github:catppuccin/nix";
     stylix.url = "github:nix-community/stylix/release-25.11";
     stylix-unstable = {
       url = "github:nix-community/stylix";
@@ -37,7 +37,7 @@
       nixos-hardware,
       home-manager,
       home-manager-unstable,
-      catppuccin,
+      # catppuccin,
       stylix,
       stylix-unstable,
       ...
@@ -108,7 +108,7 @@
           };
           modules = [
             home-manager.nixosModules.home-manager
-            catppuccin.nixosModules.catppuccin
+            # catppuccin.nixosModules.catppuccin
             stylix.nixosModules.stylix
             ./devices/server-nixos-2/configuration.nix
           ];
