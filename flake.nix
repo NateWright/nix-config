@@ -71,24 +71,19 @@
             ./devices/nwright-framework/configuration.nix
           ];
         };
-        # nwright-nixos-pc = nixpkgs-unstable.lib.nixosSystem {
-        #   system = "x86_64-linux";
-        #   specialArgs = {
-        #     inherit outputs inputs;
-        #   };
-        #   modules = [
-        #     ./devices/nwright-nixos-pc/configuration.nix
+        
+        nwright-nixos-pc = nixpkgs-unstable.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit outputs inputs;
+          };
+          modules = [
+            ./devices/nwright-nixos-pc/configuration.nix
 
-        #     home-manager-unstable.nixosModules.home-manager
-        #     # home-manager.nixosModules.home-manager
-        #     nixos-cosmic.nixosModules.default
-        #     catppuccin.nixosModules.catppuccin
-
-        #     chaotic.nixosModules.nyx-cache
-        #     chaotic.nixosModules.nyx-overlay
-        #     chaotic.nixosModules.nyx-registry
-        #   ];
-        # };
+            home-manager-unstable.nixosModules.home-manager
+            stylix-unstable.nixosModules.stylix
+          ];
+        };
         server-nixos-1 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {

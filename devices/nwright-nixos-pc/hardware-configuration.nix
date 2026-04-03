@@ -23,29 +23,29 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/741c1905-bc24-418f-9aaa-43f8694c2915";
-    fsType = "btrfs";
-    options = [ "subvol=@root" ];
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/ee462bdc-cd8c-4ab7-9056-bbfcbacf29aa";
+      fsType = "btrfs";
+      options = [ "subvol=root" ];
+    };
 
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/741c1905-bc24-418f-9aaa-43f8694c2915";
-    fsType = "btrfs";
-    options = [ "subvol=@home" ];
-  };
+  fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/ee462bdc-cd8c-4ab7-9056-bbfcbacf29aa";
+      fsType = "btrfs";
+      options = [ "subvol=home" ];
+    };
 
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/741c1905-bc24-418f-9aaa-43f8694c2915";
-    fsType = "btrfs";
-    options = [ "subvol=@nix" ];
-  };
+  fileSystems."/nix" =
+    { device = "/dev/disk/by-uuid/ee462bdc-cd8c-4ab7-9056-bbfcbacf29aa";
+      fsType = "btrfs";
+      options = [ "subvol=nix" ];
+    };
 
-  fileSystems."/home/nwright/Vault" = {
-    device = "/dev/disk/by-uuid/a0bbbf4d-57ba-42f6-9541-4777e45885c3";
-    fsType = "btrfs";
-    options = [ "subvol=@nwright-vault" ];
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/D8A6-5D0F";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
 
   swapDevices = [ ];
 

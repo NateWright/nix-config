@@ -18,17 +18,11 @@
     ../../../common/home-manager/helix.nix
     ../../../common/home-manager/zsh.nix
     ../../../common/home-manager/zed-editor.nix
-    inputs.catppuccin.homeModules.catppuccin
   ];
 
   home = {
     username = "nwright";
     homeDirectory = "/home/nwright";
-  };
-  catppuccin = {
-    flavor = "macchiato";
-    accent = "mauve";
-    enable = true;
   };
 
   programs = {

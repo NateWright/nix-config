@@ -18,25 +18,14 @@
     ./audio.nix
 
     ../../common/nix-settings.nix
+    ../../common/nixpkgs.nix
     ../../common/pkgs.nix
     ../../common/pkgs-cli.nix
+    ../../common/stylix.nix
 
     ../../common/de/common.nix
     ../../common/de/plasma.nix
   ];
-
-  nixpkgs = {
-    overlays = [
-      # Add overlays your own flake exports (from overlays and pkgs dir):
-      outputs.overlays.stable-packages
-      outputs.overlays.unstable-packages
-      outputs.overlays.modifications
-      outputs.overlays.additions
-    ];
-    config = {
-      allowUnfree = true;
-    };
-  };
 
   # Bootloader.
   boot = {
@@ -44,8 +33,7 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = pkgs.linuxPackages_cachyos;
-    # kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = [ "ntfs" ];
     #   blacklistedKernelModules = [
     #     "xpad"
@@ -60,7 +48,6 @@
       "compress=zstd"
       "noatime"
     ];
-    "/home/nwright/Vault".options = [ "compress=zstd" ];
   };
 
   networking = {
@@ -119,11 +106,6 @@
     }; # Pass flake inputs to our config
     backupFileExtension = "hm-backup";
   };
-  catppuccin = {
-    enable = true;
-    flavor = "macchiato";
-    accent = "mauve";
-  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -141,17 +123,18 @@
     gpu-screen-recorder
     pavucontrol
     steamtinkerlaunch
+    heroic
 
-    unstable.r2modman
-    inputs.umu.packages.x86_64-linux.umu-launcher
+    # unstable.r2modman
+    # inputs.umu.packages.x86_64-linux.umu-launcher
 
-    (pkgs.wrapOBS {
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-        obs-backgroundremoval
-        obs-pipewire-audio-capture
-      ];
-    })
+    # (pkgs.wrapOBS {
+    #   plugins = with pkgs.obs-studio-plugins; [
+    #     wlrobs
+    #     obs-backgroundremoval
+    #     obs-pipewire-audio-capture
+    #   ];
+    # })
   ];
   programs = {
     steam = {
@@ -168,6 +151,13 @@
     };
     zsh.enable = true;
     virt-manager.enable = true;
+    _1password.enable = true;
+    _1password-gui = {
+      enable = true;
+      # Certain features, including CLI integration and system authentication support,
+      # require enabling PolKit integration on some desktop environments (e.g. Plasma).
+      polkitPolicyOwners = [ "nwright" ];
+    };
   };
 
   # List services that you want to enable:
@@ -195,7 +185,7 @@
   hardware = {
     xone.enable = true;
     xpadneo.enable = true;
-    firmware = [ pkgs.xow_dongle-firmware ];
+    firmware = [ pkgs.xone-dongle-firmware ];
   };
 
   # This value determines the NixOS release from which the default
