@@ -79,6 +79,9 @@
       ];
     };
   };
+  services.resolved = {
+    enable = true;
+  };
   # networking.interfaces.br0.useDHCP = true;
   # networking.bridges = {
   #   "br0" = {
