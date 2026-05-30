@@ -125,6 +125,7 @@
     steamtinkerlaunch
     heroic
 
+    swtpm
     # unstable.r2modman
     # inputs.umu.packages.x86_64-linux.umu-launcher
 
@@ -176,7 +177,12 @@
   };
 
   virtualisation = {
-    libvirtd.enable = true;
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+      };
+    };
     spiceUSBRedirection.enable = true;
     podman.enable = false;
     docker.enable = true;
