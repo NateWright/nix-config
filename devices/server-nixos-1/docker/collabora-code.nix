@@ -1,7 +1,8 @@
-{ ... }: {
+{ ... }:
+{
   virtualisation.oci-containers = {
     containers = {
-      collabora-code = {
+      nix-collabora-code = {
         image = "collabora/code:latest";
         ports = [ "8017:9980" ];
         environment = {

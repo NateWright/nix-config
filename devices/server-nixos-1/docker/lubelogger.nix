@@ -1,7 +1,8 @@
-{ ... }: {
+{ ... }:
+{
   virtualisation.oci-containers = {
     containers = {
-      lubelogger = {
+      nix-lubelogger = {
         image = "ghcr.io/hargata/lubelogger:latest";
         volumes = [
           "/vault/containers/lubelog/config:/App/config"

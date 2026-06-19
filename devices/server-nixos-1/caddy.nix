@@ -8,8 +8,8 @@
     enable = true;
 
     package = pkgs.caddy.withPlugins {
-      plugins = [ "github.com/caddy-dns/cloudflare@v0.2.2" ];
-      hash = "sha256-SrAHzXhaT3XO3jypulUvlVHq8oiLVYmH3ibh3W3aXAs=";
+      plugins = [ "github.com/caddy-dns/cloudflare@v0.2.4" ];
+      hash = "sha256-vNSHU7txQLs0m0UChuszURXjEoMj4r1902+1ei0/DaI=";
     };
 
     globalConfig = ''
@@ -52,7 +52,7 @@
       "mealie.nwright.cloud" = {
         extraConfig = ''
           encode gzip
-          reverse_proxy 100.126.55.82:9000
+          reverse_proxy mealie:9000
         '';
       };
       "neko.nwright.cloud" = {
@@ -75,14 +75,14 @@
           reverse_proxy 100.91.45.126:2283
         '';
       };
-      "docmost.nwright.cloud" = {
-        extraConfig = ''
-          reverse_proxy 100.121.152.117:3000
-        '';
-      };
+      # "docmost.nwright.cloud" = {
+      #   extraConfig = ''
+      #     reverse_proxy 100.121.152.117:3000
+      #   '';
+      # };
       "budget.nwright.cloud" = {
         extraConfig = ''
-          reverse_proxy 100.82.103.107:5006
+          reverse_proxy actual-budget:5006
         '';
       };
     };
