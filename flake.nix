@@ -4,7 +4,7 @@
 
   inputs = {
     nixpkgs = {
-      url = "github:NixOS/nixpkgs/nixos-25.11";
+      url = "github:NixOS/nixpkgs/nixos-26.05";
     };
     nixpkgs-unstable = {
       url = "github:Nixos/nixpkgs/nixos-unstable";
@@ -12,7 +12,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager-unstable = {
@@ -21,7 +21,7 @@
     };
 
     # catppuccin.url = "github:catppuccin/nix";
-    stylix.url = "github:nix-community/stylix/release-25.11";
+    stylix.url = "github:nix-community/stylix/release-26.05";
     stylix-unstable = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -64,14 +64,14 @@
             inherit outputs inputs;
           };
           modules = [
-            home-manager-unstable.nixosModules.home-manager
+            home-manager.nixosModules.home-manager
             nixos-hardware.nixosModules.framework-13-7040-amd
             # catppuccin.nixosModules.catppuccin
-            stylix-unstable.nixosModules.stylix
+            stylix.nixosModules.stylix
             ./devices/nwright-framework/configuration.nix
           ];
         };
-        
+
         nwright-nixos-pc = nixpkgs-unstable.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {

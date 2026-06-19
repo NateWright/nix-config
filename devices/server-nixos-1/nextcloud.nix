@@ -17,7 +17,7 @@
     nextcloud = {
       enable = true;
       configureRedis = true;
-      package = pkgs.nextcloud32;
+      package = pkgs.nextcloud33;
       hostName = "nwright.cloud";
       webserver = "caddy";
       https = true;
@@ -65,7 +65,7 @@
   };
 
   systemd.services."phpfpm-nextcloud".postStart = ''
-    ${config.services.nextcloud.occ}/bin/nextcloud-occ config:app:set recognize node_binary --value '${lib.getExe pkgs.nodejs_20}'
+    # ${config.services.nextcloud.occ}/bin/nextcloud-occ config:app:set recognize node_binary --value '${lib.getExe pkgs.nodejs_26}'
   '';
 
   systemd.services.nextcloud-cron = {
