@@ -85,6 +85,11 @@
           reverse_proxy actual-budget:5006
         '';
       };
+      "uptime.nwright.cloud" = {
+        extraConfig = ''
+          reverse_proxy uptime-kuma:3001
+        '';
+      };
     };
   };
 }

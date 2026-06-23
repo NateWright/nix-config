@@ -11,13 +11,18 @@
 }:
 
 {
+  disabledModules = [
+    "services/backup/sanoid.nix"
+  ];
   imports = [
     ./hardware-configuration.nix
 
     ./borgbackup.nix
     ./caddy.nix
     ./nextcloud.nix
+    ./sanoid-module.nix
     ./tailscale.nix
+    ./uptime-kuma.nix
     ./virtmanager.nix
     ./zfs.nix
     ../../common/pkgs-cli.nix
