@@ -23,12 +23,12 @@
     ./sanoid-module.nix
     ./tailscale.nix
     ./uptime-kuma.nix
-    ./virtmanager.nix
     ./zfs.nix
     ../../common/pkgs-cli.nix
     ../../common/nix-settings.nix
     ../../common/nixpkgs.nix
     ../../common/stylix.nix
+    ../../common/virt-manager.nix
     ./containers/default.nix
     ./containers/matrix.nix
     ./containers/authentik.nix
