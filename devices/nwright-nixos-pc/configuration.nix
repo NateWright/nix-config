@@ -126,6 +126,8 @@
     heroic
 
     swtpm
+    virtiofsd
+    dnsmasq
     # unstable.r2modman
     # inputs.umu.packages.x86_64-linux.umu-launcher
 
@@ -161,6 +163,8 @@
     };
   };
 
+  # networking.bridges."br0".interfaces = [ "enp14s0" ];
+
   # List services that you want to enable:
   services = {
     printing.enable = true;
@@ -181,6 +185,7 @@
       enable = true;
       qemu = {
         swtpm.enable = true;
+        vhostUserPackages = with pkgs; [ virtiofsd ];
       };
     };
     spiceUSBRedirection.enable = true;
